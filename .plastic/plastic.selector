@@ -1,4 +1,0 @@
-repository "RPG course project@honeypie8721@cloud"
-  path "/"
-    br "/main"
-    co "/main"

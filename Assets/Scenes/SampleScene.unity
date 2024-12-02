@@ -127,10 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8207195885002946380, guid: 28a5159957901d3469a597558719bd1a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4199041716361731559, guid: 28a5159957901d3469a597558719bd1a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.096481
@@ -178,10 +174,6 @@ PrefabInstance:
     - target: {fileID: 4900288865546073028, guid: 28a5159957901d3469a597558719bd1a, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7670801348026399693, guid: 28a5159957901d3469a597558719bd1a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -819,7 +811,7 @@ MonoBehaviour:
   cooldown: 0
   swordPrefab: {fileID: 4900288865546073028, guid: 28a5159957901d3469a597558719bd1a, type: 3}
   launchForce: {x: 30, y: 35}
-  swordGravity: 4
+  swordGravity: 4.5
   numberOfDots: 20
   spaceBetweenDots: 0.07
   dotPrefab: {fileID: 1320444469440148611, guid: 62ef3eff6cd086c4ebac0c2003747fca, type: 3}
@@ -2981,6 +2973,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  sword: {fileID: 0}
   atkMovement:
   - {x: 3, y: 1.5}
   - {x: 1, y: 2.5}

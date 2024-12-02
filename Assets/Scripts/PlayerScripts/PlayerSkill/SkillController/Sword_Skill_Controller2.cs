@@ -8,7 +8,7 @@ public class Sword_Skill_Controller2 : MonoBehaviour
     private CircleCollider2D cd;
     private Player player;
     private bool canRotate = true;
-    private bool isReturing;
+    private bool isReturning;
 
     private void Awake()
     {
@@ -28,9 +28,10 @@ public class Sword_Skill_Controller2 : MonoBehaviour
 
     public void ReturnSword()
     {
-        rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        //rb.bodyType = RigidbodyType2D.Dynamic;
         transform.parent = null;
-        isReturing = true;
+        isReturning = true;
     }
 
     private void Update()
@@ -38,17 +39,20 @@ public class Sword_Skill_Controller2 : MonoBehaviour
         if (canRotate)
             transform.right = rb.linearVelocity;
         
-        if(isReturing)
+        if(isReturning)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, returnSpeed * Time.deltaTime);
 
             if(Vector2.Distance(transform.position, player.transform.position) < 1)
-                player.ClearTheSword();
+                player.CatchTheSword();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
+        if(isReturning)
+            return;
+        
         anim.SetBool("Rotation", false);
 
         canRotate = false;

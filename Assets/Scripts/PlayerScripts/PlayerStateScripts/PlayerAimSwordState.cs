@@ -13,11 +13,22 @@ public class PlayerAimSwordState : PlayerState
     public override void Update()
     {
         base.Update();
+        player.zeroVelocity();
+
         if(Input.GetKeyUp(KeyCode.Mouse1))
             stateMachine.ChangeState(player.idleState);
+        
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        if(player.transform.position.x > mousePosition.x && player.FacingDir == 1)
+            player.Flip();
+        else if(player.transform.position.x < mousePosition.x && player.FacingDir == -1)
+            player.Flip();
     }
     public override void Exit()
     {
         base.Exit();
+
+        player.StartCoroutine("BusyFor", 0.2f);
     }
 }

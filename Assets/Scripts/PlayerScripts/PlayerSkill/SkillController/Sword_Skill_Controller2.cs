@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Sword_Skill_Controller2 : MonoBehaviour
@@ -9,6 +10,11 @@ public class Sword_Skill_Controller2 : MonoBehaviour
     private Player player;
     private bool canRotate = true;
     private bool isReturning;
+    public float bounceSpeed;
+    public bool isBouncing = true;
+    public int amountOfBounce = 4;
+    public List<Transform> enemyTargets;
+    private int targetIndex;
 
     private void Awake()
     {
@@ -46,14 +52,55 @@ public class Sword_Skill_Controller2 : MonoBehaviour
             if(Vector2.Distance(transform.position, player.transform.position) < 1)
                 player.CatchTheSword();
         }
+
+        //Make the sword boucing between enemy count in the list.
+        if(isBouncing && enemyTargets.Count > 0)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, enemyTargets[targetIndex].position, bounceSpeed * Time.deltaTime);
+            
+            if(Vector2.Distance(transform.position, enemyTargets[targetIndex].position) < .1f)
+            {
+                targetIndex++;
+                amountOfBounce--;
+
+                if(amountOfBounce <= 0)
+                {
+                    isBouncing = false;
+                    isReturning = true;
+                }
+                
+                if(targetIndex >= enemyTargets.Count)
+                    targetIndex = 0;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) 
     {
         if(isReturning)
             return;
+
+        //Check if the collision with enemy not null, create a list to add them in the list
+        if(collision.GetComponent<Enemy>() != null)
+        {
+            if(isBouncing && enemyTargets.Count <= 0)
+            {
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 10);
+
+                foreach(var hit in colliders)
+                {
+                    if(hit.GetComponent<Enemy>() != null)
+                        enemyTargets.Add(hit.transform);
+                }
+            }
+        }
         
-        anim.SetBool("Rotation", false);
+        StuckInto(collision);
+        
+    }
+
+    private void StuckInto(Collider2D collision)
+    {
 
         canRotate = false;
         cd.enabled = false;
@@ -61,6 +108,11 @@ public class Sword_Skill_Controller2 : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
+        //Make return for isBouncing here to make sure those code below won't work.
+        if(isBouncing && enemyTargets.Count > 0)
+            return;
+
+        anim.SetBool("Rotation", false);
         transform.parent = collision.transform;
     }
 }

@@ -77,7 +77,10 @@ public class Player : Entity
     public void CatchTheSword()
     {
         stateMachine.ChangeState(catchswordState);
-        Destroy(sword);
+        if (sword != null)
+        {
+            Destroy(sword);
+        }
     }
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     public IEnumerator BusyFor(float _seconds)

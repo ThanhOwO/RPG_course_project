@@ -19,6 +19,7 @@ public class PlayerBlackHoleState : PlayerState
 
         defaultGravity = rb.gravityScale;
 
+        player.playerIsInBlackHole = true;
         skillUsed = false;
         stateTimer = flyTime;
         rb.gravityScale = 0;
@@ -40,13 +41,16 @@ public class PlayerBlackHoleState : PlayerState
                     skillUsed = true;
             }
         }
-        //We exit state in black hole skills controller when all the attacks are over;
+        if(player.skill.blackhole.SkillCompleted())
+            stateMachine.ChangeState(player.airState);
     }
     public override void Exit()
     {
         base.Exit();
 
+        player.playerIsInBlackHole = false;
         player.rb.gravityScale = defaultGravity;
         player.makeTransparent(false);
     }
+
 }

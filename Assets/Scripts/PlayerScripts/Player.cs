@@ -38,6 +38,7 @@ public class Player : Entity
     public float dashSpeed;
     public float dashDuration;
     public float dashDir {get; private set;}
+    public bool playerIsInBlackHole;
 
 
     protected override void Awake() 
@@ -78,15 +79,13 @@ public class Player : Entity
     }
     public void CatchTheSword()
     {
-        stateMachine.ChangeState(catchswordState);
+        if(!playerIsInBlackHole)
+            stateMachine.ChangeState(catchswordState);
+        
         if (sword != null)
         {
             Destroy(sword);
         }
-    }
-    public void ExitBlackHoleState()
-    {
-        stateMachine.ChangeState(airState);
     }
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     public IEnumerator BusyFor(float _seconds)
@@ -97,7 +96,7 @@ public class Player : Entity
     }
     private void CheckForDashInput()
     {
-        if(IsWallDetected())
+        if(IsWallDetected() || playerIsInBlackHole)
             return;
 
         if(Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
@@ -108,5 +107,6 @@ public class Player : Entity
             stateMachine.ChangeState(dashState);
         }
     }
+
 
 }

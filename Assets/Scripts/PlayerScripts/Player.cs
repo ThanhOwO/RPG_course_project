@@ -20,6 +20,7 @@ public class Player : Entity
     public PlayerParryState parryState {get; private set;}
     public PlayerAimSwordState aimSwordState {get; private set;}
     public PlayerCatchSwordState catchswordState {get; private set;}
+    public PlayerBlackHoleState blackHoleState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -55,6 +56,7 @@ public class Player : Entity
         parryState  = new PlayerParryState(this, stateMachine, "Parry");
         aimSwordState = new PlayerAimSwordState(this, stateMachine, "AimSword");
         catchswordState = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
+        blackHoleState = new PlayerBlackHoleState(this, stateMachine, "Jump");
     }
 
     protected override void Start() 
@@ -81,6 +83,10 @@ public class Player : Entity
         {
             Destroy(sword);
         }
+    }
+    public void ExitBlackHoleState()
+    {
+        stateMachine.ChangeState(airState);
     }
     public void AnimationTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     public IEnumerator BusyFor(float _seconds)

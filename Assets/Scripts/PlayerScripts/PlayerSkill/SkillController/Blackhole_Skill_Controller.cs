@@ -13,7 +13,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     private bool canShrink;
     private bool canCreateHotKeys = true;
     private bool cloneAttackReleased;
-    private float amountOfAttack = 4;
+    private float amountOfAttack = 5;
     private float cloneAttackCooldown = .3f;
     private float cloneAttackTimer;
     private List<Transform> targets = new List<Transform>();
@@ -34,9 +34,7 @@ public class Blackhole_Skill_Controller : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.R))
         {
-            DestroyHotKey();
-            cloneAttackReleased = true;
-            canCreateHotKeys = false;
+            ReleaseCloneAttack();
         }
 
         CloneAttackLogic();
@@ -56,13 +54,21 @@ public class Blackhole_Skill_Controller : MonoBehaviour
         }
     }
 
+    private void ReleaseCloneAttack()
+    {
+        DestroyHotKey();
+        cloneAttackReleased = true;
+        canCreateHotKeys = false;
+
+        PlayerManager.instance.player.makeTransparent(true);
+    }
+
     private void CloneAttackLogic()
     {
         if (cloneAttackTimer < 0 && cloneAttackReleased)
         {
             cloneAttackTimer = cloneAttackCooldown;
 
-            int RandomIndex = Random.Range(0, targets.Count);
 
             float xOffset;
 
@@ -71,14 +77,25 @@ public class Blackhole_Skill_Controller : MonoBehaviour
             else
                 xOffset = -2;
 
-            SkillManager.instance.clone.CreateClone(targets[RandomIndex], new Vector3(xOffset, 0));
-            amountOfAttack--;
+            if(targets.Count > 0)
+            {
+                int RandomIndex = Random.Range(0, targets.Count);
+                SkillManager.instance.clone.CreateClone(targets[RandomIndex], new Vector3(xOffset, 0));
+                amountOfAttack--;
+            }
+
             if (amountOfAttack <= 0)
             {
-                canShrink = true;
                 cloneAttackReleased = false;
+                Invoke("FinishBlackHoleSkill", 1f);
             }
         }
+    }
+
+    private void FinishBlackHoleSkill()
+    {
+        PlayerManager.instance.player.ExitBlackHoleState();
+        canShrink = true;
     }
 
     private void DestroyHotKey()

@@ -18,7 +18,7 @@ public class Blackhole_Skill : Skill
     {
         base.UseSkill();
 
-        GameObject newBlackhole = Instantiate(blackHolePrefab);
+        GameObject newBlackhole = Instantiate(blackHolePrefab, player.transform.position, Quaternion.identity);
         
         Blackhole_Skill_Controller newBlackHoleScript = newBlackhole.GetComponent<Blackhole_Skill_Controller>();
 

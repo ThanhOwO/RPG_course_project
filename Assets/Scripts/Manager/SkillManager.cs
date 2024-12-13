@@ -8,6 +8,7 @@ public class SkillManager : MonoBehaviour
     public CloneSkill clone {get; private set;}
     public SwordSkill sword {get; private set;}
     public Blackhole_Skill blackhole {get; private set;}
+    public CrystalSkill crystal {get; private set;}
 
     private void Awake() {
 
@@ -27,5 +28,6 @@ public class SkillManager : MonoBehaviour
         clone = GetComponent<CloneSkill>();
         sword = GetComponent<SwordSkill>();
         blackhole = GetComponent<Blackhole_Skill>();
+        crystal = GetComponent<CrystalSkill>();
     }
 }

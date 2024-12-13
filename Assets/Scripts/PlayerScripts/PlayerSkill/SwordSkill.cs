@@ -124,7 +124,7 @@ public class SwordSkill : Skill
             dots[i].SetActive(false);
         }
     }
-    // Phyisics parabolic formula
+    // Physics parabolic formula
     // Calculate parabolic position: position = initial_pos + initial_velocity*t + 0.5*gravity*t^2
     private Vector2 DotsPosition(float t)
     {

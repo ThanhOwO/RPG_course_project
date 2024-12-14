@@ -31,11 +31,14 @@ public class Crystal_Skill_Controller : MonoBehaviour
 
         if(canMove)
         {
-            transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
-            if(Vector2.Distance(transform.position, closestTarget.position) < 1)
+            if(closestTarget != null)
             {
-                FinishCrystal();
-                canMove = false;
+                transform.position = Vector2.MoveTowards(transform.position, closestTarget.position, moveSpeed * Time.deltaTime);
+                if(Vector2.Distance(transform.position, closestTarget.position) < 1)
+                {
+                    FinishCrystal();
+                    canMove = false;
+                }
             }
         }
         

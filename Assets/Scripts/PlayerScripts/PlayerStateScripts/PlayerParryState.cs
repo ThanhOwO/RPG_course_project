@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerParryState : PlayerState
 {
+    private bool canCreateClone;
     public PlayerParryState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
@@ -9,6 +10,7 @@ public class PlayerParryState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        canCreateClone = true;
         stateTimer = player.parryDuration;
         player.anim.SetBool("ParrySuccessful", false);
     }
@@ -25,7 +27,16 @@ public class PlayerParryState : PlayerState
             if(hit.GetComponent<Enemy>() != null)
             {   
                 if(hit.GetComponent<Enemy>().CanBeStunned())
+                {
                     ParrySuccessful();
+
+                    if(canCreateClone)
+                    {
+                        canCreateClone = false;
+                        player.skill.clone.CreateCloneOnParry(hit.transform);
+                    }
+                }
+                
             }
         }
 
@@ -40,6 +51,6 @@ public class PlayerParryState : PlayerState
     private void ParrySuccessful()
     {
         stateTimer = 10;
-        player.anim.SetBool("ParrySuccessful", true);
+        player.anim.SetBool("ParrySuccessful", true); 
     }
 }

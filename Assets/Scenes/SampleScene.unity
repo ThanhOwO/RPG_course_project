@@ -3159,9 +3159,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1011899531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f55187a09f736f45864ed91d129a7eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4845501ca0506cc45b4f713dacbc5011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strenght:
+    baseValue: 0
+    modifiers: 
   damage:
     baseValue: 10
     modifiers: 
@@ -3645,11 +3648,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1634527780}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f55187a09f736f45864ed91d129a7eb, type: 3}
+  m_Script: {fileID: 11500000, guid: a02b5df36b3a8ce429f938eb92aed6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strenght:
+    baseValue: 0
+    modifiers: 
   damage:
-    baseValue: 10
+    baseValue: 12
     modifiers: 
   maxHealth:
     baseValue: 100

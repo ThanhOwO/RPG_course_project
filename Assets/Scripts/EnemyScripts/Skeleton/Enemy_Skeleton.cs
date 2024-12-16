@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy_Skeleton : Enemy
@@ -18,7 +19,7 @@ public class Enemy_Skeleton : Enemy
         battleState = new SkeletonBattleState(this, stateMachine, "Move", this);
         attackState = new SkeletonAttackState(this, stateMachine, "Attack", this);
         stunnedState = new SkeletonStunnedState(this, stateMachine, "Stunned", this);
-        deathState = new SkeletonDeathState(this, stateMachine, "Idle", this);
+        deathState = new SkeletonDeathState(this, stateMachine, "Die", this);
     }
     protected override void Start()
     {
@@ -47,6 +48,34 @@ public class Enemy_Skeleton : Enemy
     {
         base.Die();
 
+        StartCoroutine(CorpseRemainTime());
         stateMachine.ChangeState(deathState);
+    }
+
+    //Death animation remain time of skeleton
+    private IEnumerator CorpseRemainTime()
+    {
+        yield return new WaitForSeconds(5f);
+
+        yield return StartCoroutine(FadeOutAndDestroy());
+    }
+
+    private IEnumerator FadeOutAndDestroy()
+    {
+        SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+        Color originalColor = sr.color;
+ 
+        while (sr.color.a > 0)
+        {
+            // Reduce the alpha value over time
+            float newAlpha = sr.color.a - (Time.deltaTime * 0.5f);
+            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, newAlpha);
+            isKnocked = false;
+ 
+            yield return null;
+        }
+ 
+        // Destroy the game object after fading out
+        Destroy(gameObject);
     }
 }

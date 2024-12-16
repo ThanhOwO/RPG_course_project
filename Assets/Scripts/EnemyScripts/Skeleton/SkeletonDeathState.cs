@@ -12,20 +12,23 @@ public class SkeletonDeathState : EnemyState
     {
         base.Enter();
 
-        enemy.anim.SetBool(enemy.lastAnimBoolName, true);
-        enemy.anim.speed = 0;
-        enemy.cd.enabled = false;
+        // Alex's death code from Udemy
+        // enemy.anim.SetBool(enemy.lastAnimBoolName, true);
+        // enemy.anim.speed = 0;
+        // enemy.cd.enabled = false;
 
-        stateTimer = .1f;
+        // stateTimer = .1f;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if(stateTimer > 0)
-        {
-            rb.linearVelocity = new Vector2(0, 10);
-        }
+        enemy.zeroVelocity();
+        // Alex's death code from Udemy
+        // if(stateTimer > 0)
+        // {
+        //     rb.linearVelocity = new Vector2(0, 10);
+        // }
     }
 }

@@ -17,6 +17,9 @@ public class Skill : MonoBehaviour
 
     public virtual bool CanUseSkill()
     {
+        if (player.isDead)
+            return false;
+        
         if(cooldownTimer < 0)
         {
             UseSkill();

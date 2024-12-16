@@ -18,6 +18,9 @@ public class PlayerDashState : PlayerState
     {
         base.Update();
 
+        if(player.isDead)
+            return;
+
         if(!player.IsGroundDetected() && player.IsWallDetected())
             stateMachine.ChangeState(player.wallSlide);
 

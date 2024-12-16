@@ -21,6 +21,7 @@ public class Player : Entity
     public PlayerAimSwordState aimSwordState {get; private set;}
     public PlayerCatchSwordState catchswordState {get; private set;}
     public PlayerBlackHoleState blackHoleState {get; private set;}
+    public PlayerDeathState deathState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -39,6 +40,7 @@ public class Player : Entity
     public float dashDuration;
     public float dashDir {get; private set;}
     public bool playerIsInBlackHole;
+    public bool isDead;
 
 
     protected override void Awake() 
@@ -58,6 +60,7 @@ public class Player : Entity
         aimSwordState = new PlayerAimSwordState(this, stateMachine, "AimSword");
         catchswordState = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
         blackHoleState = new PlayerBlackHoleState(this, stateMachine, "Jump");
+        deathState = new PlayerDeathState(this, stateMachine, "Die");
     }
 
     protected override void Start() 
@@ -111,5 +114,11 @@ public class Player : Entity
         }
     }
 
+    public override void Die()
+    {
+        base.Die();
 
+        isDead = true;
+        stateMachine.ChangeState(deathState);
+    }
 }

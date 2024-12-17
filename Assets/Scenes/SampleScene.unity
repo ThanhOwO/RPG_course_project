@@ -3164,7 +3164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength:
-    baseValue: 0
+    baseValue: 2
     modifiers: 
   agility:
     baseValue: 0
@@ -3186,6 +3186,12 @@ MonoBehaviour:
     modifiers: 
   damage:
     baseValue: 10
+    modifiers: 
+  critChance:
+    baseValue: 99
+    modifiers: 
+  critPower:
+    baseValue: 0
     modifiers: 
   currentHealth: 0
 --- !u!1 &1152168977
@@ -3516,6 +3522,12 @@ MonoBehaviour:
     modifiers: 
   damage:
     baseValue: 12
+    modifiers: 
+  critChance:
+    baseValue: 0
+    modifiers: 
+  critPower:
+    baseValue: 0
     modifiers: 
   currentHealth: 0
 --- !u!114 &1299094916
@@ -4076,6 +4088,12 @@ MonoBehaviour:
     modifiers: 
   damage:
     baseValue: 12
+    modifiers: 
+  critChance:
+    baseValue: 0
+    modifiers: 
+  critPower:
+    baseValue: 0
     modifiers: 
   currentHealth: 0
 --- !u!70 &1634527787

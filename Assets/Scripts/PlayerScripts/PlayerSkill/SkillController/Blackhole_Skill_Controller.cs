@@ -167,7 +167,6 @@ public class Blackhole_Skill_Controller : MonoBehaviour
     {
         if(keyCodeList.Count <= 0 )
         {
-            Debug.Log("No more hotkeys available");
             return;
         }
         

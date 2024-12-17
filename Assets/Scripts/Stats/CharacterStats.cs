@@ -12,11 +12,23 @@ public class CharacterStats : MonoBehaviour
     public Stat maxHealth;
     public Stat armor;
     public Stat evasion;
+    public Stat magicRes;
 
     [Header("Offensive stats")]
     public Stat damage;
     public Stat critChance; // default value = 5%
     public Stat critPower; // default value = 150%
+
+    [Header("Magic stats")]
+    public Stat fireDmg;
+    public Stat iceDmg;
+    public Stat lightningDmg;
+    public Stat poisonDmg;
+
+    public bool isIgnited;
+    public bool isChilled;
+    public bool isShocked;
+    //public bool isPoisoned;
 
     [SerializeField] private int currentHealth; 
     public virtual void Start()
@@ -38,7 +50,32 @@ public class CharacterStats : MonoBehaviour
         }
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
-        _targetStats.TakeDamage(totalDamage);
+        //_targetStats.TakeDamage(totalDamage);
+        DoMagicalDamage(_targetStats);
+    }
+
+    public virtual void DoMagicalDamage(CharacterStats _targetStats)
+    {
+        int _fireDamage = fireDmg.GetValue();
+        int _iceDamage = iceDmg.GetValue();
+        int _lightningDamage = lightningDmg.GetValue();
+
+        int totalMagicalDamage = _fireDamage + _iceDamage + _lightningDamage + intelligence.GetValue();
+
+        totalMagicalDamage = CheckTargetMagicRes(_targetStats, totalMagicalDamage);
+        _targetStats.TakeDamage(totalMagicalDamage);
+
+        
+    }
+
+    public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
+    {
+        if(isIgnited || isChilled || isShocked)
+            return;
+        
+        isIgnited = _ignite;
+        isChilled = _chill;
+        isShocked = _shock;
     }
 
     public virtual void TakeDamage(int _damage)
@@ -74,6 +111,15 @@ public class CharacterStats : MonoBehaviour
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
         return totalDamage;
     }
+
+    private int CheckTargetMagicRes(CharacterStats _targetStats, int totalMagicalDamage)
+    {
+        totalMagicalDamage -= _targetStats.magicRes.GetValue() + (_targetStats.intelligence.GetValue() * 3);
+        //Make sure the damage not negative
+        totalMagicalDamage = Mathf.Clamp(totalMagicalDamage, 0, int.MaxValue);
+
+        return totalMagicalDamage;
+    }
     
     private bool canCrit()
     {
@@ -96,5 +142,5 @@ public class CharacterStats : MonoBehaviour
         return Mathf.RoundToInt(critDamage);
     }
 
-    
+
 }

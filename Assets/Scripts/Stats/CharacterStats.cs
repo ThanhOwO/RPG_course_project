@@ -25,16 +25,76 @@ public class CharacterStats : MonoBehaviour
     public Stat lightningDmg;
     public Stat poisonDmg;
 
-    public bool isIgnited;
-    public bool isChilled;
-    public bool isShocked;
-    //public bool isPoisoned;
+    public bool isIgnited; //Deals small damage over a short period of time and explodes for a large amount of damage (1300%) in last seconds of ignite duration
+    public bool isChilled; //Apply slow effect and reduce armor by ..%
+    public bool isShocked; //Apply stun effect and reduce accuracy by ..%
+    public bool isPoisoned; //Deals small poison damage over an average period of time
+
+    private float ignitedTimer;
+    private float chilledTimer;
+    private float shockedTimer;
+    private float poisonedTimer;
+    private float igniteDamageCooldown = .5f;
+    private float igniteDamageTimer;
+    private float poisonDamageCooldown = .1f;
+    private float poisonDamageTimer;
+
+    private int igniteDamage;
+    private int igniteExplosiveDamage;
+    private int poisonDamage;
 
     [SerializeField] private int currentHealth; 
-    public virtual void Start()
+    protected virtual void Start()
     {
         critPower.SetDefaultValue(150);
         currentHealth = maxHealth.GetValue();
+    }
+
+    protected virtual void Update()
+    {
+        ignitedTimer -= Time.deltaTime;
+        chilledTimer -= Time.deltaTime;
+        shockedTimer -= Time.deltaTime;
+        poisonedTimer -= Time.deltaTime;
+        igniteDamageTimer -= Time.deltaTime;
+        poisonDamageTimer -= Time.deltaTime;
+
+        //Timer logic for each element
+        if(ignitedTimer <= 0)
+        {
+            if(isIgnited)
+            {
+                TakeDamage(igniteExplosiveDamage);
+            }
+            isIgnited = false;
+        }
+        if(chilledTimer <= 0)
+            isChilled = false;
+        if(shockedTimer <= 0)
+            isShocked = false;
+        if(poisonedTimer <= 0)
+            isPoisoned = false;
+        
+        if(igniteDamageTimer <= 0 && isIgnited) 
+        {
+            Debug.Log("Take burn damage " + igniteDamage);
+            currentHealth -= igniteDamage;
+            
+            if(currentHealth <= 0)
+                Die();
+            
+            igniteDamageTimer = igniteDamageCooldown;
+        }
+
+        if(poisonDamageTimer <= 0 && isPoisoned) 
+        {
+            Debug.Log("Take poison damage " + poisonDamage);
+            currentHealth -= poisonDamage;
+            if(currentHealth <= 0)
+                Die();
+            
+            poisonDamageTimer = poisonDamageCooldown;
+        }
     }
 
     public virtual void DoDamge(CharacterStats _targetStats)
@@ -59,26 +119,101 @@ public class CharacterStats : MonoBehaviour
         int _fireDamage = fireDmg.GetValue();
         int _iceDamage = iceDmg.GetValue();
         int _lightningDamage = lightningDmg.GetValue();
+        int _poisonDamage = poisonDmg.GetValue();
 
         int totalMagicalDamage = _fireDamage + _iceDamage + _lightningDamage + intelligence.GetValue();
 
         totalMagicalDamage = CheckTargetMagicRes(_targetStats, totalMagicalDamage);
         _targetStats.TakeDamage(totalMagicalDamage);
 
-        
-    }
-
-    public void ApplyAilments(bool _ignite, bool _chill, bool _shock)
-    {
-        if(isIgnited || isChilled || isShocked)
+        if(Mathf.Max(_fireDamage, _iceDamage, _lightningDamage, _poisonDamage) <= 0)
             return;
         
-        isIgnited = _ignite;
-        isChilled = _chill;
-        isShocked = _shock;
+        bool canApplyIgnite = _fireDamage > _iceDamage && _fireDamage > _lightningDamage && _fireDamage > _poisonDamage;
+        bool canApplyChill = _iceDamage > _fireDamage && _iceDamage > _lightningDamage && _iceDamage > _poisonDamage;
+        bool canApplyShock = _lightningDamage > _fireDamage && _lightningDamage > _iceDamage && _lightningDamage > _poisonDamage;
+        bool canApplyPoison = _poisonDamage > _fireDamage && _poisonDamage > _iceDamage && _poisonDamage > _lightningDamage;
+
+        //Handle if element values are same
+        while(!canApplyIgnite && !canApplyChill && !canApplyShock && !canApplyPoison)
+        {
+            if(Random.value < .25f && _fireDamage > 0)
+            {
+                canApplyIgnite = true;
+                _targetStats.SetupIgniteDmg(_fireDamage);
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock, canApplyPoison);
+                return;
+            }
+            if(Random.value < .25f && _iceDamage > 0)
+            {
+                canApplyChill = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock, canApplyPoison);
+                return;
+            }
+            if(Random.value < .25f && _lightningDamage > 0)
+            {
+                canApplyShock = true;
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock, canApplyPoison);
+                return;
+            }
+            if(Random.value < .25f && _poisonDamage > 0)
+            {
+                canApplyPoison = true;
+                _targetStats.SetupPoisonDmg(Mathf.RoundToInt(_poisonDamage * .2f)); //Deal 20% damage of poison damage
+                _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock, canApplyPoison);
+                return;
+            }
+        }
+
+        //Burn damage
+        if(canApplyIgnite)
+            _targetStats.SetupIgniteDmg(_fireDamage);
+        //Poison damage
+        if(canApplyPoison)
+            _targetStats.SetupPoisonDmg(Mathf.RoundToInt(_poisonDamage * .2f)); //Deal 20% damage of poison damage
+        
+        _targetStats.ApplyAilments(canApplyIgnite, canApplyChill, canApplyShock, canApplyPoison);
     }
 
-    public virtual void TakeDamage(int _damage)
+    public void ApplyAilments(bool _ignite, bool _chill, bool _shock, bool _poison)
+    {
+        if(isIgnited || isChilled || isShocked || isPoisoned)
+            return;
+        
+        if(_ignite)
+        {
+            isIgnited = _ignite;
+            ignitedTimer = 5;
+        }
+        
+        if(_chill)
+        {
+            isChilled = _chill;
+            chilledTimer = 4;
+        }
+
+        if(_shock)
+        {
+            isShocked = _shock;
+            shockedTimer = 4;
+        }
+
+        if(_poison)
+        {
+            isPoisoned = _poison;
+            poisonedTimer = 8;
+        }
+
+    }
+
+    public void SetupIgniteDmg(int _damage)
+    {
+        igniteDamage = Mathf.RoundToInt(_damage * .2f); //Deal 20% burn damage of fire damage
+        igniteExplosiveDamage = Mathf.RoundToInt(_damage * 13f); // 1300% of fire damage
+    }  
+    public void SetupPoisonDmg(int _damage) => poisonDamage = _damage; 
+
+    protected virtual void TakeDamage(int _damage)
     {
         currentHealth -= _damage;
         Debug.Log(_damage);
@@ -97,6 +232,10 @@ public class CharacterStats : MonoBehaviour
     private bool CanDogdeAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
+
+        if(isShocked)
+            totalEvasion += 20;
+
         if(Random.Range(0, 100) < totalEvasion)
         {
             return true;
@@ -107,7 +246,11 @@ public class CharacterStats : MonoBehaviour
 
     private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
-        totalDamage -= _targetStats.armor.GetValue();
+        if(_targetStats.isChilled)
+            totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+        else
+            totalDamage -= _targetStats.armor.GetValue();
+
         totalDamage = Mathf.Clamp(totalDamage, 0, int.MaxValue);
         return totalDamage;
     }

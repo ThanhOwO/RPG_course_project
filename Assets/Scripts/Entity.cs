@@ -28,6 +28,7 @@ public class Entity : MonoBehaviour
 
     public int FacingDir {get; private set;} = 1;
     protected bool FacingRight = true;
+    public System.Action onFlipped;
     protected virtual void Awake()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -74,6 +75,9 @@ public class Entity : MonoBehaviour
         FacingDir *= -1;
         FacingRight = !FacingRight;
         transform.Rotate(0, 180, 0);
+
+        if(onFlipped != null)
+            onFlipped(); // onFlipped action happens when Flip function is called
     }
     public void FlipController(float _x)
     {

@@ -43,11 +43,14 @@ public class CharacterStats : MonoBehaviour
     private int igniteExplosiveDamage;
     private int poisonDamage;
 
-    [SerializeField] private int currentHealth; 
+    public int currentHealth; 
+
+    public System.Action onHealthChanged;
     protected virtual void Start()
     {
         critPower.SetDefaultValue(150);
-        currentHealth = maxHealth.GetValue();
+        currentHealth = GetMaxHealthValue();
+
     }
 
     protected virtual void Update()
@@ -78,7 +81,7 @@ public class CharacterStats : MonoBehaviour
         if(igniteDamageTimer <= 0 && isIgnited) 
         {
             Debug.Log("Take burn damage " + igniteDamage);
-            currentHealth -= igniteDamage;
+            DecreaseHealthBy(igniteDamage);
             
             if(currentHealth <= 0)
                 Die();
@@ -89,7 +92,7 @@ public class CharacterStats : MonoBehaviour
         if(poisonDamageTimer <= 0 && isPoisoned) 
         {
             Debug.Log("Take poison damage " + poisonDamage);
-            currentHealth -= poisonDamage;
+            DecreaseHealthBy(poisonDamage);
             if(currentHealth <= 0)
                 Die();
             
@@ -110,8 +113,8 @@ public class CharacterStats : MonoBehaviour
         }
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
-        //_targetStats.TakeDamage(totalDamage);
-        DoMagicalDamage(_targetStats);
+        _targetStats.TakeDamage(totalDamage); //Physical damage to target
+        DoMagicalDamage(_targetStats); //Magical damage to target
     }
 
     public virtual void DoMagicalDamage(CharacterStats _targetStats)
@@ -215,12 +218,19 @@ public class CharacterStats : MonoBehaviour
 
     protected virtual void TakeDamage(int _damage)
     {
-        currentHealth -= _damage;
+        DecreaseHealthBy(_damage);
+
         Debug.Log(_damage);
         if (currentHealth <= 0)
-        {
             Die();
-        }
+        
+    }
+
+    protected virtual void DecreaseHealthBy(int _damage)
+    {
+        currentHealth -= _damage;
+        if(onHealthChanged != null)
+            onHealthChanged();
     }
 
     protected virtual void Die()
@@ -285,5 +295,8 @@ public class CharacterStats : MonoBehaviour
         return Mathf.RoundToInt(critDamage);
     }
 
-
+    public int GetMaxHealthValue()
+    {
+        return maxHealth.GetValue() + vitality.GetValue() * 5;
+    }
 }

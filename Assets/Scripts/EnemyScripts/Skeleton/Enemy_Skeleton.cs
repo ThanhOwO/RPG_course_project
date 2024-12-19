@@ -48,6 +48,7 @@ public class Enemy_Skeleton : Enemy
     {
         base.Die();
 
+        CloseCounterAttackWindow();
         StartCoroutine(CorpseRemainTime());
         stateMachine.ChangeState(deathState);
     }

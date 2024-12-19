@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+    private EntityFx fx;
+    private HealthBar_UI healthBar;
+
     [Header("Major stats")]
     public Stat strength; //1 point => increase damamge by 1 and crit dmg by 1% 
     public Stat agility; //1 point => increase evasion by 1 and crit rate by 0.5
@@ -30,6 +33,11 @@ public class CharacterStats : MonoBehaviour
     public bool isShocked; //Apply stun effect and reduce accuracy by ..%
     public bool isPoisoned; //Deals small poison damage over an average period of time
 
+
+    [SerializeField] private float igniteDuration = 5;
+    [SerializeField] private float chillDuration = 4;
+    [SerializeField] private float shockDuration = 4;
+    [SerializeField] private float poisonDuration = 8;
     private float ignitedTimer;
     private float chilledTimer;
     private float shockedTimer;
@@ -51,6 +59,8 @@ public class CharacterStats : MonoBehaviour
         critPower.SetDefaultValue(150);
         currentHealth = GetMaxHealthValue();
 
+        fx = GetComponent<EntityFx>();
+        healthBar = GetComponentInChildren<HealthBar_UI>();
     }
 
     protected virtual void Update()
@@ -186,25 +196,33 @@ public class CharacterStats : MonoBehaviour
         if(_ignite)
         {
             isIgnited = _ignite;
-            ignitedTimer = 5;
+            ignitedTimer = igniteDuration;
+
+            fx.IgniteFxFor(igniteDuration);
         }
         
         if(_chill)
         {
             isChilled = _chill;
-            chilledTimer = 4;
+            chilledTimer = chillDuration;
+
+            fx.ChillFxFor(chillDuration);
         }
 
         if(_shock)
         {
             isShocked = _shock;
-            shockedTimer = 4;
+            shockedTimer = shockDuration;
+
+            fx.ShockFxFor(shockDuration);
         }
 
         if(_poison)
         {
             isPoisoned = _poison;
-            poisonedTimer = 8;
+            poisonedTimer = poisonDuration;
+
+            fx.PoisonFxFor(poisonDuration);
         }
 
     }
@@ -237,6 +255,11 @@ public class CharacterStats : MonoBehaviour
     {
         // Add death logic here
         Debug.Log("Dead");
+
+        if(healthBar != null)
+        {
+            healthBar.gameObject.SetActive(false);
+        }
     }
 
     private bool CanDogdeAttack(CharacterStats _targetStats)
@@ -244,7 +267,10 @@ public class CharacterStats : MonoBehaviour
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
 
         if(isShocked)
+        {
             totalEvasion += 20;
+            Debug.Log("Target got stun and reduced evaison");
+        }
 
         if(Random.Range(0, 100) < totalEvasion)
         {
@@ -256,8 +282,11 @@ public class CharacterStats : MonoBehaviour
 
     private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
-        if(_targetStats.isChilled)
+        if(isChilled)
+        {
             totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
+            Debug.Log("Target got chill and reduced def");
+        }
         else
             totalDamage -= _targetStats.armor.GetValue();
 

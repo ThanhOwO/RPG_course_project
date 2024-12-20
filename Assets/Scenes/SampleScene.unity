@@ -3533,7 +3533,7 @@ MonoBehaviour:
     baseValue: 1
     modifiers: 
   damage:
-    baseValue: 10
+    baseValue: 100
     modifiers: 
   critChance:
     baseValue: 0
@@ -3542,13 +3542,13 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   fireDmg:
-    baseValue: 0
+    baseValue: 10
     modifiers: 
   iceDmg:
     baseValue: 0
     modifiers: 
   lightningDmg:
-    baseValue: 100
+    baseValue: 0
     modifiers: 
   poisonDmg:
     baseValue: 0
@@ -4065,7 +4065,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   damage:
-    baseValue: 0
+    baseValue: 30
     modifiers: 
   critChance:
     baseValue: 0

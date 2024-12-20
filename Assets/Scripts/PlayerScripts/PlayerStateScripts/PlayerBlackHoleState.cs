@@ -50,7 +50,7 @@ public class PlayerBlackHoleState : PlayerState
 
         player.playerIsInBlackHole = false;
         player.rb.gravityScale = defaultGravity;
-        player.makeTransparent(false);
+        player.fx.makeTransparent(false);
     }
 
 }

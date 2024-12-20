@@ -12,6 +12,7 @@ public class SkeletonDeathState : EnemyState
     {
         base.Enter();
 
+        enemy.enabled = false;
         // Alex's death code from Udemy
         // enemy.anim.SetBool(enemy.lastAnimBoolName, true);
         // enemy.anim.speed = 0;

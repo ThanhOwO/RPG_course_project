@@ -54,11 +54,8 @@ public class Entity : MonoBehaviour
     {
         anim.speed = 1;
     }
-    public virtual void DamageEffect()
-    {
-        fx.StartCoroutine("FlashFX");
-        StartCoroutine("HitKnockBack");
-    }
+    public virtual void DamageImpact() => StartCoroutine("HitKnockBack");
+
     protected virtual IEnumerator HitKnockBack()
     {
         isKnocked = true;
@@ -114,13 +111,7 @@ public class Entity : MonoBehaviour
         
     #endregion
 
-    public void makeTransparent(bool _transparent)
-    {
-        if(_transparent)
-            sr.color = Color.clear;
-        else
-            sr.color = Color.white;
-    }
+
 
     public virtual void Die()
     {

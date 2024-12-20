@@ -31,6 +31,14 @@ public class EntityFx : MonoBehaviour
         sr.material = originalMat;
     }
 
+    public void makeTransparent(bool _transparent)
+    {
+        if(_transparent)
+            sr.color = Color.clear;
+        else
+            sr.color = Color.white;
+    }
+
     private void ColorBlink()
     {
         if(sr.color != Color.white)

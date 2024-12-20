@@ -49,6 +49,8 @@ public class Enemy_Skeleton : Enemy
         base.Die();
 
         CloseCounterAttackWindow();
+        DisableColliders();
+        DisableRigidBody();
         StartCoroutine(CorpseRemainTime());
         stateMachine.ChangeState(deathState);
     }
@@ -79,4 +81,20 @@ public class Enemy_Skeleton : Enemy
         // Destroy the game object after fading out
         Destroy(gameObject);
     }
+
+    private void DisableColliders()
+    {
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach(Collider2D collider in colliders)
+            collider.enabled = false;
+    }
+
+    private void DisableRigidBody()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if(rb != null)
+            rb.simulated = false;
+    }
+
+
 }

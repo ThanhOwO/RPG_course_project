@@ -16,7 +16,7 @@ public class PlayerStunnedState : PlayerState
     public override void Update()
     {
         base.Update();
-        rb.linearVelocity = new Vector2(-player.FacingDir * player.stunDirection.x, player.stunDirection.y);
+        
         if(stateTimer < 0)
             stateMachine.ChangeState(player.idleState);
     }

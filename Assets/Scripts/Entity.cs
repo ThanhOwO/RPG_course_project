@@ -13,7 +13,7 @@ public class Entity : MonoBehaviour
     #endregion
 
     [Header("Knockback info")]
-    [SerializeField] protected Vector2 knockbackDirection;
+    [SerializeField] protected Vector2 knockbackPower;
     [SerializeField] protected float knockbackDuration;
     protected bool isKnocked;
 
@@ -25,6 +25,8 @@ public class Entity : MonoBehaviour
     [SerializeField] protected Transform wallCheck;
     [SerializeField] protected float wallCheckDistance;
     [SerializeField] protected LayerMask whatIsGround;
+
+    public int knockbackDir {get; private set;}
 
     public int FacingDir {get; private set;} = 1;
     protected bool FacingRight = true;
@@ -54,12 +56,19 @@ public class Entity : MonoBehaviour
     {
         anim.speed = 1;
     }
+    public virtual void SetupKnockBackDir(Transform _damageDirection)
+    {
+        if(_damageDirection.position.x > transform.position.x)
+            knockbackDir = -1;
+        else if(_damageDirection.position.x < transform.position.x)
+            knockbackDir = 1;
+    }
     public virtual void DamageImpact() => StartCoroutine("HitKnockBack");
 
     protected virtual IEnumerator HitKnockBack()
     {
         isKnocked = true;
-        rb.linearVelocity = new Vector2(knockbackDirection.x * -FacingDir, knockbackDirection.y);
+        rb.linearVelocity = new Vector2(knockbackPower.x * knockbackDir, knockbackPower.y);
         yield return new WaitForSeconds(knockbackDuration);
         isKnocked = false;
     }

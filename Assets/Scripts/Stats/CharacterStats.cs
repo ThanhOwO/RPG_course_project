@@ -99,6 +99,8 @@ public class CharacterStats : MonoBehaviour
     {
         if(CanDogdeAttack(_targetStats))
             return;
+
+        _targetStats.GetComponent<Entity>().SetupKnockBackDir(transform);
         
         int totalDamage = damage.GetValue() + strength.GetValue();
 

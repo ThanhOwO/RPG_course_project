@@ -57,6 +57,8 @@ public class Clone_Skill_Controller : MonoBehaviour
         {
             if(hit.GetComponent<Enemy>() != null)
             {
+                hit.GetComponent<Entity>().SetupKnockBackDir(transform);
+
                 player.stats.DoDamge(hit.GetComponent<CharacterStats>());
 
                 if(canDuplicateClone)

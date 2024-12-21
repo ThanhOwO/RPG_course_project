@@ -49,7 +49,6 @@ public class Player : Entity
 
     [Header("Stunned info")]
     public float stunDuration;
-    public Vector2 stunDirection;
     public bool canBeStunned;
 
     protected override void Awake() 

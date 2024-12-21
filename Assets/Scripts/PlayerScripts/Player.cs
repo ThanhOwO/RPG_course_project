@@ -22,6 +22,7 @@ public class Player : Entity
     public PlayerCatchSwordState catchswordState {get; private set;}
     public PlayerBlackHoleState blackHoleState {get; private set;}
     public PlayerDeathState deathState {get; private set;}
+    public PlayerBrakeState brakeState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -64,6 +65,7 @@ public class Player : Entity
         catchswordState = new PlayerCatchSwordState(this, stateMachine, "CatchSword");
         blackHoleState = new PlayerBlackHoleState(this, stateMachine, "Jump");
         deathState = new PlayerDeathState(this, stateMachine, "Die");
+        brakeState = new PlayerBrakeState(this, stateMachine, "Brake");
     }
 
     protected override void Start() 

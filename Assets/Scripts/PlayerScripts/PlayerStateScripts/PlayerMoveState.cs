@@ -17,7 +17,7 @@ public class PlayerMoveState : PlayerGroundState
         player.setVelocity(xInput * player.moveSpeed, rb.linearVelocityY);
         if(xInput == 0)
         {
-            stateMachine.ChangeState(player.idleState);
+            stateMachine.ChangeState(player.brakeState);
         }
 
         if (xInput == player.FacingDir && player.IsWallDetected())

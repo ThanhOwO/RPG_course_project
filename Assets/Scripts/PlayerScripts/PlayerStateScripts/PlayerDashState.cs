@@ -26,7 +26,9 @@ public class PlayerDashState : PlayerState
 
         player.setVelocity(player.dashSpeed * player.dashDir, 0);
 
-        if(stateTimer < 0)
+        if(stateTimer < 0 && player.IsGroundDetected())
+            stateMachine.ChangeState(player.brakeState);
+        else if(stateTimer < 0 && !player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
     }
     public override void Exit()

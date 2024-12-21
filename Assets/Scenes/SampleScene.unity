@@ -741,10 +741,10 @@ MonoBehaviour:
   cooldown: 0
   clonePrefab: {fileID: 264184058704470260, guid: 6988ad57dfbac7e4fa275a91c01908ec, type: 3}
   cloneDuration: 2
-  canAttack: 1
-  createCloneOnDashStart: 1
-  createCloneOnDashOver: 1
-  createCloneOnParry: 1
+  canAttack: 0
+  createCloneOnDashStart: 0
+  createCloneOnDashOver: 0
+  createCloneOnParry: 0
   canDuplicateClone: 1
   chanceToDuplicate: 0
   crystalInsteadOfClone: 1
@@ -1224,7 +1224,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.38362, y: 0.7178182, z: -9.970856}
+  m_LocalPosition: {x: 2.9019012, y: 0.7178182, z: -9.970856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1329,7 +1329,7 @@ Transform:
   m_GameObject: {fileID: 551444799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -34.38362, y: 0.7178182, z: -9.970856}
+  m_LocalPosition: {x: 2.9019012, y: 0.7178182, z: -9.970856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3395,7 +3395,7 @@ Transform:
   m_GameObject: {fileID: 1011899531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.06, y: -0.69, z: 0}
+  m_LocalPosition: {x: 29.05, y: -0.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3542,13 +3542,13 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   fireDmg:
-    baseValue: 10
+    baseValue: 0
     modifiers: 
   iceDmg:
     baseValue: 0
     modifiers: 
   lightningDmg:
-    baseValue: 0
+    baseValue: 50
     modifiers: 
   poisonDmg:
     baseValue: 0

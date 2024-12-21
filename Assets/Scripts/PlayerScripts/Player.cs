@@ -23,6 +23,7 @@ public class Player : Entity
     public PlayerBlackHoleState blackHoleState {get; private set;}
     public PlayerDeathState deathState {get; private set;}
     public PlayerBrakeState brakeState {get; private set;}
+    public PlayerStunnedState stunnedState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -46,6 +47,10 @@ public class Player : Entity
     public bool playerIsInBlackHole;
     public bool isDead;
 
+    [Header("Stunned info")]
+    public float stunDuration;
+    public Vector2 stunDirection;
+    public bool canBeStunned;
 
     protected override void Awake() 
     {
@@ -66,6 +71,7 @@ public class Player : Entity
         blackHoleState = new PlayerBlackHoleState(this, stateMachine, "Jump");
         deathState = new PlayerDeathState(this, stateMachine, "Die");
         brakeState = new PlayerBrakeState(this, stateMachine, "Brake");
+        stunnedState = new PlayerStunnedState(this, stateMachine, "Stun");
     }
 
     protected override void Start() 
@@ -128,7 +134,7 @@ public class Player : Entity
     }
     private void CheckForDashInput()
     {
-        if(IsWallDetected() || playerIsInBlackHole)
+        if(IsWallDetected() || playerIsInBlackHole || canBeStunned)
             return;
 
         if(Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
@@ -143,8 +149,29 @@ public class Player : Entity
     public override void Die()
     {
         base.Die();
-
+        DisableColliders();
+        DisableRigidBody();
         isDead = true;
         stateMachine.ChangeState(deathState);
     }
+    public void StunPlayer()
+    {
+        canBeStunned = true;
+        stateMachine.ChangeState(stunnedState);
+    }
+
+    private void DisableColliders()
+    {
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach(Collider2D collider in colliders)
+            collider.enabled = false;
+    }
+
+    private void DisableRigidBody()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if(rb != null)
+            rb.simulated = false;
+    }
+
 }

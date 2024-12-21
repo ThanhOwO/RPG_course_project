@@ -1224,7 +1224,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.9019012, y: 0.7178182, z: -9.970856}
+  m_LocalPosition: {x: -34.352722, y: 0.7178182, z: -9.970856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1329,7 +1329,7 @@ Transform:
   m_GameObject: {fileID: 551444799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.9019012, y: 0.7178182, z: -9.970856}
+  m_LocalPosition: {x: -34.352722, y: 0.7178182, z: -9.970856}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3386,6 +3386,9 @@ MonoBehaviour:
   dashDuration: 0.3
   playerIsInBlackHole: 0
   isDead: 0
+  stunDuration: 0.4
+  stunDirection: {x: 0.5, y: 0}
+  canBeStunned: 0
 --- !u!4 &1011899533
 Transform:
   m_ObjectHideFlags: 0
@@ -3395,7 +3398,7 @@ Transform:
   m_GameObject: {fileID: 1011899531}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.05, y: -0.69, z: 0}
+  m_LocalPosition: {x: -9.94, y: -0.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

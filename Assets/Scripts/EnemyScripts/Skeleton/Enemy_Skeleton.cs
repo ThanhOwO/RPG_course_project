@@ -96,5 +96,5 @@ public class Enemy_Skeleton : Enemy
             rb.simulated = false;
     }
 
-
+    
 }

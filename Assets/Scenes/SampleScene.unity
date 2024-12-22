@@ -742,8 +742,8 @@ MonoBehaviour:
   clonePrefab: {fileID: 264184058704470260, guid: 6988ad57dfbac7e4fa275a91c01908ec, type: 3}
   cloneDuration: 2
   canAttack: 0
-  createCloneOnDashStart: 0
-  createCloneOnDashOver: 0
+  createCloneOnDashStart: 1
+  createCloneOnDashOver: 1
   createCloneOnParry: 0
   canDuplicateClone: 1
   chanceToDuplicate: 0
@@ -945,6 +945,7 @@ MonoBehaviour:
   shockDuration: 4
   poisonDuration: 8
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
+  igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
 --- !u!114 &436682549
 MonoBehaviour:
@@ -1048,7 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 0}
-  knockbackPower: {x: 7, y: 12}
+  knockbackPower: {x: 7, y: 5}
   knockbackDuration: 0.07
   attackCheck: {fileID: 379486681}
   attackCheckRadius: 1
@@ -1069,7 +1070,7 @@ MonoBehaviour:
   idleTime: 2
   battleTime: 7
   attackDistance: 2
-  attackCooldown: 0.5
+  attackCooldown: 1
   lastTimeAttack: 0
 --- !u!4 &436682553
 Transform:
@@ -3550,7 +3551,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   lightningDmg:
-    baseValue: 50
+    baseValue: 10
     modifiers: 
   poisonDmg:
     baseValue: 0
@@ -3564,6 +3565,7 @@ MonoBehaviour:
   shockDuration: 4
   poisonDuration: 8
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
+  igniteExplosivePrefab: {fileID: 0}
   currentHealth: 0
 --- !u!1 &1152168977
 GameObject:
@@ -3961,7 +3963,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 0}
-  knockbackPower: {x: 7, y: 12}
+  knockbackPower: {x: 7, y: 5}
   knockbackDuration: 0.07
   attackCheck: {fileID: 1491983525}
   attackCheckRadius: 1
@@ -3982,7 +3984,7 @@ MonoBehaviour:
   idleTime: 2
   battleTime: 7
   attackDistance: 2
-  attackCooldown: 0.5
+  attackCooldown: 1
   lastTimeAttack: 0
 --- !u!4 &1634527784
 Transform:
@@ -4096,6 +4098,7 @@ MonoBehaviour:
   shockDuration: 4
   poisonDuration: 8
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
+  igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
 --- !u!70 &1634527787
 CapsuleCollider2D:

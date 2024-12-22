@@ -53,6 +53,7 @@ public class CharacterStats : MonoBehaviour
     private int poisonDamage;
     private int shockDamage;
     [SerializeField] private GameObject shockStrikePrefab;
+    [SerializeField] private GameObject igniteExplosivePrefab;
 
     public int currentHealth; 
     public System.Action onHealthChanged;
@@ -82,6 +83,7 @@ public class CharacterStats : MonoBehaviour
             if(isIgnited)
             {
                 TakeDamage(igniteExplosiveDamage);
+                IgniteExplosionEffect();
             }
             isIgnited = false;
         }
@@ -228,7 +230,15 @@ public class CharacterStats : MonoBehaviour
             newShockStrike.GetComponent<ThunderStrike_Controller>().Setup(shockDamage, closestEnemy.GetComponent<CharacterStats>());
         }
     }
-   
+    
+    private void IgniteExplosionEffect()
+    {
+        if(igniteExplosivePrefab != null)
+        {
+            Instantiate(igniteExplosivePrefab, transform.position, Quaternion.identity);
+        }
+    }
+
     public void ApplyShock(bool _shock)
     {
         if(isShocked)

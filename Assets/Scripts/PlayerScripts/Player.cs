@@ -153,8 +153,9 @@ public class Player : Entity
         isDead = true;
         stateMachine.ChangeState(deathState);
     }
-    public void StunPlayer()
+    public override void Stagger()
     {
+        base.Stagger();
         canBeStunned = true;
         stateMachine.ChangeState(stunnedState);
     }

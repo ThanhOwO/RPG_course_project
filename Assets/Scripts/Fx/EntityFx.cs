@@ -44,7 +44,7 @@ public class EntityFx : MonoBehaviour
         if(sr.color != Color.white)
             sr.color = Color.white;
         else
-            sr.color = Color.red;
+            sr.color = Color.black;
     }
 
     private void CancelColorChange()

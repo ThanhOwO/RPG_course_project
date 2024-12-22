@@ -96,5 +96,10 @@ public class Enemy_Skeleton : Enemy
             rb.simulated = false;
     }
 
-    
+    public override void Stagger() 
+    {
+        CloseCounterAttackWindow();
+        stateMachine.ChangeState(stunnedState);
+    }
+
 }

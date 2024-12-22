@@ -9,6 +9,7 @@ public class Enemy : Entity
     public float stunDuration;
     public Vector2 stunDirection;
     protected bool canBeStunned;
+    public bool isStaggered;
     [SerializeField] protected GameObject counterImage;
 
     [Header("Move info")]
@@ -107,4 +108,11 @@ public class Enemy : Entity
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * FacingDir, transform.position.y));
     }
+
+    public override void Stagger()
+    {
+        base.Stagger();
+        isStaggered = true;
+    }
+
 }

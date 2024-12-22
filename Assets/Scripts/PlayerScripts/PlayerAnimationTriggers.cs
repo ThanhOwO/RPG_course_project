@@ -16,6 +16,8 @@ public class PlayerAnimationTriggers : MonoBehaviour
             if(hit.GetComponent<Enemy>() != null)
             {
                 EnemyStats _target = hit.GetComponent<EnemyStats>();
+                if(player.primaryAttack.IsLastComboAtk())
+                    hit.GetComponent<Enemy>().Stagger();
                 player.stats.DoDamge(_target);           
             }
         }

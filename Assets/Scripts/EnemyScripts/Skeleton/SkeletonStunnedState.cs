@@ -26,7 +26,7 @@ public class SkeletonStunnedState : EnemyState
     public override void Exit()
     {
         base.Exit();
-
+        enemy.isStaggered = false;
         enemy.fx.Invoke("CancelColorChange",0);
     }
 

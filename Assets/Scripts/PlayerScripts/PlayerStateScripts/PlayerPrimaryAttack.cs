@@ -53,4 +53,12 @@ public class PlayerPrimaryAttack : PlayerState
         return atkDirection;
     }
 
+    public bool IsLastComboAtk()
+    {
+        if(comboCounter == 2)
+            return true;
+        else
+            return false;
+    }
+
 }

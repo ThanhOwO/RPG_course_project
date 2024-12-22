@@ -346,7 +346,6 @@ public class CharacterStats : MonoBehaviour
         if(isShocked)
         {
             totalEvasion += 20;
-            Debug.Log("Target got stun and reduced evaison");
         }
 
         if(Random.Range(0, 100) < totalEvasion)
@@ -362,7 +361,6 @@ public class CharacterStats : MonoBehaviour
         if(isChilled)
         {
             totalDamage -= Mathf.RoundToInt(_targetStats.armor.GetValue() * .8f);
-            Debug.Log("Target got chill and reduced def");
         }
         else
             totalDamage -= _targetStats.armor.GetValue();

@@ -1063,7 +1063,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  stunDuration: 0.3
+  stunDuration: 0.5
   stunDirection: {x: 7, y: 12}
   isStaggered: 0
   counterImage: {fileID: 683281224}
@@ -3978,7 +3978,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  stunDuration: 0.3
+  stunDuration: 0.5
   stunDirection: {x: 7, y: 12}
   isStaggered: 0
   counterImage: {fileID: 290426022}

@@ -30,6 +30,9 @@ public class PlayerGroundState : PlayerState
 
         if(Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
+
+        if(Input.GetKeyDown(KeyCode.S) && player.IsGroundDetected())
+            stateMachine.ChangeState(player.crouchState);
     }
     public override void Exit()
     {

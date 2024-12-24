@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fec95dc0ab9be643b27a447bdc64f3b, type: 3}
   m_Name: Platinum Sword
   m_EditorClassIdentifier: 
-  itemType: 0
+  itemType: 1
   itemName: Platinum Sword
   icon: {fileID: -1525172847, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   equipmentType: 0

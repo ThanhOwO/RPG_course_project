@@ -16,3 +16,18 @@ MonoBehaviour:
   itemName: Iron Sword
   icon: {fileID: 998750072, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   equipmentType: 0
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  damage: 12
+  critChance: 5
+  critPower: 10
+  maxHealth: 0
+  armor: 0
+  evasion: 0
+  magicRes: 0
+  fireDmg: 0
+  iceDmg: 0
+  lightningDmg: 0
+  poisonDmg: 0

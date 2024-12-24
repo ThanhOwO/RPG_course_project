@@ -5085,7 +5085,7 @@ MonoBehaviour:
   shockDuration: 4
   poisonDuration: 8
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
-  igniteExplosivePrefab: {fileID: 0}
+  igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
 --- !u!1 &1033365265
 GameObject:

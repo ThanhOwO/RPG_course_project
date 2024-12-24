@@ -16,3 +16,18 @@ MonoBehaviour:
   itemName: Platinum Sword
   icon: {fileID: -1525172847, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   equipmentType: 0
+  strength: 0
+  agility: 0
+  intelligence: 0
+  vitality: 0
+  damage: 15
+  critChance: 8
+  critPower: 15
+  maxHealth: 0
+  armor: 0
+  evasion: 0
+  magicRes: 0
+  fireDmg: 0
+  iceDmg: 0
+  lightningDmg: 0
+  poisonDmg: 0

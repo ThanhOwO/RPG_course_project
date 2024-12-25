@@ -9,6 +9,7 @@ public class EnemyStats : CharacterStats
 
     [Range(0f,1f)]
     [SerializeField] private float percentageModifier = 0.4f; //Each level will be increased by ..%
+    private ItemDrop dropSystem;
 
     protected override void Start()
     {
@@ -17,7 +18,7 @@ public class EnemyStats : CharacterStats
 
         base.Start();
         enemy = GetComponent<Enemy>();
-
+        dropSystem = GetComponent<ItemDrop>();
     }
 
     private void ApplyLevelModifier()
@@ -58,5 +59,6 @@ public class EnemyStats : CharacterStats
         base.Die();
         
         enemy.Die();
+        dropSystem.GenerateDrop();
     }
 }

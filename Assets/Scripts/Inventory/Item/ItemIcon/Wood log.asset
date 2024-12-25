@@ -15,3 +15,4 @@ MonoBehaviour:
   itemType: 0
   itemName: Wood log
   icon: {fileID: -293499293, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
+  dropChance: 15

@@ -8,7 +8,7 @@ public class EnemyStats : CharacterStats
     [SerializeField] private int level = 1;
 
     [Range(0f,1f)]
-    [SerializeField] private float percentageModifier = 0.4f; 
+    [SerializeField] private float percentageModifier = 0.4f; //Each level will be increased by ..%
 
     protected override void Start()
     {
@@ -39,11 +39,13 @@ public class EnemyStats : CharacterStats
     //Increase enemy power by level and percentage
     private void Modify(Stat _stat)
     {
+        float modifier = 0;
         for(int i = 0; i < level; i++)
         {
-            float modifier = _stat.GetValue() * percentageModifier;
-            _stat.AddModifier(Mathf.RoundToInt(modifier));
+            modifier += _stat.GetValue() * percentageModifier;
         }
+        
+        _stat.AddModifier(Mathf.RoundToInt(modifier));
     }
 
     public override void TakeDamage(int _damage)

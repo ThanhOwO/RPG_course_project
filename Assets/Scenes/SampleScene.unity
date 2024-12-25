@@ -1529,7 +1529,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &436682548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,19 +1555,19 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 1000
+    baseValue: 500
     modifiers: 
   armor:
-    baseValue: 0
+    baseValue: 50
     modifiers: 
   evasion:
     baseValue: 0
     modifiers: 
   magicRes:
-    baseValue: 0
+    baseValue: 10
     modifiers: 
   damage:
-    baseValue: 0
+    baseValue: 30
     modifiers: 
   critChance:
     baseValue: 0
@@ -1598,6 +1598,8 @@ MonoBehaviour:
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
   igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
+  level: 7
+  percentageModifier: 0.4
 --- !u!114 &436682549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,7 +1735,7 @@ Transform:
   m_GameObject: {fileID: 436682547}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.27, y: -0.97, z: 0}
+  m_LocalPosition: {x: 35.66, y: 2.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5047,22 +5049,22 @@ MonoBehaviour:
     baseValue: 350
     modifiers: 
   armor:
-    baseValue: 0
+    baseValue: 25
     modifiers: 
   evasion:
-    baseValue: 0
+    baseValue: 1
     modifiers: 
   magicRes:
-    baseValue: 1
+    baseValue: 10
     modifiers: 
   damage:
     baseValue: 100
     modifiers: 
   critChance:
-    baseValue: 0
+    baseValue: 5
     modifiers: 
   critPower:
-    baseValue: 0
+    baseValue: 50
     modifiers: 
   fireDmg:
     baseValue: 0
@@ -5071,7 +5073,7 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   lightningDmg:
-    baseValue: 10
+    baseValue: 0
     modifiers: 
   poisonDmg:
     baseValue: 0
@@ -6635,7 +6637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &1634527782
 Rigidbody2D:
   serializedVersion: 5
@@ -6709,7 +6711,7 @@ Transform:
   m_GameObject: {fileID: 1634527780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: -0.97, z: 0}
+  m_LocalPosition: {x: 22.55, y: -0.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6771,16 +6773,16 @@ MonoBehaviour:
     baseValue: 0
     modifiers: 
   maxHealth:
-    baseValue: 1000
+    baseValue: 500
     modifiers: 
   armor:
-    baseValue: 0
+    baseValue: 50
     modifiers: 
   evasion:
     baseValue: 0
     modifiers: 
   magicRes:
-    baseValue: 0
+    baseValue: 10
     modifiers: 
   damage:
     baseValue: 30
@@ -6814,6 +6816,8 @@ MonoBehaviour:
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
   igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
+  level: 1
+  percentageModifier: 0.4
 --- !u!70 &1634527787
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7122,11 +7126,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7138,11 +7142,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name
@@ -13134,11 +13138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13150,11 +13154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name

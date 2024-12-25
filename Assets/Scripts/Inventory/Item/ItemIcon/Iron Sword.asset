@@ -31,3 +31,8 @@ MonoBehaviour:
   iceDmg: 0
   lightningDmg: 0
   poisonDmg: 0
+  craftingMaterials:
+  - data: {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+    stackSize: 1
+  - data: {fileID: 11400000, guid: ae6fffad80118be48b2ccb7b65b233a8, type: 2}
+    stackSize: 1

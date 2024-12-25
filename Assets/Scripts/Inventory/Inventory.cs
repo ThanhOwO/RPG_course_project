@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -174,6 +175,43 @@ public class Inventory : MonoBehaviour
             stash.Add(newItem);
             stashDictionary.Add(_item, newItem);
         }
+    }
+
+    public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
+    {
+        List<InventoryItem> materialsUsed = new List<InventoryItem>();
+
+        for(int i = 0; i < _requiredMaterials.Count; i++)
+        {
+            if(stashDictionary.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            {
+                //add this to used material
+                if(stashValue.stackSize < _requiredMaterials[i].stackSize)
+                {
+                    Debug.Log("Not enough materials");
+                    return false;
+                }
+                else
+                {
+                    materialsUsed.Add(stashValue);
+                }
+            }
+            else
+            {
+                Debug.Log("Not enough materials");
+                return false;
+            }
+        }
+
+        for(int i = 0; i < materialsUsed.Count; i++)
+        {
+            RemoveItem(materialsUsed[i].data);
+        }
+
+        AddItem(_itemToCraft);
+        Debug.Log("Crafted " + _itemToCraft.name);
+
+        return true;
     }
 
 }

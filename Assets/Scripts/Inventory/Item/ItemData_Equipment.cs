@@ -43,11 +43,11 @@ public class ItemData_Equipment : ItemData
     [Header("Craft requirements")]
     public List<InventoryItem> craftingMaterials;
 
-    public void ExecuteItemEffect()
+    public void Effect(Transform _enemyPosition)
     {
         foreach(var item in itemEffect)
         {
-            item.ExecuteEffect();
+            item.ExecuteEffect(_enemyPosition);
         }
     }
 

@@ -1592,6 +1592,7 @@ GameObject:
   - component: {fileID: 436682550}
   - component: {fileID: 436682549}
   - component: {fileID: 436682548}
+  - component: {fileID: 436682554}
   m_Layer: 7
   m_Name: Enemy_Skeleton (1)
   m_TagString: Untagged
@@ -1816,6 +1817,21 @@ Transform:
   - {fileID: 906298410}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436682554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436682547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5679eb336cedc4642a35dd13b6947f39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropAmount: 0
+  possibleDrop: []
+  dropPrefab: {fileID: 7449855529403298938, guid: 890c3107dea5ccd498629f16d88402c8, type: 3}
 --- !u!1 &462369724
 GameObject:
   m_ObjectHideFlags: 0

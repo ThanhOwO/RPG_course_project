@@ -18,7 +18,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 EnemyStats _target = hit.GetComponent<EnemyStats>();
                 if(player.primaryAttack.IsLastComboAtk())
                     hit.GetComponent<Enemy>().Stagger();
-                player.stats.DoDamge(_target);           
+                player.stats.DoDamge(_target); 
+
+                //inventory get weapon call item effect 
+                Inventory.instance.GetEquipment(EquipmentType.Weapon)?.ExecuteItemEffect();       
             }
         }
     }

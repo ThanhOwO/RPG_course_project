@@ -11,10 +11,9 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Enter();
         
-        enemy.fx.InvokeRepeating("ColorBlink",0,.1f);
+        //enemy.fx.InvokeRepeating("ColorBlink",0,.1f);
 
         stateTimer = enemy.stunDuration;
-        rb.linearVelocity = new Vector2(-enemy.FacingDir * enemy.stunDirection.x, enemy.stunDirection.y);
     }
     public override void Update()
     {
@@ -27,7 +26,7 @@ public class SkeletonStunnedState : EnemyState
     {
         base.Exit();
         enemy.isStaggered = false;
-        enemy.fx.Invoke("CancelColorChange",0);
+        //enemy.fx.Invoke("CancelColorChange",0);
     }
 
 }

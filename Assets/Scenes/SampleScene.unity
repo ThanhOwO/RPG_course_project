@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  swordType: 0
+  swordType: 1
   bounceAmount: 4
   bounceGravity: 5
   bounceSpeed: 20
@@ -1599,7 +1599,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &436682548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1787,7 +1787,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stunDuration: 0.5
-  stunDirection: {x: 7, y: 12}
   isStaggered: 0
   counterImage: {fileID: 683281224}
   moveSpeed: 2
@@ -1870,6 +1869,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7f128142bbf772c4e939f251b0777244, type: 2}
   - {fileID: 11400000, guid: e13bc098f764f4d43b66a91ffeb79fbb, type: 2}
   - {fileID: 11400000, guid: 0f61a7ac607b7074fb71b98515fc953e, type: 2}
+  - {fileID: 11400000, guid: 1b9d4da9da3f3774f961da2140768849, type: 2}
   inventory: []
   stash: []
   equipment: []
@@ -4568,7 +4568,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stunDuration: 0.5
-  stunDirection: {x: 7, y: 12}
   isStaggered: 0
   counterImage: {fileID: 972802578}
   moveSpeed: 2
@@ -5443,7 +5442,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stunDuration: 0.5
-  stunDirection: {x: 7, y: 12}
   isStaggered: 0
   counterImage: {fileID: 93860456}
   moveSpeed: 2
@@ -7347,7 +7345,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &1634527782
 Rigidbody2D:
   serializedVersion: 5
@@ -7403,7 +7401,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stunDuration: 0.5
-  stunDirection: {x: 7, y: 12}
   isStaggered: 0
   counterImage: {fileID: 290426022}
   moveSpeed: 2
@@ -7707,11 +7704,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.74
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7723,11 +7720,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name
@@ -13922,11 +13919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13938,11 +13935,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name

@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6472a92b41a0ebe4bb18f1f3838c8c66, type: 3}
-  m_Name: Wood log
+  m_Script: {fileID: 11500000, guid: 2a30f41c42e52034e9e024597079085f, type: 3}
+  m_Name: Ice and fire effect
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: Wood log
-  icon: {fileID: 1543945294, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
-  dropChance: 15
+  iceAndFirePrefab: {fileID: 710750008175216391, guid: 9f869ebc7eeccea41925896c64405322, type: 3}
+  xVelocity: 15

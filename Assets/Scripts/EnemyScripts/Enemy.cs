@@ -7,7 +7,6 @@ public class Enemy : Entity
 
     [Header("Stunned info")]
     public float stunDuration;
-    public Vector2 stunDirection;
     protected bool canBeStunned;
     public bool isStaggered;
     [SerializeField] protected GameObject counterImage;

@@ -1,15 +1,15 @@
 using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
-    public List<InventoryItem> inventory;
+    public List<ItemData> startingEquipment;
+    public List<InventoryItem> inventory; //Main Inventory 
     public Dictionary<ItemData, InventoryItem> inventoryDictionary; //used for searching inventory
-    public List<InventoryItem> stash;
+    public List<InventoryItem> stash; //Material Inventory
     public Dictionary<ItemData, InventoryItem> stashDictionary;
-    public List<InventoryItem> equipment;
+    public List<InventoryItem> equipment; //Equipment Inventory
     public Dictionary<ItemData_Equipment, InventoryItem> equipmentDictionary;
 
     [Header("Inventory UI")]
@@ -40,6 +40,8 @@ public class Inventory : MonoBehaviour
         inventoryItemSlot = inventorySlotParent.GetComponentsInChildren<UI_ItemSlot>();
         stashItemSlot = stashSlotParent.GetComponentsInChildren<UI_ItemSlot>();
         equipmentSlot = equipmentSlotParent.GetComponentsInChildren<UI_EquipmentSlot>();
+
+        AddStartingItem();
     }
 
     public void EquipItem(ItemData _item)
@@ -80,7 +82,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void UpdateSlotUI()
+    public void UpdateSlotUI()
     {
         for(int i = 0; i < inventoryItemSlot.Length; i++)
         {
@@ -214,4 +216,15 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
+    private void AddStartingItem()
+    {
+        for(int i = 0; i < startingEquipment.Count; i++)
+        {
+            AddItem(startingEquipment[i]);
+        }
+    }
+
+    public List<InventoryItem> GetEquipmentList() => equipment;
+
+    public List<InventoryItem> GetStashList() => stash;
 }

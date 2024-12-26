@@ -43,6 +43,14 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler
     //Click on the item slot to equip the equipment item
     public virtual void OnPointerDown(PointerEventData eventData)
     {
+        //Hold Ctrl + click to remove items
+        if(Input.GetKey(KeyCode.LeftControl))
+        {
+            Inventory.instance.RemoveItem(item.data);
+            return;
+        }
+
+        //Click to equip the equipment item
         if(item.data.itemType == ItemType.Equipment)
         {
             Inventory.instance.EquipItem(item.data);

@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6472a92b41a0ebe4bb18f1f3838c8c66, type: 3}
-  m_Name: Wood log
+  m_Script: {fileID: 11500000, guid: f65d5f11c45180648bc97eee37b93710, type: 3}
+  m_Name: Big thunder striker effect
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: Wood log
-  icon: {fileID: -293499293, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
-  dropChance: 15
+  thunderStrikePrefab: {fileID: 155715557648612396, guid: 407a980cc8957c046935526069ab715b, type: 3}

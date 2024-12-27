@@ -81,6 +81,12 @@ public class Crystal_Skill_Controller : MonoBehaviour
             {
                 hit.GetComponent<Entity>().SetupKnockBackDir(transform);
                 player.stats.DoMagicalDamage(hit.GetComponent<CharacterStats>());
+
+                //Apply accessory effect when player has accessory equiped
+                ItemData_Equipment equipedAccessory = Inventory.instance.GetEquipment(EquipmentType.Accessory);
+
+                if(equipedAccessory != null)
+                    equipedAccessory.Effect(hit.transform);
             }
         }
     }

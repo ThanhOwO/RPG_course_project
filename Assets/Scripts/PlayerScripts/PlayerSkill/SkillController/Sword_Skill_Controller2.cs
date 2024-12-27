@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Sword_Skill_Controller2 : MonoBehaviour
@@ -190,6 +189,11 @@ public class Sword_Skill_Controller2 : MonoBehaviour
     {
         player.stats.DoDamge(enemy.GetComponent<CharacterStats>());
         enemy.StartCoroutine("FreezeTimeFor", freezeTimeDuration);
+
+        ItemData_Equipment equipedAccessory = Inventory.instance.GetEquipment(EquipmentType.Accessory);
+
+        if(equipedAccessory != null)
+            equipedAccessory.Effect(transform);
     }
 
     private void StuckInto(Collider2D collision)

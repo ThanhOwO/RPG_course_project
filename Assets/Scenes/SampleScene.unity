@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
-  swordType: 1
+  swordType: 3
   bounceAmount: 4
   bounceGravity: 5
   bounceSpeed: 20
@@ -1870,6 +1870,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e13bc098f764f4d43b66a91ffeb79fbb, type: 2}
   - {fileID: 11400000, guid: 0f61a7ac607b7074fb71b98515fc953e, type: 2}
   - {fileID: 11400000, guid: 1b9d4da9da3f3774f961da2140768849, type: 2}
+  - {fileID: 11400000, guid: 8fcc2824f966b78479b691e45d78b614, type: 2}
   inventory: []
   stash: []
   equipment: []
@@ -5323,7 +5324,7 @@ MonoBehaviour:
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
   igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
-  level: 1
+  level: 7
   percentageModifier: 0.4
 --- !u!114 &915793393
 MonoBehaviour:
@@ -7523,7 +7524,7 @@ MonoBehaviour:
   shockStrikePrefab: {fileID: 3056878263589811517, guid: 3c08b01668a48fc4f9d138de60392dfd, type: 3}
   igniteExplosivePrefab: {fileID: 4294670790326008868, guid: bfea277d2386e9d40b6a218de5e4f3e9, type: 3}
   currentHealth: 0
-  level: 1
+  level: 7
   percentageModifier: 0.4
 --- !u!70 &1634527787
 CapsuleCollider2D:
@@ -13927,7 +13928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -54.768997
       objectReference: {fileID: 0}
     - target: {fileID: 2703360257635502006, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: shrinkSpeed

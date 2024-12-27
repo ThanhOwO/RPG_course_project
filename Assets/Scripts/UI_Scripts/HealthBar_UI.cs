@@ -45,6 +45,10 @@ public class HealthBar_UI : MonoBehaviour
         bottomSlider.maxValue = myStats.GetMaxHealthValue();
 
         topSlider.value = myStats.currentHealth;
+
+        //Update the bottomSlider when topSlider is increase
+        if (bottomSlider.value < topSlider.value)
+            bottomSlider.value = topSlider.value;
     }
 
     private void ShrinkDamageBar()

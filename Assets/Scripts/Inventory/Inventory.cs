@@ -20,6 +20,9 @@ public class Inventory : MonoBehaviour
     private UI_ItemSlot[] stashItemSlot;
     private UI_EquipmentSlot[] equipmentSlot;
 
+    [Header("Item Cooldown")]
+    private float lastTimeUsedFlask;
+
     private void Awake() 
     {
         if(instance == null)
@@ -228,6 +231,8 @@ public class Inventory : MonoBehaviour
 
     public List<InventoryItem> GetStashList() => stash;
 
+    public List<InventoryItem> GetInventoryList() => inventory;
+
     public ItemData_Equipment GetEquipment(EquipmentType _type)
     {
         ItemData_Equipment equipmentItem = null;
@@ -241,4 +246,60 @@ public class Inventory : MonoBehaviour
 
         return equipmentItem;
     }
+
+    public void UseFlask()
+    {
+        ItemData_Equipment currentFlask = GetEquipment(EquipmentType.Flask);
+        
+        if(currentFlask != null)
+        {
+            bool canUseFlask = Time.time > lastTimeUsedFlask + currentFlask.itemCooldown;
+
+            if(canUseFlask)
+            {
+                InventoryItem tempItem = null;
+                InventoryItem equipItem = equipmentSlot[3].item;
+
+                //Function that calculates the consumed flask
+                if(inventoryDictionary.TryGetValue(currentFlask, out InventoryItem value))
+                {
+                    List<InventoryItem> itemToCheck = GetInventoryList();
+                    for( int i = 0; i < itemToCheck.Count ; i++)
+                    {
+                        if(itemToCheck[i] == value)
+                        {
+                            tempItem = itemToCheck[i];
+                        }
+                    }
+
+                    if(tempItem != null)
+                    {
+                        if(tempItem.stackSize > 1)
+                        {
+                            tempItem.stackSize--;
+                            UpdateSlotUI();
+                        }
+                        else
+                        {
+                            inventoryDictionary.Remove(currentFlask);
+                            inventory.Remove(tempItem);
+                            UpdateSlotUI();
+                        }
+                    }
+                }
+                else
+                {
+                    equipment.Remove(equipItem);
+                    equipmentDictionary.Remove(currentFlask);
+                    equipmentSlot[3].ClearSlot();
+                    inventoryDictionary.Remove(currentFlask);
+                }
+                
+                currentFlask.Effect(null);
+                lastTimeUsedFlask = Time.time;
+            }
+        }
+    }
+
+
 }

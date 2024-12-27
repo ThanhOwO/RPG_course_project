@@ -1866,11 +1866,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 116f5423e0c711c49913e7b1d0256006, type: 2}
   - {fileID: 11400000, guid: 18e122e953d49854c9049dac24412d4a, type: 2}
   - {fileID: 11400000, guid: 18e122e953d49854c9049dac24412d4a, type: 2}
-  - {fileID: 11400000, guid: 7f128142bbf772c4e939f251b0777244, type: 2}
   - {fileID: 11400000, guid: e13bc098f764f4d43b66a91ffeb79fbb, type: 2}
-  - {fileID: 11400000, guid: 0f61a7ac607b7074fb71b98515fc953e, type: 2}
-  - {fileID: 11400000, guid: 1b9d4da9da3f3774f961da2140768849, type: 2}
   - {fileID: 11400000, guid: 8fcc2824f966b78479b691e45d78b614, type: 2}
+  - {fileID: 11400000, guid: bb99911e7d722664eb3accb93883d07d, type: 2}
+  - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
+  - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
+  - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
   inventory: []
   stash: []
   equipment: []
@@ -13928,7 +13929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -54.768997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2703360257635502006, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: shrinkSpeed

@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fec95dc0ab9be643b27a447bdc64f3b, type: 3}
-  m_Name: Necklace
+  m_Name: Life_Potion
   m_EditorClassIdentifier: 
-  itemType: 0
-  itemName: Necklace
-  icon: {fileID: 1501868837, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
-  equipmentType: 2
+  itemType: 1
+  itemName: Life_Potion
+  icon: {fileID: 938343867, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
+  dropChance: 0
+  equipmentType: 3
+  itemEffect:
+  - {fileID: 11400000, guid: 11567ee07679f6947a464c90e6ae3025, type: 2}
+  itemCooldown: 0
   strength: 0
   agility: 0
   intelligence: 0
@@ -23,11 +27,12 @@ MonoBehaviour:
   damage: 0
   critChance: 0
   critPower: 0
-  maxHealth: 10
-  armor: 5
-  evasion: 5
-  magicRes: 20
+  maxHealth: 0
+  armor: 0
+  evasion: 0
+  magicRes: 0
   fireDmg: 0
   iceDmg: 0
   lightningDmg: 0
   poisonDmg: 0
+  craftingMaterials: []

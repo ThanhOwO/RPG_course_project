@@ -1,3 +1,4 @@
+using System.Collections;
 using TreeEditor;
 using UnityEngine;
 
@@ -348,6 +349,17 @@ public class CharacterStats : MonoBehaviour
             onHealthChanged();
     }
 
+    public virtual void IncreaseStatBy(int _modifier, float _duration, Stat _statModify)
+    {
+        //Start coroutine for stat change
+        StartCoroutine(StartModCoroutine(_modifier, _duration, _statModify));
+    }
+    private IEnumerator StartModCoroutine(int _modifier, float _duration, Stat _statModify)
+    {
+        _statModify.AddModifier(_modifier);
+        yield return new WaitForSeconds(_duration);
+        _statModify.RemoveModifier(_modifier);
+    }
     private bool CanDogdeAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();

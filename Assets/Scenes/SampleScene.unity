@@ -1864,14 +1864,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 116f5423e0c711c49913e7b1d0256006, type: 2}
   - {fileID: 11400000, guid: 116f5423e0c711c49913e7b1d0256006, type: 2}
   - {fileID: 11400000, guid: 116f5423e0c711c49913e7b1d0256006, type: 2}
-  - {fileID: 11400000, guid: 18e122e953d49854c9049dac24412d4a, type: 2}
-  - {fileID: 11400000, guid: 18e122e953d49854c9049dac24412d4a, type: 2}
   - {fileID: 11400000, guid: e13bc098f764f4d43b66a91ffeb79fbb, type: 2}
   - {fileID: 11400000, guid: 8fcc2824f966b78479b691e45d78b614, type: 2}
   - {fileID: 11400000, guid: bb99911e7d722664eb3accb93883d07d, type: 2}
   - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
   - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
   - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
+  - {fileID: 11400000, guid: f88a12113d4875b489f4b5d8687cb7b3, type: 2}
+  - {fileID: 11400000, guid: 39cbe760f8b37634eb6c57a7dd9462da, type: 2}
   inventory: []
   stash: []
   equipment: []

@@ -1871,7 +1871,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
   - {fileID: 11400000, guid: 3039b6e24a99e2641bfc2cfe4a608d9d, type: 2}
   - {fileID: 11400000, guid: f88a12113d4875b489f4b5d8687cb7b3, type: 2}
-  - {fileID: 11400000, guid: 39cbe760f8b37634eb6c57a7dd9462da, type: 2}
+  - {fileID: 11400000, guid: 40118e2eac13f74439605f5631c9c129, type: 2}
   inventory: []
   stash: []
   equipment: []
@@ -13717,7 +13717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 514.495, y: 116.0078}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &1982854346364756013

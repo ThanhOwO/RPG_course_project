@@ -1,6 +1,25 @@
 using System.Collections;
-using TreeEditor;
 using UnityEngine;
+
+public enum StatType
+{
+    strength,
+    agility,
+    intelligence,
+    vitality,
+    damage,
+    critChance,
+    critPower,
+    maxHealth,
+    armor,
+    evasion,
+    magicRes,
+    fireDmg,
+    iceDmg,
+    lightningDmg,
+    poisonDmg
+    // add more stats as needed
+}
 
 public class CharacterStats : MonoBehaviour
 {
@@ -434,5 +453,41 @@ public class CharacterStats : MonoBehaviour
         {
             healthBar.gameObject.SetActive(false);
         }
+    }
+    
+    public Stat GetStat(StatType _statType)
+    {
+        if(_statType == StatType.strength)
+            return strength; 
+        else if(_statType == StatType.agility)
+            return agility;
+        else if(_statType == StatType.intelligence)
+            return intelligence;
+        else if(_statType == StatType.vitality)
+            return vitality;
+        else if(_statType == StatType.damage)
+            return damage;
+        else if(_statType == StatType.critChance)
+            return critChance;
+        else if(_statType == StatType.critPower)
+            return critPower;
+        else if(_statType == StatType.maxHealth)
+            return maxHealth;
+        else if(_statType == StatType.armor)
+            return armor;
+        else if(_statType == StatType.evasion)
+            return evasion;
+        else if(_statType == StatType.magicRes)
+            return magicRes;
+        else if(_statType == StatType.fireDmg)
+            return fireDmg;
+        else if(_statType == StatType.iceDmg)
+            return iceDmg;
+        else if(_statType == StatType.lightningDmg)
+            return lightningDmg;
+        else if(_statType == StatType.poisonDmg)
+            return poisonDmg;
+        
+        return null;
     }
 }

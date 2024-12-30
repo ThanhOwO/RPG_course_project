@@ -127,7 +127,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ItemData _item)
     {
-        if(_item.itemType == ItemType.Equipment)
+        if(_item.itemType == ItemType.Equipment && CanAddItem())
             AddToInventory(_item);
         else if(_item.itemType == ItemType.Material)
             AddToStash(_item);
@@ -226,6 +226,14 @@ public class Inventory : MonoBehaviour
         AddItem(_itemToCraft);
         Debug.Log("Crafted " + _itemToCraft.name);
 
+        return true;
+    }
+
+    public bool CanAddItem()
+    {
+        if(inventory.Count >= inventoryItemSlot.Length)
+            return false;
+        
         return true;
     }
 

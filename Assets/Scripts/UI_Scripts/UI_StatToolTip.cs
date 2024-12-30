@@ -1,15 +1,12 @@
 using TMPro;
 using UnityEngine;
 
-public class UI_ItemTooltip : MonoBehaviour
+public class UI_StatToolTip : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private TextMeshProUGUI itemTypeText;
-    [SerializeField] private TextMeshProUGUI itemDescription;
+    [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private RectTransform tooltipRectTransform;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Vector2 offset = new Vector2(10f, -10f);
-    private ItemData_Equipment currentItem;
 
     private void Awake()
     {
@@ -22,7 +19,7 @@ public class UI_ItemTooltip : MonoBehaviour
     private void Update()
     {
         // Update position only when tooltip is visible
-        if (currentItem != null)
+        if (description != null)
         {
             Vector2 mousePosition = Input.mousePosition;
             Vector2 tooltipPosition = mousePosition + offset;
@@ -39,25 +36,21 @@ public class UI_ItemTooltip : MonoBehaviour
             tooltipRectTransform.position = tooltipPosition;
         }
     }
-
-    public void ShowTooltip(ItemData_Equipment _item)
+    
+    public void ShowStatTooltip(string _text)
     {
-        if(_item == null)
+        if(_text == "")
             return;
-        
-        currentItem = _item;
-        
-        itemNameText.text = _item.itemName;
-        itemTypeText.text = _item.itemType.ToString();
-        itemDescription.text = _item.GetDescription();
+
+        description.text = _text;
 
         gameObject.SetActive(true);
 
     }
 
-    public void HideTooltip()
+    public void HideStatTooltip()
     {
-        currentItem = null;
+        description.text = "";
         gameObject.SetActive(false);
     }
 

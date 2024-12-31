@@ -4693,7 +4693,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 80}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 120, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &471564141
@@ -11043,7 +11043,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 80}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 120, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &908307285
@@ -16551,7 +16551,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 300, y: 80}
-  m_Spacing: {x: 0, y: 0}
+  m_Spacing: {x: 120, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &1527235637
@@ -18537,6 +18537,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5788c88ed6d72104a8e522efc6d04c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterUI: {fileID: 319877813}
+  skillTreeUI: {fileID: 1165761880}
+  craftUI: {fileID: 427032762}
+  optionUI: {fileID: 1869242711}
+  playerHealthUI: {fileID: 3658837579523720716}
   itemTooltip: {fileID: 555244819}
   statTooltip: {fileID: 1340511096}
 --- !u!114 &1721356108

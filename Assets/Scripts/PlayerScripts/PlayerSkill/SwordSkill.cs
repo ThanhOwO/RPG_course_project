@@ -44,6 +44,7 @@ public class SwordSkill : Skill
     [SerializeField] private Transform dotsParent;
 
     private GameObject[] dots;
+    private bool isCreatingSword;
 
     protected override void Start()
     {
@@ -64,16 +65,25 @@ public class SwordSkill : Skill
 
     protected override void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Mouse1))
-            finalDir = new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y);
-        
-        if(Input.GetKey(KeyCode.Mouse1))
+
+        if(Input.GetKeyDown(KeyCode.Mouse1))
+            isCreatingSword = true;
+
+        if(Input.GetKey(KeyCode.Mouse1) && isCreatingSword)
         {
             for(int i = 0; i < dots.Length; i++)
             {
                 dots[i].transform.position = DotsPosition(i * spaceBetweenDots);
             }
         }
+
+        if(Input.GetKeyUp(KeyCode.Mouse1))
+        {
+            finalDir = new Vector2(AimDirection().normalized.x * launchForce.x, AimDirection().normalized.y * launchForce.y);
+            isCreatingSword = false;
+            DotsActive(false);
+        }
+
     }
 
     public void CreateSword()

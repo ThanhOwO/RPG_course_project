@@ -17,8 +17,11 @@ MonoBehaviour:
   icon: {fileID: -1943397117, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   dropChance: 0
   equipmentType: 0
+  itemCooldown: 0
   itemEffect:
   - {fileID: 11400000, guid: 9ba8ad06d776714468d697bd41eae12d, type: 2}
+  itemEffectDescription: 'Unique: Each 3rd attack in ATK combo will create an ice
+    and fire ball'
   strength: 0
   agility: 0
   intelligence: 0

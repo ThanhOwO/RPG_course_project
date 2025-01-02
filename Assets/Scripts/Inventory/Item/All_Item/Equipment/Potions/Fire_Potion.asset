@@ -17,9 +17,10 @@ MonoBehaviour:
   icon: {fileID: 1361707535, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   dropChance: 0
   equipmentType: 3
+  itemCooldown: 0
   itemEffect:
   - {fileID: 11400000, guid: 1d5b70309cc7b764fa4e33181a78ce4f, type: 2}
-  itemCooldown: 0
+  itemEffectDescription: 'Unique: Increase fire damage in short time'
   strength: 0
   agility: 0
   intelligence: 0

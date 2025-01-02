@@ -17,9 +17,10 @@ MonoBehaviour:
   icon: {fileID: -648297027, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   dropChance: 0
   equipmentType: 3
+  itemCooldown: 0
   itemEffect:
   - {fileID: 11400000, guid: 3563690110774c34faf353c655fd4e25, type: 2}
-  itemCooldown: 0
+  itemEffectDescription: 'Unique: Increase DEF in a short time'
   strength: 0
   agility: 0
   intelligence: 0

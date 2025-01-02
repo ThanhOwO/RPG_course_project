@@ -17,8 +17,10 @@ MonoBehaviour:
   icon: {fileID: 1501868837, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   dropChance: 0
   equipmentType: 2
+  itemCooldown: 0
   itemEffect:
   - {fileID: 11400000, guid: dff65a8b87b206f40a1fb4f202972522, type: 2}
+  itemEffectDescription: 'Unique: Create big thunder striker into the enemy'
   strength: 0
   agility: 0
   intelligence: 0

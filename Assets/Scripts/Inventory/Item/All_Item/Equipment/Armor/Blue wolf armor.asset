@@ -17,9 +17,10 @@ MonoBehaviour:
   icon: {fileID: 1574747948, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   dropChance: 0
   equipmentType: 1
+  itemCooldown: 0
   itemEffect:
   - {fileID: 11400000, guid: cdaa0855d9934204eb2e189780d5d645, type: 2}
-  itemCooldown: 0
+  itemEffectDescription: 'Unique: Freeze enemy when player''s HP is below 10%'
   strength: 0
   agility: 0
   intelligence: 0

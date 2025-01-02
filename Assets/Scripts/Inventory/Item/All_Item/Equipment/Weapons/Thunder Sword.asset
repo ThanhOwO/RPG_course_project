@@ -17,8 +17,10 @@ MonoBehaviour:
   icon: {fileID: -1868606538, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
   dropChance: 0
   equipmentType: 0
+  itemCooldown: 0
   itemEffect:
   - {fileID: 11400000, guid: 8f3308950533e5546ac19d93a5868485, type: 2}
+  itemEffectDescription: 'Unique: Create a small thunder strike into the enemy'
   strength: 0
   agility: 0
   intelligence: 0

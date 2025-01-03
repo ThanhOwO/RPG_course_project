@@ -137,10 +137,13 @@ public class Player : Entity
         isBusy = false;
     }
     private void CheckForDashInput()
-    {
-        if(IsWallDetected() || playerIsInBlackHole || canBeStunned)
+    {   
+        if(skill.dash.dashUnlocked == false)
             return;
 
+        if(IsWallDetected() || playerIsInBlackHole || canBeStunned)
+            return;
+        
         if(Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
         {
             dashDir = Input.GetAxisRaw("Horizontal");

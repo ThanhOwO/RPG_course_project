@@ -4802,6 +4802,7 @@ GameObject:
   - component: {fileID: 363610465}
   - component: {fileID: 363610466}
   - component: {fileID: 363610467}
+  - component: {fileID: 363610468}
   m_Layer: 0
   m_Name: SkillManager
   m_TagString: Untagged
@@ -4837,11 +4838,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 1
-  dashUnlocked: 0
   dashUnlockButton: {fileID: 597256108}
-  cloneOnDashUnlocked: 0
   cloneDashUnlockButton: {fileID: 1917234262}
-  cloneOnArrivalUnlocked: 0
   cloneArrivalUnlockButton: {fileID: 11031280}
 --- !u!114 &363610463
 MonoBehaviour:
@@ -4871,9 +4869,6 @@ MonoBehaviour:
   clonePrefab: {fileID: 264184058704470260, guid: 6988ad57dfbac7e4fa275a91c01908ec, type: 3}
   cloneDuration: 2
   canAttack: 0
-  createCloneOnDashStart: 0
-  createCloneOnDashOver: 0
-  createCloneOnParry: 0
   canDuplicateClone: 0
   chanceToDuplicate: 0
   crystalInsteadOfClone: 0
@@ -4956,6 +4951,23 @@ MonoBehaviour:
   - {fileID: 1194684469194210950, guid: e0d8e015ddc95414abb9a49fcac5803b, type: 3}
   - {fileID: 1194684469194210950, guid: e0d8e015ddc95414abb9a49fcac5803b, type: 3}
   - {fileID: 1194684469194210950, guid: e0d8e015ddc95414abb9a49fcac5803b, type: 3}
+--- !u!114 &363610468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363610460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682c7c561abd2644c8052d5b4aa010ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  parryUnlockButton: {fileID: 967808154}
+  restoreUnlockButton: {fileID: 1365448761}
+  restorePercentHP: 0.05
+  parryMirageUnlockButton: {fileID: 2077394497}
 --- !u!1 &369107525
 GameObject:
   m_ObjectHideFlags: 0

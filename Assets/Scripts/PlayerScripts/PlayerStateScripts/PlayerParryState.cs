@@ -33,7 +33,7 @@ public class PlayerParryState : PlayerState
                     if(canCreateClone)
                     {
                         canCreateClone = false;
-                        player.skill.clone.CreateCloneOnParry(hit.transform);
+                        player.skill.parry.MakeMirageOnParry(hit.transform);
                     }
                 }
                 
@@ -51,6 +51,8 @@ public class PlayerParryState : PlayerState
     private void ParrySuccessful()
     {
         stateTimer = 10;
-        player.anim.SetBool("ParrySuccessful", true); 
+        player.anim.SetBool("ParrySuccessful", true);
+
+        player.skill.parry.UseSkill(); //restore health on successful parry
     }
 }

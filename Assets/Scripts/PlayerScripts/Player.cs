@@ -6,6 +6,7 @@ public class Player : Entity
 
     public SkillManager skill { get; private set;}
     public GameObject sword { get; private set;}
+    public PlayerStats playerStats { get; private set;}
 
     #region States
     public PlayerStateMachine stateMachine {get; private set;}
@@ -79,6 +80,7 @@ public class Player : Entity
     {
         base.Start();
         skill = SkillManager.instance;
+        playerStats = GetComponent<PlayerStats>();
         stateMachine.Initialize(idleState);
 
         defaultMoveSpeed = moveSpeed;

@@ -78,6 +78,7 @@ public class CharacterStats : MonoBehaviour
     public int currentHealth; 
     public System.Action onHealthChanged;
     public bool isDead { get; private set; }
+    public bool isStagger { get; private set; }
 
     protected virtual void Start()
     {
@@ -379,6 +380,10 @@ public class CharacterStats : MonoBehaviour
         yield return new WaitForSeconds(_duration);
         _statModify.RemoveModifier(_modifier);
     }
+    public virtual void OnEvasion()
+    {
+        //Override this method
+    }
     private bool CanDogdeAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
@@ -390,6 +395,7 @@ public class CharacterStats : MonoBehaviour
 
         if(Random.Range(0, 100) < totalEvasion)
         {
+            _targetStats.OnEvasion();
             return true;
         }
 

@@ -119,11 +119,17 @@ public class Inventory : MonoBehaviour
                     equipmentSlot[i].UpdateSlot(item.Value);
             }
         }
+
+        UpdateStatUI();
+    }
+
+    public void UpdateStatUI()
+    {
         for(int i = 0; i < statSlot.Length; i++) //Update info of stats in char UI
         {
             statSlot[i].UpdateStatValueUI();
         }
-    }
+    } 
 
     public void AddItem(ItemData _item)
     {

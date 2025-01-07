@@ -4887,20 +4887,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   swordType: 0
+  bounceUnlockButton: {fileID: 351971948}
   bounceAmount: 4
   bounceGravity: 5
   bounceSpeed: 20
+  pierceUnlockButton: {fileID: 429523852}
   pierceAmount: 2
   pierceGravity: 1
-  swordPrefab: {fileID: 4900288865546073028, guid: 28a5159957901d3469a597558719bd1a, type: 3}
-  launchForce: {x: 30, y: 35}
-  swordGravity: 4.5
-  freezeTimeDuration: 0.5
-  returnSpeed: 50
+  spinUnlockButton: {fileID: 933074713}
   maxTravelDistance: 7
   spinDuration: 2
   spinGravity: 1
   hitCooldown: 0.35
+  swordUnlockButton: {fileID: 355951580}
+  swordPrefab: {fileID: 4900288865546073028, guid: 28a5159957901d3469a597558719bd1a, type: 3}
+  launchForce: {x: 30, y: 35}
+  swordGravity: 4.5
+  freezeTimeDuration: 1
+  returnSpeed: 50
+  timeStopUnlockButton: {fileID: 1136285239}
+  vulnerableUnlockButton: {fileID: 1167903496}
   numberOfDots: 20
   spaceBetweenDots: 0.07
   dotPrefab: {fileID: 1320444469440148611, guid: 62ef3eff6cd086c4ebac0c2003747fca, type: 3}

@@ -16,7 +16,7 @@ public class PlayerGroundState : PlayerState
         if(Input.GetKeyDown(KeyCode.R))
             stateMachine.ChangeState(player.blackHoleState);
             
-        if(Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword())
+        if(Input.GetKeyDown(KeyCode.Mouse1) && HasNoSword() && player.skill.sword.swordUnlocked)
             stateMachine.ChangeState(player.aimSwordState);
             
         if(Input.GetKeyDown(KeyCode.Q) && player.skill.parry.parryUnlocked)

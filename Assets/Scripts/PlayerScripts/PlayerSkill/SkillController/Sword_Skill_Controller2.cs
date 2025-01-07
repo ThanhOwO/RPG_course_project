@@ -187,8 +187,14 @@ public class Sword_Skill_Controller2 : MonoBehaviour
 
     private void SwordSkillDamage(Enemy enemy)
     {
-        player.stats.DoDamge(enemy.GetComponent<CharacterStats>());
-        enemy.FreezeTimeFor(freezeTimeDuration);
+        EnemyStats enemyStats = enemy.GetComponent<EnemyStats>();
+        player.stats.DoDamge(enemyStats);
+
+        if(player.skill.sword.timeStopUnlocked)
+            enemy.FreezeTimeFor(freezeTimeDuration);
+        
+        if(player.skill.sword.vulnerableUnlocked)
+            enemyStats.MakeVulnerableFor(freezeTimeDuration + 5f); //Can adjust time of vulnerable effect
 
         ItemData_Equipment equipedAccessory = Inventory.instance.GetEquipment(EquipmentType.Accessory);
 

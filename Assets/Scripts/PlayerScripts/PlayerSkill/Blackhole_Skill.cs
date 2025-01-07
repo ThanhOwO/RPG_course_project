@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Blackhole_Skill : Skill
 {
+    [SerializeField] private UI_SkillTreeSlot blackholeUnlockButton;
+    public bool blackholeUnlocked { get; private set; }
     [SerializeField] private int amountOfAttack;
     [SerializeField] private float cloneAttackCooldown;
     [SerializeField] private float blackholeDuration;
@@ -31,6 +34,8 @@ public class Blackhole_Skill : Skill
     protected override void Start()
     {
         base.Start();
+
+        blackholeUnlockButton.GetComponent<Button>().onClick.AddListener(UnlockBlackhole);
     }
 
     protected override void Update()
@@ -55,5 +60,11 @@ public class Blackhole_Skill : Skill
     public float GetBlackHoleRadius()
     {
         return maxSize / 2;
+    }
+
+    private void UnlockBlackhole()
+    {
+        if(blackholeUnlockButton.unlocked)
+            blackholeUnlocked = true;
     }
 }

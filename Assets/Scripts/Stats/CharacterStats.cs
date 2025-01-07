@@ -396,7 +396,7 @@ public class CharacterStats : MonoBehaviour
     {
         //Override this method
     }
-    private bool CanDogdeAttack(CharacterStats _targetStats)
+    protected bool CanDogdeAttack(CharacterStats _targetStats)
     {
         int totalEvasion = _targetStats.evasion.GetValue() + _targetStats.agility.GetValue();
 
@@ -414,7 +414,7 @@ public class CharacterStats : MonoBehaviour
         return false;
     }
 
-    private int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
+    protected int CheckTargetArmor(CharacterStats _targetStats, int totalDamage)
     {
         if(isChilled)
         {
@@ -436,7 +436,7 @@ public class CharacterStats : MonoBehaviour
         return totalMagicalDamage;
     }
     
-    private bool canCrit()
+    protected bool canCrit()
     {
         float totalCritChance = critChance.GetValue() + (agility.GetValue() * 0.5f);
 
@@ -448,7 +448,7 @@ public class CharacterStats : MonoBehaviour
         return false;
     }
 
-    private int CalculateCritDamage(int _damage)
+    protected int CalculateCritDamage(int _damage)
     {
         float totalCritPower = (critPower.GetValue() + strength.GetValue()) * 0.01f;
 

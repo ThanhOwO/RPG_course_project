@@ -4867,11 +4867,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
+  attackMultiplier: 0
   clonePrefab: {fileID: 264184058704470260, guid: 6988ad57dfbac7e4fa275a91c01908ec, type: 3}
   cloneDuration: 2
+  cloneAtkUnlockButton: {fileID: 2045001113}
+  cloneMultiplier: 0.3
   canAttack: 0
+  aggressiveCloneUnlockButton: {fileID: 1011021091}
+  aggressiveCloneMultiplier: 0.8
+  multipleCloneUnlockButton: {fileID: 369107529}
+  multipleCloneMultiplier: 0.3
   canDuplicateClone: 0
-  chanceToDuplicate: 0
+  chanceToDuplicate: 99
+  crystalInsteadUnlockButton: {fileID: 2039266775}
   crystalInsteadOfClone: 0
 --- !u!114 &363610465
 MonoBehaviour:
@@ -4924,6 +4932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 0
+  blackholeUnlockButton: {fileID: 1965656142}
   amountOfAttack: 4
   cloneAttackCooldown: 0.35
   blackholeDuration: 4

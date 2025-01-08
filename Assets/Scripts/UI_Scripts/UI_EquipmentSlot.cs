@@ -1,5 +1,3 @@
-using System.Data.Common;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UI_EquipmentSlot : UI_ItemSlot

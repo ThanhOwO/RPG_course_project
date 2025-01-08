@@ -26,4 +26,6 @@ public class PlayerManager : MonoBehaviour
         currency -= _amount;
         return true; 
     }
+
+    public int GetCurrentCurrency() => currency;
 }

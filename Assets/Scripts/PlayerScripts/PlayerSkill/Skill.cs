@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    [SerializeField] protected float cooldown;
-    protected float cooldownTimer;
+    public float cooldown;
+    public float cooldownTimer;
     protected Player player;
 
     protected virtual void Start() {
@@ -17,6 +17,7 @@ public class Skill : MonoBehaviour
 
     public virtual bool CanUseSkill()
     {
+        Debug.Log($"Skill - Cooldown Timer: {cooldownTimer}, Cooldown: {cooldown}");
         if (player.isDead)
             return false;
         
@@ -24,6 +25,7 @@ public class Skill : MonoBehaviour
         {
             UseSkill();
             cooldownTimer = cooldown;
+            Debug.Log($"kill used. Cooldown Timer reset to {cooldown}");
             return true;
         }
 

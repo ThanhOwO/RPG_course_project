@@ -10,6 +10,9 @@ public class PlayerParryState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        if (player.skill.parry.CanUseSkill())
+            player.skill.parry.cooldownTimer = player.skill.parry.cooldown;
+    
         canCreateClone = true;
         stateTimer = player.parryDuration;
         player.anim.SetBool("ParrySuccessful", false);
@@ -53,6 +56,8 @@ public class PlayerParryState : PlayerState
         stateTimer = 10;
         player.anim.SetBool("ParrySuccessful", true);
 
-        player.skill.parry.UseSkill(); //restore health on successful parry
+        if (player.skill.parry.CanUseSkill())
+            player.skill.parry.UseSkill(); //restore health on successful parry
+
     }
 }

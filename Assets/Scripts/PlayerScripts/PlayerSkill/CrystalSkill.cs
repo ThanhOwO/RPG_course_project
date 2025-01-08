@@ -76,6 +76,14 @@ public class CrystalSkill : Skill
     }
     #endregion
 
+    public override bool CanUseSkill()
+    {
+        if(currentCrystal != null)
+            UseSkill();
+
+        return base.CanUseSkill();
+    }
+    
     public override void UseSkill()
     {
         base.UseSkill();

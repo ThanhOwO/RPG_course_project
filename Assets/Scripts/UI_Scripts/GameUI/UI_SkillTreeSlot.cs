@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class UI_SkillTreeSlot : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private int skillPoint;
+    [SerializeField] private int skillCost;
     [SerializeField] private string skillName;
     [TextArea]
     [SerializeField] private string skillDescription;
@@ -37,7 +37,7 @@ public class UI_SkillTreeSlot : MonoBehaviour , IPointerEnterHandler, IPointerEx
         if(unlocked)
             return;
             
-        if(PlayerManager.instance.HaveEnoughSkillPoint(skillPoint) == false)
+        if(PlayerManager.instance.HaveEnoughSkillPoint(skillCost) == false)
             return;
 
         for(int i = 0; i < shouldBeUnlocked.Length; i++)
@@ -64,7 +64,7 @@ public class UI_SkillTreeSlot : MonoBehaviour , IPointerEnterHandler, IPointerEx
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        ui.skillToolTip.ShowTooltip(skillDescription, skillName);
+        ui.skillToolTip.ShowTooltip(skillDescription, skillName, skillCost);
     }
 
     public void OnPointerExit(PointerEventData eventData)

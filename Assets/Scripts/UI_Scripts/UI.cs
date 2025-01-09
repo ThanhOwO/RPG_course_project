@@ -33,10 +33,12 @@ public class UI : MonoBehaviour
             SwitchWithKeyTo(characterUI);
         if(Input.GetKeyDown(KeyCode.C))
             SwitchWithKeyTo(craftUI);
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.O))
             SwitchWithKeyTo(optionUI);
         if(Input.GetKeyDown(KeyCode.I))
             SwitchWithKeyTo(skillTreeUI);
+        if(Input.GetKeyDown(KeyCode.Escape))
+            HandleEscapeKey();
     }
 
     public void SwitchTo(GameObject _menu)
@@ -64,7 +66,7 @@ public class UI : MonoBehaviour
             CanvasGroup menuCanvasGroup = _menu.GetComponent<CanvasGroup>();
             if (menuCanvasGroup != null)
             {
-                Debug.Log($"Show menu: {_menu.name}");
+                //Debug.Log($"Show menu: {_menu.name}");
                 menuCanvasGroup.alpha = 1; // Show
                 menuCanvasGroup.interactable = true;
                 menuCanvasGroup.blocksRaycasts = true;
@@ -78,7 +80,7 @@ public class UI : MonoBehaviour
         // If no menu is passed, show the InGameUI
         if (_menu == null && inGameUICanvasGroup != null)
         {
-            Debug.Log("Showing InGameUI as fallback.");
+            //Debug.Log("Showing InGameUI as fallback.");
             inGameUICanvasGroup.alpha = 1;
             inGameUICanvasGroup.interactable = true;
             inGameUICanvasGroup.blocksRaycasts = true;
@@ -89,13 +91,13 @@ public class UI : MonoBehaviour
     {
         if (_menu != null && _menu.activeSelf)
         {
-            Debug.Log($"Deactivating {_menu.name}");
+            //Debug.Log($"Deactivating {_menu.name}");
             _menu.SetActive(false);
             CheckForInGameUI();
             return;
         }
 
-        Debug.Log($"Switching to {_menu.name}");
+        //Debug.Log($"Switching to {_menu.name}");
         SwitchTo(_menu);
     }
 
@@ -118,20 +120,40 @@ public class UI : MonoBehaviour
         {
             if (isAnyMenuActive)
             {
-                Debug.Log("Hiding InGameUI");
+                //Debug.Log("Hiding InGameUI");
                 inGameUICanvasGroup.alpha = 0;
                 inGameUICanvasGroup.interactable = false;
                 inGameUICanvasGroup.blocksRaycasts = false;
             }
             else
             {
-                Debug.Log("Showing InGameUI");
+                //Debug.Log("Showing InGameUI");
                 inGameUICanvasGroup.alpha = 1;
                 inGameUICanvasGroup.interactable = true;
                 inGameUICanvasGroup.blocksRaycasts = true;
             }
         }
     }
+
+    private void HandleEscapeKey()
+    {
+        bool isAnyMenuClosed = false;
+        // Close all active menus except the in-game UI
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            GameObject child = transform.GetChild(i).gameObject;
+            if (child != inGameUi && child.activeSelf)
+            {
+                child.SetActive(false);
+                isAnyMenuClosed = true;
+            }
+        }
+        // If any menu was closed, ensure the in-game UI is shown
+        if (isAnyMenuClosed)
+            SwitchTo(inGameUi);
+
+    }
+
 
     
 }

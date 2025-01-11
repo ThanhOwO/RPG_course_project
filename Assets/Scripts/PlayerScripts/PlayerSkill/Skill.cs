@@ -8,6 +8,8 @@ public class Skill : MonoBehaviour
 
     protected virtual void Start() {
         player = PlayerManager.instance.player;
+
+        Invoke(nameof(CheckUnlock), .1f);
     }
 
     protected virtual void Update()
@@ -36,6 +38,11 @@ public class Skill : MonoBehaviour
     public virtual void UseSkill()
     {
         //Do some skill specific stuff
+    }
+
+    protected virtual void CheckUnlock()
+    {
+
     }
 
     //Function to find the closest enemy

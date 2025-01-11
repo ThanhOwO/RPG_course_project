@@ -59,4 +59,11 @@ public class ParrySkill : Skill
         if(parryMirageUnlocked)
             SkillManager.instance.clone.CreateCloneWithDelay(_respawnTransform);
     }
+
+    protected override void CheckUnlock()
+    {
+        UnlockParry();
+        UnlockParryMirage();
+        UnlockParryRestore();
+    }
 }

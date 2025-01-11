@@ -60,4 +60,11 @@ public class DashSkill : Skill
         if(cloneOnArrivalUnlocked)
             SkillManager.instance.clone.CreateClone(player.transform, Vector3.zero);
     }
+
+    protected override void CheckUnlock()
+    {
+        UnlockCloneOnArrival();
+        UnlockCloneOnDash();
+        UnlockDash();
+    }
 }

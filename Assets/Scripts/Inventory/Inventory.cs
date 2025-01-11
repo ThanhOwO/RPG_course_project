@@ -32,6 +32,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     [Header("Database")]
     public List<InventoryItem> loadedItems;
+    public List<ItemData_Equipment> loadedEquipment;
 
     private void Awake() 
     {
@@ -250,6 +251,11 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     private void AddStartingItem()
     {
+        foreach(ItemData_Equipment item in loadedEquipment)
+        {
+            EquipItem(item);
+        }
+
         if(loadedItems.Count > 0)
         {
             foreach(InventoryItem item in loadedItems)
@@ -373,22 +379,44 @@ public class Inventory : MonoBehaviour, ISaveManager
                 }
             }
         }
+
+        foreach (string loadedItemID in _data.equipmentID)
+        {
+            foreach(var item in GetItemDataBase())
+            {
+                if(item != null && loadedItemID == item.itemID)
+                {
+                    loadedEquipment.Add(item as ItemData_Equipment);
+                }
+            }
+        }
     }
 
     public void SaveData(ref GameData _data)
     {
         _data.inventory.Clear();
+        _data.equipmentID.Clear();
 
         foreach(KeyValuePair<ItemData, InventoryItem> pair in inventoryDictionary)
         {
             _data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
+        }
+
+        foreach(KeyValuePair<ItemData, InventoryItem> pair in stashDictionary)
+        {
+            _data.inventory.Add(pair.Key.itemID, pair.Value.stackSize);
+        }
+
+        foreach(KeyValuePair<ItemData_Equipment, InventoryItem> pair in equipmentDictionary)
+        {
+            _data.equipmentID.Add(pair.Key.itemID);
         }
     }
 
     private List<ItemData> GetItemDataBase()
     {
         List<ItemData> itemDatabase = new List<ItemData>();
-        string[] assetNames = AssetDatabase.FindAssets("", new[] {"Assets/Scripts/Inventory/Item/All_Item/Equipment/"});
+        string[] assetNames = AssetDatabase.FindAssets("", new[] {"Assets/Scripts/Inventory/Item/All_Item/"});
 
         foreach(string SOname in assetNames)
         {

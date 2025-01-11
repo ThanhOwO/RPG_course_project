@@ -7357,6 +7357,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ae6fffad80118be48b2ccb7b65b233a8, type: 2}
   - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
   - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: 7035b3afaad5afd40ae09f4fb11a421d, type: 2}
+  - {fileID: 11400000, guid: ae6fffad80118be48b2ccb7b65b233a8, type: 2}
+  - {fileID: 11400000, guid: ae6fffad80118be48b2ccb7b65b233a8, type: 2}
+  - {fileID: 11400000, guid: ae6fffad80118be48b2ccb7b65b233a8, type: 2}
+  - {fileID: 11400000, guid: ae6fffad80118be48b2ccb7b65b233a8, type: 2}
   inventory: []
   stash: []
   equipment: []
@@ -7364,6 +7379,8 @@ MonoBehaviour:
   stashSlotParent: {fileID: 2088519863}
   equipmentSlotParent: {fileID: 179970663}
   statSlotParent: {fileID: 1417713337}
+  loadedItems: []
+  loadedEquipment: []
 --- !u!4 &462369726
 Transform:
   m_ObjectHideFlags: 0

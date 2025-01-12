@@ -8,7 +8,7 @@ public class FileDataHandler
     private string dataFileName = "";
 
     private bool encryptData = false;
-    private string codeWord = "moian";
+    private string secretKey = "kjashd20kjashdj123asdaksqi12038akiqwnknd1239hd198n238yabn0891273tg";
 
     public FileDataHandler(string _dataDir, string _dataFileName, bool _encryptData )
     {
@@ -91,7 +91,7 @@ public class FileDataHandler
 
         for(int i = 0; i < _data.Length; i++)
         {
-            modifiedData += (char)(_data[i] ^ codeWord[i % codeWord.Length]);
+            modifiedData += (char)(_data[i] ^ secretKey[i % secretKey.Length]);
         }
 
         return modifiedData;

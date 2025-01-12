@@ -22,7 +22,7 @@ public class UI_Ingame : MonoBehaviour
 
     void Update()
     {
-        currentSouls.text = PlayerManager.instance.GetCurrentCurrency().ToString("#,#");
+        currentSouls.text = PlayerManager.instance.GetCurrentCurrency().ToString("N0");
 
         if(Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
             SetCooldown(dashImage);

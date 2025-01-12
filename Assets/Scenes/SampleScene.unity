@@ -14003,6 +14003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: data.moistd
+  encryptData: 1
 --- !u!4 &811034891
 Transform:
   m_ObjectHideFlags: 0

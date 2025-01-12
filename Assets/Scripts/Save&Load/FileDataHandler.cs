@@ -7,10 +7,14 @@ public class FileDataHandler
     private string dataDirPath = "";
     private string dataFileName = "";
 
-    public FileDataHandler(string _dataDir, string _dataFileName)
+    private bool encryptData = false;
+    private string codeWord = "moian";
+
+    public FileDataHandler(string _dataDir, string _dataFileName, bool _encryptData )
     {
         dataDirPath = _dataDir;
         dataFileName = _dataFileName;
+        encryptData = _encryptData;
     }
 
     public void Save(GameData _data)
@@ -21,6 +25,9 @@ public class FileDataHandler
         {
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
             string dataToStore = JsonUtility.ToJson(_data, true);
+
+            if(encryptData)
+                dataToStore = EncryptDecrypt(dataToStore);
 
             using(FileStream stream = new FileStream(fullPath, FileMode.Create))
             {
@@ -55,6 +62,9 @@ public class FileDataHandler
                     }
                 }
 
+                if(encryptData)
+                    dataToLoad = EncryptDecrypt(dataToLoad);
+
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch(Exception e)
@@ -69,9 +79,22 @@ public class FileDataHandler
     public void Delete()
     {
         string fullPath = Path.Combine(dataDirPath, dataFileName);
-        
+
         if(File.Exists(fullPath))
             File.Delete(fullPath);
+    }
+
+    private string EncryptDecrypt(string _data)
+    {
+        //XOR cipher
+        string modifiedData = "";
+
+        for(int i = 0; i < _data.Length; i++)
+        {
+            modifiedData += (char)(_data[i] ^ codeWord[i % codeWord.Length]);
+        }
+
+        return modifiedData;
     }
 
 }

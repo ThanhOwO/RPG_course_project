@@ -1,7 +1,12 @@
+using System.Collections;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    [Header("End Screen")]
+    [SerializeField] private UI_FadeScreen fadeScreen;
+    [SerializeField] private GameObject endText;
+    [Space]
     [SerializeField] private GameObject characterUI;
     [SerializeField] private GameObject skillTreeUI;
     [SerializeField] private GameObject craftUI;
@@ -47,6 +52,7 @@ public class UI : MonoBehaviour
         {
             GameObject child = transform.GetChild(i).gameObject;
 
+            bool fadeScreen = transform.GetChild(i).GetComponent<UI_FadeScreen>() != null; //Need this to keep fadeScreen gameobject active
             CanvasGroup canvasGroup = child.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
@@ -57,7 +63,8 @@ public class UI : MonoBehaviour
             }
             else
             {
-                child.SetActive(false); // Fallback for non-CanvasGroup objects
+                if(fadeScreen == false)
+                    child.SetActive(false); // Fallback for non-CanvasGroup objects
             }
         }
 
@@ -154,6 +161,16 @@ public class UI : MonoBehaviour
 
     }
 
+    public void SwitchOnEndScreen()
+    {
+        fadeScreen.FadeOut();
+        StartCoroutine(EndScreenCoroutine());
+    }
 
+    IEnumerator EndScreenCoroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        endText.SetActive(true);
+    }
     
 }

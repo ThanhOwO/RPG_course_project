@@ -11,6 +11,8 @@ public class GameData
     public Serializable_Dictionary<string, bool> skillTree;
     public Serializable_Dictionary<string, int> inventory;
     public List<string> equipmentID;
+    public Serializable_Dictionary<string, bool> savePoints;
+    public string closestSavepointID;
 
     public GameData()
     {
@@ -18,5 +20,8 @@ public class GameData
         skillTree = new Serializable_Dictionary<string, bool>();
         inventory = new Serializable_Dictionary<string, int>();
         equipmentID = new List<string>();
+
+        closestSavepointID = string.Empty;
+        savePoints = new Serializable_Dictionary<string, bool>();
     }
 }

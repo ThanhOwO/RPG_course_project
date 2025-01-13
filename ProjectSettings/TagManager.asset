@@ -47,6 +47,9 @@ TagManager:
   - name: Ground
     uniqueID: 1021753231
     locked: 0
+  - name: Savepoint
+    uniqueID: 3879672003
+    locked: 0
   - name: Item
     uniqueID: 1974044365
     locked: 0

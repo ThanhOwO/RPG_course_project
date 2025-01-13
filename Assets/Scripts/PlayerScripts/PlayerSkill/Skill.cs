@@ -9,7 +9,7 @@ public class Skill : MonoBehaviour
     protected virtual void Start() {
         player = PlayerManager.instance.player;
 
-        Invoke(nameof(CheckUnlock), .1f);
+        Invoke(nameof(CheckUnlock), .5f);
     }
 
     protected virtual void Update()

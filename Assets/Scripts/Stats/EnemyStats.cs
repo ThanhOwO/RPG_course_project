@@ -10,13 +10,16 @@ public class EnemyStats : CharacterStats
     [Range(0f,1f)]
     [SerializeField] private float percentageModifier = 0.4f; //Each level will be increased by ..%
     private ItemDrop dropSystem;
+    public Stat soulsDropAmount;
 
     protected override void Start()
     {
         //Lvl apply must be called first
+        soulsDropAmount.SetDefaultValue(10);
         ApplyLevelModifier();
 
         base.Start();
+
         enemy = GetComponent<Enemy>();
         dropSystem = GetComponent<ItemDrop>();
     }
@@ -35,6 +38,7 @@ public class EnemyStats : CharacterStats
         Modify(iceDmg);
         Modify(lightningDmg);
         Modify(poisonDmg);
+        Modify(soulsDropAmount);
     }
 
     //Increase enemy power by level and percentage
@@ -59,6 +63,8 @@ public class EnemyStats : CharacterStats
         base.Die();
         
         enemy.Die();
+        PlayerManager.instance.currency += soulsDropAmount.GetValue();
         dropSystem.GenerateDrop();
+
     }
 }

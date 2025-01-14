@@ -13,9 +13,16 @@ public class GameData
     public List<string> equipmentID;
     public Serializable_Dictionary<string, bool> savePoints;
     public string closestSavepointID;
+    public float lastDeathX;
+    public float lastDeathY;
+    public int lastDeathAmount;
 
     public GameData()
     {
+        this.lastDeathAmount = 0;
+        this.lastDeathX = 0;
+        this.lastDeathY = 0;
+        
         this.currency = 0;
         skillTree = new Serializable_Dictionary<string, bool>();
         inventory = new Serializable_Dictionary<string, int>();

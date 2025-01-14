@@ -118,7 +118,7 @@ public class UI : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
-            if (child != inGameUi && child.activeSelf)
+            if (child != inGameUi && child.activeSelf && transform.GetChild(i).GetComponent<UI_FadeScreen>() == null)
             {
                 isAnyMenuActive = true;
                 break;
@@ -151,7 +151,7 @@ public class UI : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject child = transform.GetChild(i).gameObject;
-            if (child != inGameUi && child.activeSelf)
+            if (child != inGameUi && child.activeSelf && transform.GetChild(i).GetComponent<UI_FadeScreen>() == null)
             {
                 child.SetActive(false);
                 isAnyMenuClosed = true;

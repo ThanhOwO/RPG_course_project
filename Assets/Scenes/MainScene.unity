@@ -1066,6 +1066,8 @@ MonoBehaviour:
   blackholeImage: {fileID: 1137326432}
   flaskImage: {fileID: 1920306398}
   currentSouls: {fileID: 352622755}
+  soulsAmount: 0
+  increaseRate: 5000
 --- !u!225 &93509015
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1580,6 +1582,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   savePoints: []
+  loadClosestSavePointID: 
+  lastDeathPrefab: {fileID: 6445256753509896390, guid: 02a3db1d595b1b247a7b35701cb17b11, type: 3}
+  lastDeathAmount: 0
+  lastDeathX: 0
+  lastDeathY: 0
 --- !u!4 &119528354
 Transform:
   m_ObjectHideFlags: 0
@@ -7095,6 +7102,9 @@ MonoBehaviour:
   currentHealth: 0
   level: 7
   percentageModifier: 0.4
+  soulsDropAmount:
+    baseValue: 0
+    modifiers: 
 --- !u!114 &436682549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13285,6 +13295,9 @@ MonoBehaviour:
   currentHealth: 0
   level: 1
   percentageModifier: 0.4
+  soulsDropAmount:
+    baseValue: 0
+    modifiers: 
 --- !u!114 &773541093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15898,6 +15911,9 @@ MonoBehaviour:
   currentHealth: 0
   level: 7
   percentageModifier: 0.4
+  soulsDropAmount:
+    baseValue: 0
+    modifiers: 
 --- !u!114 &915793393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26000,6 +26016,9 @@ MonoBehaviour:
   currentHealth: 0
   level: 7
   percentageModifier: 0.4
+  soulsDropAmount:
+    baseValue: 0
+    modifiers: 
 --- !u!70 &1634527787
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

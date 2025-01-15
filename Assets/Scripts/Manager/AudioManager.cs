@@ -4,6 +4,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    [SerializeField] private float sfxMinimumDistance;
     [SerializeField] private AudioSource[] sfx;
     [SerializeField] private AudioSource[] bgm;
     public bool playBGM;
@@ -28,8 +29,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlaySFX(int _sfxIndex)
+    public void PlaySFX(int _sfxIndex, Transform _source)
     {
+        if(sfx[_sfxIndex].isPlaying)
+            return;
+        
+        //sound distance logic
+        if(_source != null && Vector2.Distance(PlayerManager.instance.player.transform.position, _source.position) > sfxMinimumDistance)
+            return;
+
         if(_sfxIndex < sfx.Length)
         {
             sfx[_sfxIndex].pitch = Random.Range(0.85f, 1.2f);

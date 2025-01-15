@@ -3093,6 +3093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f051ee4c9f740294eabe7aa8610f9c87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sfxMinimumDistance: 20
   sfx:
   - {fileID: 2081097570}
   - {fileID: 1070034936}
@@ -3969,11 +3970,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3985,11 +3986,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name
@@ -7766,7 +7767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &436682548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7974,7 +7975,7 @@ Transform:
   m_GameObject: {fileID: 436682547}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: -3.94, z: 0}
+  m_LocalPosition: {x: 38.78, y: -0.8599999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14456,7 +14457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &773541091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14683,7 +14684,7 @@ Transform:
   m_GameObject: {fileID: 773541090}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.03, y: -3.93, z: 0}
+  m_LocalPosition: {x: 33.96, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15906,11 +15907,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15922,11 +15923,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name
@@ -17588,7 +17589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &915793391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17815,7 +17816,7 @@ Transform:
   m_GameObject: {fileID: 915793390}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.78, y: -3.98, z: 0}
+  m_LocalPosition: {x: 45.769997, y: -0.89999986, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30705,11 +30706,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2214649949658333554, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -30721,11 +30722,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3315774235772209539, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658837580101011786, guid: 4aa1dc763bf553742b465af7de37ae1a, type: 3}
       propertyPath: m_Name
@@ -43161,7 +43162,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 2e96f80570da1214bbedf344e4dff00d, type: 3}
   m_Resource: {fileID: 8300000, guid: 2e96f80570da1214bbedf344e4dff00d, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.539
   m_Pitch: 1
   Loop: 0
   Mute: 0

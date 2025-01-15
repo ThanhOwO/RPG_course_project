@@ -103,6 +103,7 @@ public class UI : MonoBehaviour, ISaveManager
     {
         if (_menu != null && _menu.activeSelf)
         {
+            AudioManager.instance.PlaySFX(7, null);
             //Debug.Log($"Deactivating {_menu.name}");
             _menu.SetActive(false);
             CheckForInGameUI();
@@ -156,6 +157,7 @@ public class UI : MonoBehaviour, ISaveManager
             GameObject child = transform.GetChild(i).gameObject;
             if (child != inGameUi && child.activeSelf && transform.GetChild(i).GetComponent<UI_FadeScreen>() == null)
             {
+                AudioManager.instance.PlaySFX(7, null);
                 child.SetActive(false);
                 isAnyMenuClosed = true;
             }

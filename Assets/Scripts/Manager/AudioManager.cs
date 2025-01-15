@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -19,7 +21,7 @@ public class AudioManager : MonoBehaviour
         else
             instance = this;
         
-        Invoke(nameof(AllowSFX), 1f);
+        Invoke(nameof(AllowSFX), .1f);
     }
 
     private void Update() {
@@ -76,4 +78,24 @@ public class AudioManager : MonoBehaviour
     }
     
     private void AllowSFX() => canPlaySFX = true;
+
+    public void StopFSXWithTime(int _index) => StartCoroutine(DecreaseVolume(sfx[_index]));
+
+    private IEnumerator DecreaseVolume(AudioSource _audio)
+    {
+        float defaultVolume = _audio.volume;
+
+        while(_audio.volume > .1f)
+        {
+            _audio.volume -= _audio.volume * .2f;
+            yield return new WaitForSeconds(.25f);
+
+            if(_audio.volume <= .1f)
+            {
+                _audio.Stop();
+                _audio.volume = defaultVolume;
+                break;
+            }
+        }
+    }
 }

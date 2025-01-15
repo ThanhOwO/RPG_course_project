@@ -49,7 +49,8 @@ public class GameManager : MonoBehaviour, ISaveManager
         _data.lastDeathX = player.position.x;
         _data.lastDeathY = player.position.y;
 
-        _data.closestSavepointID = FindClosestSavePoint().id;
+        if(FindClosestSavePoint() != null)
+            _data.closestSavepointID = FindClosestSavePoint().id;
 
         _data.savePoints.Clear();
 

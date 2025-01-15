@@ -16,6 +16,7 @@ public class GameData
     public float lastDeathX;
     public float lastDeathY;
     public int lastDeathAmount;
+    public Serializable_Dictionary<string, float> volumeSettings;
 
     public GameData()
     {
@@ -30,5 +31,6 @@ public class GameData
 
         closestSavepointID = string.Empty;
         savePoints = new Serializable_Dictionary<string, bool>();
+        volumeSettings = new Serializable_Dictionary<string, float>();
     }
 }

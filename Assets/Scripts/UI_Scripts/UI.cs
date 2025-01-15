@@ -1,7 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class UI : MonoBehaviour
+public class UI : MonoBehaviour, ISaveManager
 {
     [Header("End Screen")]
     [SerializeField] private UI_FadeScreen fadeScreen;
@@ -14,6 +15,7 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject optionUI;
     [SerializeField] private GameObject inGameUi;
     [SerializeField] private CanvasGroup inGameUICanvasGroup;
+    [SerializeField] private UI_VolumeSlider[] volumeSettings;
     public UI_ItemTooltip itemTooltip;
     public UI_StatToolTip statTooltip;
     public UI_SkillToolTip skillToolTip;
@@ -178,5 +180,26 @@ public class UI : MonoBehaviour
     }
 
     public void RestartGameButton() => GameManager.instance.RestartScene();
-    
+
+    public void LoadData(GameData _data)
+    {
+       foreach(KeyValuePair<string, float> pair in _data.volumeSettings)
+       {
+        foreach(UI_VolumeSlider item in volumeSettings)
+        {
+            if(item.parameter == pair.Key)
+                item.LoadSlider(pair.Value);
+        }
+       }
+    }
+
+    public void SaveData(ref GameData _data)
+    {
+        _data.volumeSettings.Clear();
+
+        foreach (UI_VolumeSlider item in volumeSettings)
+        {
+            _data.volumeSettings.Add(item.parameter, item.slider.value);
+        }
+    }
 }

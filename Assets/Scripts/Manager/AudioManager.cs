@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource[] bgm;
     public bool playBGM;
     private int bgmIndex;
+    private bool canPlaySFX;
 
     private void Awake() 
     {
@@ -17,6 +18,8 @@ public class AudioManager : MonoBehaviour
             Destroy(instance.gameObject);
         else
             instance = this;
+        
+        Invoke(nameof(AllowSFX), 1f);
     }
 
     private void Update() {
@@ -31,7 +34,10 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(int _sfxIndex, Transform _source)
     {
-        if(sfx[_sfxIndex].isPlaying)
+        // if(sfx[_sfxIndex].isPlaying)
+        //     return;
+    
+        if(!canPlaySFX)
             return;
         
         //sound distance logic
@@ -69,5 +75,5 @@ public class AudioManager : MonoBehaviour
         }
     }
     
-
+    private void AllowSFX() => canPlaySFX = true;
 }

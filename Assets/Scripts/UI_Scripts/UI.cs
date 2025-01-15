@@ -74,6 +74,7 @@ public class UI : MonoBehaviour, ISaveManager
 
         if (_menu != null)
         {
+            AudioManager.instance.PlaySFX(7, null);
             CanvasGroup menuCanvasGroup = _menu.GetComponent<CanvasGroup>();
             if (menuCanvasGroup != null)
             {

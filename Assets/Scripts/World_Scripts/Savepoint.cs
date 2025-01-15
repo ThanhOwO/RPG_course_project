@@ -27,6 +27,9 @@ public class Savepoint : MonoBehaviour
 
     public void ActivateSavepoint()
     {
+        if(activateStatus == false)
+            AudioManager.instance.PlaySFX(5, transform);
+            
         activateStatus = true;
         anim.SetBool("Active", true);
     }

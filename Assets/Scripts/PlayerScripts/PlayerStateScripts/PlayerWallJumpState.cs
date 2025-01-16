@@ -19,6 +19,12 @@ public class PlayerWallJumpState : PlayerState
             stateMachine.ChangeState(player.airState);
         if(player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
+
+        if(player.IsWallDetected())
+            stateMachine.ChangeState(player.wallSlide);
+
+        if(xInput != 0 && !player.IsWallDetected())
+            player.setVelocity(player.moveSpeed * .8f * xInput, rb.linearVelocityY);
     }
     public override void Exit()
     {

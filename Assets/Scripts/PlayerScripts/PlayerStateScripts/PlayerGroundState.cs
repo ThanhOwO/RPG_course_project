@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerGroundState : PlayerState
 {
+    private float coyoteTime = 0.2f;
+    private float coyoteTimeCounter;
+
     public PlayerGroundState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
 
@@ -9,6 +12,7 @@ public class PlayerGroundState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        coyoteTimeCounter = coyoteTime;
     }
     public override void Update()
     {
@@ -37,14 +41,21 @@ public class PlayerGroundState : PlayerState
         if(Input.GetKeyDown(KeyCode.Mouse0))
             stateMachine.ChangeState(player.primaryAttack);
         
-        if(!player.IsGroundDetected())
+        if(!player.IsGroundDetected() && coyoteTimeCounter <= 0)
             stateMachine.ChangeState(player.airState);
-
-        if(Input.GetKeyDown(KeyCode.Space) && player.IsGroundDetected())
-            stateMachine.ChangeState(player.jumpState);
 
         if(Input.GetKeyDown(KeyCode.S) && player.IsGroundDetected())
             stateMachine.ChangeState(player.crouchState);
+        
+        //Coyote jump
+        if (!player.IsGroundDetected())
+            coyoteTimeCounter -= Time.deltaTime;
+        else
+            coyoteTimeCounter = coyoteTime;
+
+        if(Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0)
+            stateMachine.ChangeState(player.jumpState);
+
     }
     public override void Exit()
     {

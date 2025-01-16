@@ -184,4 +184,8 @@ public class Player : Entity
             rb.simulated = false;
     }
 
+    protected override void SetupZeroKnockbackPower()
+    {
+        knockbackPower = new Vector2(0, 0);
+    }
 }

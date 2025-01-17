@@ -7965,6 +7965,8 @@ MonoBehaviour:
   battleTime: 7
   attackDistance: 2
   attackCooldown: 1
+  minAttackCooldown: 0
+  maxAttackCooldown: 0
   lastTimeAttack: 0
 --- !u!4 &436682553
 Transform:
@@ -14674,6 +14676,8 @@ MonoBehaviour:
   battleTime: 7
   attackDistance: 2
   attackCooldown: 1
+  minAttackCooldown: 0
+  maxAttackCooldown: 0
   lastTimeAttack: 0
 --- !u!4 &773541097
 Transform:
@@ -17806,6 +17810,8 @@ MonoBehaviour:
   battleTime: 7
   attackDistance: 2
   attackCooldown: 1
+  minAttackCooldown: 0
+  maxAttackCooldown: 0
   lastTimeAttack: 0
 --- !u!4 &915793397
 Transform:
@@ -29539,6 +29545,8 @@ MonoBehaviour:
   battleTime: 7
   attackDistance: 2
   attackCooldown: 1
+  minAttackCooldown: 0.3
+  maxAttackCooldown: 0.7
   lastTimeAttack: 0
 --- !u!4 &1634527784
 Transform:

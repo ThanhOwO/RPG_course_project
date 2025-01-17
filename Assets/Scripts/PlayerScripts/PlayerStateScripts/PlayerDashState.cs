@@ -31,7 +31,7 @@ public class PlayerDashState : PlayerState
         if(stateTimer < 0 && player.IsGroundDetected())
             stateMachine.ChangeState(player.brakeState);
         else if(stateTimer < 0 && !player.IsGroundDetected())
-            stateMachine.ChangeState(player.idleState);
+            stateMachine.ChangeState(player.airState);
     }
     public override void Exit()
     {

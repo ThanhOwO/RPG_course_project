@@ -508,4 +508,12 @@ public class CharacterStats : MonoBehaviour
         
         return null;
     }
+
+    public void KillEntity()
+    {
+        if(!isDead)
+            Die();
+    }
+
+
 }

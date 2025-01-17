@@ -61,6 +61,7 @@ public class UI_SkillTreeSlot : MonoBehaviour , IPointerEnterHandler, IPointerEx
             }
         }
 
+        PlayerManager.instance.UseSkillPoint(skillCost);
         unlocked = true;
         skillImage.color = Color.white;
     }

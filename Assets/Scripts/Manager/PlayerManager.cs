@@ -23,8 +23,15 @@ public class PlayerManager : MonoBehaviour, ISaveManager
             return false;
         }
 
-        currency -= _amount;
         return true; 
+    }
+
+    public void UseSkillPoint(int _amount)
+    {
+        if (_amount > currency)
+            return;
+
+        currency -= _amount;
     }
 
     public int GetCurrentCurrency() => currency;

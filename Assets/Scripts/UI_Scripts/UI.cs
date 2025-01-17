@@ -97,6 +97,8 @@ public class UI : MonoBehaviour, ISaveManager
             inGameUICanvasGroup.interactable = true;
             inGameUICanvasGroup.blocksRaycasts = true;
         }
+
+        CheckForInGameUI();
     }
 
     public void SwitchWithKeyTo(GameObject _menu)
@@ -146,6 +148,8 @@ public class UI : MonoBehaviour, ISaveManager
                 inGameUICanvasGroup.blocksRaycasts = true;
             }
         }
+
+        GameManager.instance.PauseGame(isAnyMenuActive);
     }
 
     private void HandleEscapeKey()

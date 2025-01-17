@@ -56,7 +56,7 @@ public class SaveManager : MonoBehaviour
             saveManager.LoadData(gameData);
         }
 
-        Debug.Log("Loaded currency: " + gameData.currency);
+        //Debug.Log("Loaded currency: " + gameData.currency);
     }
 
     public void SaveGame()

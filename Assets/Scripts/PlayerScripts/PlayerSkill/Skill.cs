@@ -19,7 +19,7 @@ public class Skill : MonoBehaviour
 
     public virtual bool CanUseSkill()
     {
-        Debug.Log($"Skill - Cooldown Timer: {cooldownTimer}, Cooldown: {cooldown}");
+        //Debug.Log($"Skill - Cooldown Timer: {cooldownTimer}, Cooldown: {cooldown}");
         if (player.isDead)
             return false;
         
@@ -27,11 +27,11 @@ public class Skill : MonoBehaviour
         {
             UseSkill();
             cooldownTimer = cooldown;
-            Debug.Log($"kill used. Cooldown Timer reset to {cooldown}");
+            //Debug.Log($"kill used. Cooldown Timer reset to {cooldown}");
             return true;
         }
 
-        Debug.Log("Skill is on cooldown");
+        //Debug.Log("Skill is on cooldown");
         return false;
     }
 

@@ -13,6 +13,8 @@ public class PlayerDashState : PlayerState
         player.skill.dash.CloneOnDash();
 
         stateTimer = player.dashDuration;
+
+        player.stats.MakeInvincible(true);
     }
     public override void Update()
     {
@@ -37,5 +39,7 @@ public class PlayerDashState : PlayerState
 
         player.skill.dash.CloneOnArrival();
         player.setVelocity(0, rb.linearVelocityY);
+        player.stats.MakeInvincible(false);
+
     }
 }

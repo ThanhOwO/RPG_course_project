@@ -449,7 +449,7 @@ public class CharacterStats : MonoBehaviour
     {
         float totalCritChance = critChance.GetValue() + (agility.GetValue() * 0.5f);
 
-        if (Random.Range(0, 100) <= totalCritChance)
+        if (Random.Range(1, 101) <= totalCritChance)
         {
             return true;
         }
@@ -526,5 +526,10 @@ public class CharacterStats : MonoBehaviour
 
     public void MakeInvincible(bool _invincible) => isInvincible = _invincible;
 
-
+    public bool IsCriticalHit(int _damage)
+    {
+        float normalDamage = damage.GetValue() + strength.GetValue();
+        float criticalDamageThreshold = normalDamage * (critPower.GetValue() * 0.01f);
+        return _damage >= criticalDamageThreshold;
+    }
 }

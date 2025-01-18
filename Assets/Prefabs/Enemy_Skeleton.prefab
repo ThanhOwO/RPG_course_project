@@ -4994,6 +4994,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ef04fa76a6ab642b7edd82662f2c2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  popUpTextPrefab: {fileID: 4570140286810347666, guid: 8fffea3890ee2814fac66ee33604257f, type: 3}
+  shakeMultiplier: 0
+  shakeSwordImpact: {x: 0, y: 0, z: 0}
+  shakeHighDmg: {x: 0, y: 0, z: 0}
+  afterImgPrefab: {fileID: 0}
+  colorLooseRate: 0
+  afterImgCooldown: 0
   hitMat: {fileID: 2100000, guid: 364a84b03bc710c46870d9b25f47ee64, type: 2}
   chillcolor:
   - {r: 0.21226418, g: 0.70961887, b: 1, a: 1}
@@ -5013,6 +5020,7 @@ MonoBehaviour:
   poisonFX: {fileID: 5680302273447570982}
   hitFx: {fileID: 1231220821843410295, guid: daffe716ea7340e4aaa8e7f3e4422f1e, type: 3}
   CritHitFx: {fileID: 5171405714378621031, guid: 2d7a3d94c42fa234ebc76dc207305e4a, type: 3}
+  dustFx: {fileID: 0}
 --- !u!114 &7265308034698955581
 MonoBehaviour:
   m_ObjectHideFlags: 0

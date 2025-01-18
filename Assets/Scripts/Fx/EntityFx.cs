@@ -1,5 +1,6 @@
 using System.Collections;
 using Cinemachine;
+using TMPro;
 using UnityEngine;
 
 public class EntityFx : MonoBehaviour
@@ -7,9 +8,12 @@ public class EntityFx : MonoBehaviour
     private SpriteRenderer sr;
     private Player player;
 
-    [Header("Screen shake fx")]
-    private CinemachineImpulseSource screenShake;
+    [Header("PopUp Text")]
+    [SerializeField] private GameObject popUpTextPrefab;
+
+    [Header("Screen shake fx")] 
     [SerializeField] private float shakeMultiplier;
+    private CinemachineImpulseSource screenShake;
     public Vector3 shakeSwordImpact;
     public Vector3 shakeHighDmg;
 
@@ -53,6 +57,17 @@ public class EntityFx : MonoBehaviour
     private void Update()
     {
         afterImgTimer -= Time.deltaTime;
+    }
+
+    public void CreatePopUpText(string _text, Color _color)
+    {
+        float randomX = Random.Range(-.5f, 1);
+        float randomY = Random.Range(1, 2);
+
+        Vector3 positionOffset = new Vector3(randomX, randomY, 0);
+        GameObject newText = Instantiate(popUpTextPrefab, transform.position + positionOffset, Quaternion.identity);
+        newText.GetComponent<TextMeshPro>().text = _text;
+        newText.GetComponent<TextMeshPro>().color = _color;
     }
 
     public void ScreenShake(Vector3 _shakePower)

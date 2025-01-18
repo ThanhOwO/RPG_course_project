@@ -67,4 +67,17 @@ public class EnemyStats : CharacterStats
         dropSystem.GenerateDrop();
 
     }
+
+    protected override void DecreaseHealthBy(int _damage)
+    {
+        base.DecreaseHealthBy(_damage);
+
+        //Popup dmg text from player
+        if(_damage > 0)
+        {
+            bool isCritical = IsCriticalHit(_damage);
+            Color textColor = isCritical ? Color.yellow : Color.gray; // Red for critical hits, white for normal hits
+            enemy.fx.CreatePopUpText(_damage.ToString(), textColor);
+        }
+    }
 }

@@ -21,6 +21,7 @@ public class PlayerGroundState : PlayerState
         {
             if (player.skill.blackhole.cooldownTimer > 0)
             {
+                player.fx.CreatePopUpText("Cooldown!", Color.white);
                 return;
             }
             stateMachine.ChangeState(player.blackHoleState);

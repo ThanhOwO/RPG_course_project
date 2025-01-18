@@ -32,6 +32,8 @@ public class PlayerDashState : PlayerState
             stateMachine.ChangeState(player.brakeState);
         else if(stateTimer < 0 && !player.IsGroundDetected())
             stateMachine.ChangeState(player.airState);
+        
+        player.fx.CreateAfterImage();
     }
     public override void Exit()
     {

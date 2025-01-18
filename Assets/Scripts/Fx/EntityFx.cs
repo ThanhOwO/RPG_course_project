@@ -25,6 +25,9 @@ public class EntityFx : MonoBehaviour
     [SerializeField] private GameObject hitFx;
     [SerializeField] private GameObject CritHitFx;
 
+    [Space]
+    [SerializeField] private ParticleSystem dustFx;
+
     private void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -158,5 +161,9 @@ public class EntityFx : MonoBehaviour
         Destroy(newHitFX, .3f); 
     }
 
-    
+    public void PlayDustFx()
+    {
+        if(dustFx != null)
+            dustFx.Play();
+    }
 }

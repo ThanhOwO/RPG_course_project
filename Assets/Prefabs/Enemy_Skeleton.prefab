@@ -5011,6 +5011,8 @@ MonoBehaviour:
   chillFX: {fileID: 2372133185573014182}
   shockFX: {fileID: 3903865821079026939}
   poisonFX: {fileID: 5680302273447570982}
+  hitFx: {fileID: 1231220821843410295, guid: daffe716ea7340e4aaa8e7f3e4422f1e, type: 3}
+  CritHitFx: {fileID: 5171405714378621031, guid: 2d7a3d94c42fa234ebc76dc207305e4a, type: 3}
 --- !u!114 &7265308034698955581
 MonoBehaviour:
   m_ObjectHideFlags: 0

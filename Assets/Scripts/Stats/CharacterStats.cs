@@ -122,6 +122,8 @@ public class CharacterStats : MonoBehaviour
 
     public virtual void DoDamge(CharacterStats _targetStats)
     {
+        bool critHit = false;
+
         if(CanDogdeAttack(_targetStats))
             return;
 
@@ -132,11 +134,14 @@ public class CharacterStats : MonoBehaviour
         if(canCrit())
         {
             totalDamage = CalculateCritDamage(totalDamage);
+            critHit = true;
         }
+
+        fx.CreateHitFX(_targetStats.transform, critHit);
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage); //Physical damage to target
-        //DoMagicalDamage(_targetStats); //Magical damage to target
+        DoMagicalDamage(_targetStats); //Magical damage to target
     }
     
     public virtual void TakeDamage(int _damage)

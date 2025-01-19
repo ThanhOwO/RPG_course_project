@@ -142,7 +142,6 @@ public class CharacterStats : MonoBehaviour
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage); //Physical damage to target
         DoMagicalDamage(_targetStats); //Magical damage to target
-        Debug.Log("Damage: " + totalDamage);Add new enemy Slime, adjust new enemy stats
     }
     
     public virtual void TakeDamage(int _damage)

@@ -78,7 +78,6 @@ public class EnemyStats : CharacterStats
             bool isCritical = IsCriticalHit(_damage);
             Color textColor = isCritical ? Color.yellow : Color.gray;
             enemy.fx.CreatePopUpText(_damage.ToString(), textColor);
-            Debug.Log("Crit ?: " + isCritical);
         }
     }
 }

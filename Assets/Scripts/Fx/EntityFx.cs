@@ -5,23 +5,11 @@ using UnityEngine;
 
 public class EntityFx : MonoBehaviour
 {
-    private SpriteRenderer sr;
-    private Player player;
+    protected SpriteRenderer sr;
+    protected Player player;
 
     [Header("PopUp Text")]
     [SerializeField] private GameObject popUpTextPrefab;
-
-    [Header("Screen shake fx")] 
-    [SerializeField] private float shakeMultiplier;
-    private CinemachineImpulseSource screenShake;
-    public Vector3 shakeSwordImpact;
-    public Vector3 shakeHighDmg;
-
-    [Header("After image fx")]
-    [SerializeField] private GameObject afterImgPrefab;
-    [SerializeField] private float colorLooseRate;
-    [SerializeField] private float afterImgCooldown;
-    private float afterImgTimer;
 
     [Header("Flash FX")]
     [SerializeField] private Material hitMat;
@@ -43,20 +31,11 @@ public class EntityFx : MonoBehaviour
     [SerializeField] private GameObject hitFx;
     [SerializeField] private GameObject CritHitFx;
 
-    [Space]
-    [SerializeField] private ParticleSystem dustFx;
-
-    private void Start()
+    protected virtual void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         originalMat = sr.material;
         player = PlayerManager.instance.player;
-        screenShake = GetComponent<CinemachineImpulseSource>();
-    }
-
-    private void Update()
-    {
-        afterImgTimer -= Time.deltaTime;
     }
 
     public void CreatePopUpText(string _text, Color _color)
@@ -68,22 +47,6 @@ public class EntityFx : MonoBehaviour
         GameObject newText = Instantiate(popUpTextPrefab, transform.position + positionOffset, Quaternion.identity);
         newText.GetComponent<TextMeshPro>().text = _text;
         newText.GetComponent<TextMeshPro>().color = _color;
-    }
-
-    public void ScreenShake(Vector3 _shakePower)
-    {
-        screenShake.m_DefaultVelocity = new Vector3(_shakePower.x * player.FacingDir, _shakePower.y) * shakeMultiplier;
-        screenShake.GenerateImpulse();
-    }
-
-    public void CreateAfterImage()
-    {
-        if(afterImgTimer <= 0)
-        {
-            afterImgTimer = afterImgCooldown;
-            GameObject newAfterImage = Instantiate(afterImgPrefab, transform.position, transform.rotation);
-            newAfterImage.GetComponent<AfterImageFX>().SetupAfterImage(colorLooseRate, sr.sprite);
-        }
     }
 
     private IEnumerator FlashFX()
@@ -211,11 +174,5 @@ public class EntityFx : MonoBehaviour
         newHitFX.transform.Rotate(hitFxRotation);
 
         Destroy(newHitFX, .3f); 
-    }
-
-    public void PlayDustFx()
-    {
-        if(dustFx != null)
-            dustFx.Play();
     }
 }

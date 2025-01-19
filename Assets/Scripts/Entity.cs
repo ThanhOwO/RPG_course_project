@@ -85,7 +85,7 @@ public class Entity : MonoBehaviour
 
     protected virtual void OnDrawGizmos() {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance * FacingDir, wallCheck.position.y));
         Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion
@@ -123,6 +123,13 @@ public class Entity : MonoBehaviour
         
         rb.linearVelocity = new Vector2(0, 0);
     } 
+
+    public virtual void SetupDefaultFacingDir(int _direction)
+    {
+        FacingDir = _direction;
+        if(FacingDir == -1)
+            FacingRight = false;
+    }
         
     #endregion
 

@@ -142,6 +142,7 @@ public class CharacterStats : MonoBehaviour
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage); //Physical damage to target
         DoMagicalDamage(_targetStats); //Magical damage to target
+        Debug.Log("Damage: " + totalDamage);Add new enemy Slime, adjust new enemy stats
     }
     
     public virtual void TakeDamage(int _damage)
@@ -449,7 +450,7 @@ public class CharacterStats : MonoBehaviour
     {
         float totalCritChance = critChance.GetValue() + (agility.GetValue() * 0.5f);
 
-        if (Random.Range(1, 101) <= totalCritChance)
+        if (Random.Range(0, 100) <= totalCritChance)
         {
             return true;
         }

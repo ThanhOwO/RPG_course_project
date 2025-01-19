@@ -76,8 +76,9 @@ public class EnemyStats : CharacterStats
         if(_damage > 0)
         {
             bool isCritical = IsCriticalHit(_damage);
-            Color textColor = isCritical ? Color.yellow : Color.gray; // Red for critical hits, white for normal hits
+            Color textColor = isCritical ? Color.yellow : Color.gray;
             enemy.fx.CreatePopUpText(_damage.ToString(), textColor);
+            Debug.Log("Crit ?: " + isCritical);
         }
     }
 }

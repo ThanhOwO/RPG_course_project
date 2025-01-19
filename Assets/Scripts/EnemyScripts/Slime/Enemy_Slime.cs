@@ -1,34 +1,36 @@
 using System.Collections;
 using UnityEngine;
 
-public class Enemy_Skeleton : Enemy
+public class Enemy_Slime : Enemy
 {
     #region States
-    public SkeletonIdleState idleState {get; private set;}
-    public SkeletonMoveState moveState {get; private set;}
-    public SkeletonBattleState battleState {get; private set;}
-    public SkeletonAttackState attackState {get; private set;}
-    public SkeletonStunnedState stunnedState {get; private set;}
-    public SkeletonDeathState deathState {get; private set;}
+    public SlimeIdleState idleState { get; private set;}
+    public SlimeMoveState moveState { get; private set;}
+    public SlimeBattleState battleState { get; private set;}
+    public SlimeAttackState attackState { get; private set;}
+    public SlimeStunnedState stunnedState { get; private set;}
+    public SlimeDeathState deathState { get; private set;}
+    public SlimeStaggerState staggerState { get; private set;}
     #endregion
+
     protected override void Awake()
     {
         base.Awake();
-        idleState = new SkeletonIdleState(this, stateMachine, "Idle", this);
-        moveState = new SkeletonMoveState(this, stateMachine, "Move", this);
-        battleState = new SkeletonBattleState(this, stateMachine, "Move", this);
-        attackState = new SkeletonAttackState(this, stateMachine, "Attack", this);
-        stunnedState = new SkeletonStunnedState(this, stateMachine, "Stunned", this);
-        deathState = new SkeletonDeathState(this, stateMachine, "Die", this);
+        SetupDefaultFacingDir(-1);
+
+        idleState = new SlimeIdleState(this, stateMachine, "Idle", this);
+        moveState = new SlimeMoveState(this, stateMachine, "Move", this);
+        battleState = new SlimeBattleState(this, stateMachine, "Move", this);
+        attackState = new SlimeAttackState(this, stateMachine, "Attack", this);
+        stunnedState = new SlimeStunnedState(this, stateMachine, "Stun", this);
+        deathState = new SlimeDeathState(this, stateMachine, "Die", this);
+        staggerState = new SlimeStaggerState(this, stateMachine, "Stagger", this);
+
     }
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(idleState);
-    }
-    protected override void Update()
-    {
-        base.Update();
     }
     public override bool CanBeStunned()
     {
@@ -40,7 +42,7 @@ public class Enemy_Skeleton : Enemy
 
         return false;
     }
-    public override void Die()
+        public override void Die()
     {
         base.Die();
 
@@ -50,7 +52,6 @@ public class Enemy_Skeleton : Enemy
         StartCoroutine(CorpseRemainTime());
         stateMachine.ChangeState(deathState);
     }
-
     //Death animation remain time of skeleton
     private IEnumerator CorpseRemainTime()
     {
@@ -95,7 +96,6 @@ public class Enemy_Skeleton : Enemy
     public override void Stagger() 
     {
         CloseCounterAttackWindow();
-        stateMachine.ChangeState(stunnedState);
+        stateMachine.ChangeState(staggerState);
     }
-
 }

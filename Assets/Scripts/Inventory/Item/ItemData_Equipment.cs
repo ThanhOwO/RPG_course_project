@@ -142,7 +142,7 @@ public class ItemData_Equipment : ItemData
 
         if(itemEffectDescription.Length > 0)
         {
-            sb.AppendLine();
+            //sb.AppendLine();
             sb.AppendLine(itemEffectDescription);
         }
 

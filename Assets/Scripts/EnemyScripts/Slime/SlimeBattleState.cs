@@ -14,6 +14,18 @@ public class SlimeBattleState : EnemyState
         base.Enter();
         player = PlayerManager.instance.player.transform;
 
+        if (enemy.IsPlayerDetected() && enemy.IsPlayerDetected().distance < enemy.attackDistance)
+        {
+            if (CanAttack())
+            {
+                enemy.stateMachine.ChangeState(enemy.attackState);
+            }
+            else
+            {
+                enemy.stateMachine.ChangeState(enemy.idleState);
+            }
+        }
+
         if(player.GetComponent<Player>().isDead)
             stateMachine.ChangeState(enemy.moveState);
     }
@@ -40,10 +52,6 @@ public class SlimeBattleState : EnemyState
         else if(player.position.x < enemy.transform.position.x -.5f)
             moveDir = -1;
         
-
-        if(enemy.IsPlayerDetected() && enemy.IsPlayerDetected().distance < enemy.attackDistance -.1f)
-            return;
-
         enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
     }
     public override void Exit()

@@ -446,7 +446,7 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  stunDuration: 0.5
+  stunDuration: 1
   isStaggered: 0
   counterImage: {fileID: 7231650849580652684}
   moveSpeed: 2.5

@@ -125,6 +125,9 @@ public class CharacterStats : MonoBehaviour
     {
         bool critHit = false;
         isCriticalHit = false;
+        if(_targetStats.isInvincible)
+            return;
+            
         if(CanDogdeAttack(_targetStats))
             return;
 

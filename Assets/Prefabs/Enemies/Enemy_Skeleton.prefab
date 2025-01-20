@@ -4908,17 +4908,17 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  stunDuration: 0.5
+  stunDuration: 1
   isStaggered: 0
   counterImage: {fileID: 3478640314683350204}
   moveSpeed: 2
   idleTime: 2
   battleTime: 7
   agroDistance: 10
-  attackDistance: 2
+  attackDistance: 2.7
   attackCooldown: 1
-  minAttackCooldown: 0.3
-  maxAttackCooldown: 0.7
+  minAttackCooldown: 0.7
+  maxAttackCooldown: 1
   lastTimeAttack: 0
 --- !u!50 &6909880539721887307
 Rigidbody2D:

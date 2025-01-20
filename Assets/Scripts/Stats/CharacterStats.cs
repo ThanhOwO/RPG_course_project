@@ -81,6 +81,7 @@ public class CharacterStats : MonoBehaviour
     public bool isStagger { get; private set; }
     private bool isVulnerable;
     public bool isInvincible { get; private set; }
+    public bool isCriticalHit;
 
     protected virtual void Start()
     {
@@ -123,7 +124,7 @@ public class CharacterStats : MonoBehaviour
     public virtual void DoDamge(CharacterStats _targetStats)
     {
         bool critHit = false;
-
+        isCriticalHit = false;
         if(CanDogdeAttack(_targetStats))
             return;
 
@@ -135,6 +136,7 @@ public class CharacterStats : MonoBehaviour
         {
             totalDamage = CalculateCritDamage(totalDamage);
             critHit = true;
+            _targetStats.isCriticalHit = true;
         }
 
         fx.CreateHitFX(_targetStats.transform, critHit);
@@ -526,10 +528,9 @@ public class CharacterStats : MonoBehaviour
 
     public void MakeInvincible(bool _invincible) => isInvincible = _invincible;
 
-    public bool IsCriticalHit(int _damage)
+    public void GetCritStatus(bool _crit)
     {
-        float normalDamage = damage.GetValue() + strength.GetValue();
-        float criticalDamageThreshold = normalDamage * (critPower.GetValue() * 0.01f);
-        return _damage >= criticalDamageThreshold;
+        Debug.Log("isCrit ? " + _crit);
+        
     }
 }

@@ -40,8 +40,11 @@ public class SlimeBattleState : EnemyState
         else if(player.position.x < enemy.transform.position.x -.5f)
             moveDir = -1;
         
-        enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
 
+        if(enemy.IsPlayerDetected() && enemy.IsPlayerDetected().distance < enemy.attackDistance -.1f)
+            return;
+
+        enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
     }
     public override void Exit()
     {

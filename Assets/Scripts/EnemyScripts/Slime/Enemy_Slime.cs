@@ -1,8 +1,18 @@
 using System.Collections;
 using UnityEngine;
 
+public enum SlimeType { big, medium, small }
+
 public class Enemy_Slime : Enemy
 {
+    [Header("Slime specification")]
+    [SerializeField] private SlimeType slimeType;
+    [SerializeField] private int slimeToCreate;
+    [SerializeField] private GameObject slimePrefab;
+    [SerializeField] private Vector2 minCreationVelocity;
+    [SerializeField] private Vector2 maxCreationVelocity;
+
+
     #region States
     public SlimeIdleState idleState { get; private set;}
     public SlimeMoveState moveState { get; private set;}
@@ -51,6 +61,11 @@ public class Enemy_Slime : Enemy
         DisableRigidBody();
         StartCoroutine(CorpseRemainTime());
         stateMachine.ChangeState(deathState);
+
+        if(slimeType == SlimeType.small)
+            return;
+
+        CreateSlimes(slimeToCreate, slimePrefab);
     }
     //Death animation remain time of skeleton
     private IEnumerator CorpseRemainTime()
@@ -98,4 +113,29 @@ public class Enemy_Slime : Enemy
         CloseCounterAttackWindow();
         stateMachine.ChangeState(staggerState);
     }
+
+    private void CreateSlimes(int _amount, GameObject _slimePrefab)
+    {
+        for(int i = 0; i < _amount; i++)
+        {
+            GameObject newSlime = Instantiate(slimePrefab, transform.position, Quaternion.identity);
+            newSlime.GetComponent<Enemy_Slime>().SetupSlimes(FacingDir);
+        }
+    }
+
+    public void SetupSlimes(int _facingDir)
+    {
+        if(_facingDir != FacingDir)
+            Flip();
+            
+        float xVelocity = Random.Range(minCreationVelocity.x, maxCreationVelocity.x);
+        float yVelocity = Random.Range(minCreationVelocity.y, maxCreationVelocity.y);
+
+        isKnocked = true;
+
+        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(xVelocity * -FacingDir, yVelocity);
+        Invoke(nameof(CancelKnockback), 1.5f);
+    }
+
+    private void CancelKnockback() => isKnocked = false;
 }

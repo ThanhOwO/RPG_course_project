@@ -27,6 +27,7 @@ public class Enemy : Entity
     private float defaultMoveSpeed;
 
     [Header("Attack info")]
+    public float agroDistance = 2;
     public float attackDistance;
     public float attackCooldown;
     public float minAttackCooldown;
@@ -119,7 +120,7 @@ public class Enemy : Entity
 
         return false;
     }
-    public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, 50, whatIsPlayer);
+    public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, 20, whatIsPlayer);
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     protected override void OnDrawGizmos() {
         base.OnDrawGizmos();

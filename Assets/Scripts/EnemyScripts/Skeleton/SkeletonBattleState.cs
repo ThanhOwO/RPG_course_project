@@ -39,7 +39,10 @@ public class SkeletonBattleState : EnemyState
             moveDir = 1;
         else if(player.position.x < enemy.transform.position.x -.5f)
             moveDir = -1;
-        
+
+        if(enemy.IsPlayerDetected() && enemy.IsPlayerDetected().distance < enemy.attackDistance -.1f)
+            return;
+            
         enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
 
     }

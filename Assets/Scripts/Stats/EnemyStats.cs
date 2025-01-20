@@ -56,6 +56,13 @@ public class EnemyStats : CharacterStats
     public override void TakeDamage(int _damage)
     {
         base.TakeDamage(_damage);
+
+        if(_damage > 0)
+        {
+            Color textColor = isCriticalHit ? Color.yellow : Color.gray;
+            enemy.fx.CreatePopUpText(_damage.ToString(), textColor);
+            isCriticalHit = false;    
+        }
     }
 
     protected override void Die()
@@ -66,18 +73,5 @@ public class EnemyStats : CharacterStats
         PlayerManager.instance.currency += soulsDropAmount.GetValue();
         dropSystem.GenerateDrop();
 
-    }
-
-    protected override void DecreaseHealthBy(int _damage)
-    {
-        base.DecreaseHealthBy(_damage);
-
-        //Popup dmg text from player
-        if(_damage > 0)
-        {
-            bool isCritical = IsCriticalHit(_damage);
-            Color textColor = isCritical ? Color.yellow : Color.gray;
-            enemy.fx.CreatePopUpText(_damage.ToString(), textColor);
-        }
     }
 }

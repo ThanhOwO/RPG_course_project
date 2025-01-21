@@ -29,7 +29,7 @@ public class PlayerParryState : PlayerState
         {
             if(hit.GetComponent<Arrow_Controller>() != null)
             {
-                hit.GetComponent<Arrow_Controller>().FlipArrow();
+                hit.GetComponent<Arrow_Controller>().ParriedArrow();
                 ParrySuccessful();
             }
             

@@ -9,9 +9,13 @@ public class Arrow_Controller : MonoBehaviour
     [SerializeField] private bool canMove;
     [SerializeField] private bool flipped;
     private Animator anim;
+    private CharacterStats myStats;
+    private int facingDir = 1;
+    private new Transform transform;
 
     void Start() {
         anim = GetComponentInChildren<Animator>();
+        transform = GetComponent<Transform>();
     }
 
     private void Update() 
@@ -21,12 +25,24 @@ public class Arrow_Controller : MonoBehaviour
             rb.linearVelocity = new Vector2(xVelocity, rb.linearVelocityY);
             anim.SetBool("Spin", true);
         }
+
+        if(facingDir == 1 && rb.linearVelocityX < 0)
+        {
+            facingDir = -1;
+            transform.Rotate(0, 180, 0);
+        } 
+    }
+
+    public void SetupArrow(float _speed, CharacterStats _myStats)
+    {
+        xVelocity = _speed;
+        myStats = _myStats;
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.layer == LayerMask.NameToLayer(targetLayerName))
         {
-            other.GetComponent<CharacterStats>()?.TakeDamage(damage);
+            myStats.DoDamge(other.GetComponent<CharacterStats>());
             StuckInto(other);
         }
         else if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -34,7 +50,7 @@ public class Arrow_Controller : MonoBehaviour
 
     }
 
-    public void FlipArrow()
+    public void ParriedArrow()
     {
         if(flipped)
             return;

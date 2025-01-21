@@ -25,7 +25,8 @@ public class PlayerCrouchState : PlayerState
     public override void Update()
     {
         base.Update();
-
+        player.zeroVelocity();
+        
         if (Input.GetKeyUp(KeyCode.S) && player.IsGroundDetected())
             stateMachine.ChangeState(player.idleState);
 

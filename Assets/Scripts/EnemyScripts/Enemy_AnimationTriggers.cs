@@ -22,6 +22,10 @@ public class Enemy_AnimationTriggers : MonoBehaviour
             }
         }
     }
+    private void SpecialAttackTrigger()
+    {
+        enemy.AnimationSpecialAttackTrigger();
+    }
     protected void OpenCounterAttackWindow() => enemy.OpenCounterAttackWindow();
     protected void CloseCounterAttackWindow() => enemy.CloseCounterAttackWindow();
 }

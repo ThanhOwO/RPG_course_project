@@ -27,11 +27,20 @@ public class PlayerParryState : PlayerState
 
         foreach(var hit in colliders)
         {
+            if(hit.GetComponent<Arrow_Controller>() != null)
+            {
+                hit.GetComponent<Arrow_Controller>().FlipArrow();
+                ParrySuccessful();
+            }
+            
             if(hit.GetComponent<Enemy>() != null)
             {   
                 if(hit.GetComponent<Enemy>().CanBeStunned())
                 {
                     ParrySuccessful();
+
+                    if (player.skill.parry.CanUseSkill())
+                        player.skill.parry.UseSkill(); //restore health on successful parry
 
                     if(canCreateClone)
                     {
@@ -55,9 +64,5 @@ public class PlayerParryState : PlayerState
     {
         stateTimer = 10;
         player.anim.SetBool("ParrySuccessful", true);
-
-        if (player.skill.parry.CanUseSkill())
-            player.skill.parry.UseSkill(); //restore health on successful parry
-
     }
 }

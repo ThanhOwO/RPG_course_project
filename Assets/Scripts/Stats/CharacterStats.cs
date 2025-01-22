@@ -531,9 +531,5 @@ public class CharacterStats : MonoBehaviour
 
     public void MakeInvincible(bool _invincible) => isInvincible = _invincible;
 
-    public void GetCritStatus(bool _crit)
-    {
-        Debug.Log("isCrit ? " + _crit);
-        
-    }
+
 }

@@ -29,6 +29,7 @@ public class Enemy : Entity
     [Header("Attack info")]
     public float agroDistance = 2;
     public float attackDistance = 2;
+    public float attackHeight = 2f;
     public float attackCooldown;
     public float minAttackCooldown = 1;
     public float maxAttackCooldown = 2;
@@ -121,6 +122,8 @@ public class Enemy : Entity
         return false;
     }
     public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, 13, whatIsPlayer);
+    //My player detection for boss
+    public virtual RaycastHit2D IsPlayerDetected2() => Physics2D.BoxCast(wallCheck.position, new Vector2(attackDistance, attackHeight), 0, Vector2.right * FacingDir, attackDistance, whatIsPlayer);
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
     public virtual void AnimationSpecialAttackTrigger()
     {
@@ -131,6 +134,10 @@ public class Enemy : Entity
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * FacingDir, transform.position.y));
+        Gizmos.DrawWireCube(
+            new Vector3(transform.position.x + attackDistance * FacingDir, transform.position.y),
+            new Vector3(attackDistance, attackHeight, 1)
+        );
     }
 
     public override void Stagger()

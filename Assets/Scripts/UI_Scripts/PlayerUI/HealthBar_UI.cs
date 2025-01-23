@@ -4,9 +4,9 @@ using UnityEngine.UI;
 
 public class HealthBar_UI : MonoBehaviour
 {
-    private Entity entity;
+    private Entity entity => GetComponentInParent<Entity>();
     private RectTransform myTransform;
-    private CharacterStats myStats;
+    private CharacterStats myStats => GetComponentInParent<CharacterStats>();
     [SerializeField] private Slider topSlider; //health slider
     [SerializeField] private Slider bottomSlider; //damage slider
     private const float DAMAGED_HEALTH_SHRINK_TIMER_MAX = 0.5f;
@@ -16,16 +16,19 @@ public class HealthBar_UI : MonoBehaviour
     private void Start()
     {
         myTransform = GetComponent<RectTransform>();
-        entity = GetComponentInParent<Entity>();
         topSlider = transform.Find("TopSlider").GetComponent<Slider>();
         bottomSlider = transform.Find("BottomSlider").GetComponent<Slider>();
-        myStats = GetComponentInParent<CharacterStats>();
         
-        entity.onFlipped += FlipUI; //When the onFlipped happens we add an call the FlipUI function
-        myStats.onHealthChanged += UpdateHealthUI;
+
 
         UpdateHealthUI();
         bottomSlider.value = topSlider.value;
+    }
+
+    private void OnEnable() 
+    {
+        entity.onFlipped += FlipUI; //When the onFlipped happens we add an call the FlipUI function
+        myStats.onHealthChanged += UpdateHealthUI;
     }
 
     private void Update() 
@@ -68,8 +71,11 @@ public class HealthBar_UI : MonoBehaviour
 
     private void OnDisable()
     {
-        entity.onFlipped -= FlipUI;
-        myStats.onHealthChanged -= UpdateHealthUI; 
+        if(entity != null)
+            entity.onFlipped -= FlipUI;
+
+        if(myStats!= null)
+            myStats.onHealthChanged -= UpdateHealthUI; 
     } 
     
 }

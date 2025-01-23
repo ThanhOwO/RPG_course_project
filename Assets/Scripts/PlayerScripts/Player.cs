@@ -128,6 +128,9 @@ public class Player : Entity
     }
     public void CatchTheSword()
     {
+        if(isDead)
+            return;
+            
         if(!playerIsInBlackHole || !stats.isDead)
             stateMachine.ChangeState(catchswordState);
         

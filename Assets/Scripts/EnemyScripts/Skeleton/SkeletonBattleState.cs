@@ -5,6 +5,7 @@ public class SkeletonBattleState : EnemyState
     private Transform player;
     private Enemy_Skeleton enemy;
     private int moveDir;
+    private bool flippedOnce;
     public SkeletonBattleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Skeleton _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         this.enemy = _enemy;
@@ -12,6 +13,8 @@ public class SkeletonBattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        stateTimer = enemy.battleTime;
+        flippedOnce = false;
         player = PlayerManager.instance.player.transform;
 
         if (enemy.IsPlayerDetected() && enemy.IsPlayerDetected().distance < enemy.attackDistance)
@@ -43,6 +46,12 @@ public class SkeletonBattleState : EnemyState
             } 
         }else
         {
+            if(flippedOnce == false)
+            {
+                flippedOnce = true;
+                enemy.Flip();
+            }
+
             if(stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 7)
                 stateMachine.ChangeState(enemy.idleState);
         }

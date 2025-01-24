@@ -5,6 +5,7 @@ public class DeathBringerBattleState : EnemyState
     private Transform player;
     private Enemy_DeathBringer enemy;
     private int moveDir;
+    private bool flippedOnce;
     public DeathBringerBattleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName,Enemy_DeathBringer _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         this.enemy = _enemy;
@@ -13,6 +14,8 @@ public class DeathBringerBattleState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        stateTimer = enemy.battleTime;
+        flippedOnce = false;
         player = PlayerManager.instance.player.transform;
 
         if (enemy.IsPlayerDetected2() && enemy.IsPlayerDetected2().distance < enemy.attackDistance)
@@ -44,6 +47,14 @@ public class DeathBringerBattleState : EnemyState
                 else
                     stateMachine.ChangeState(enemy.idleState);
             } 
+        }
+        else
+        {
+            if(flippedOnce == false)
+            {
+                flippedOnce = true;
+                enemy.Flip();
+            }
         }
 
         if(player.position.x > enemy.transform.position.x + .5f)

@@ -121,7 +121,19 @@ public class Enemy : Entity
 
         return false;
     }
-    public virtual RaycastHit2D IsPlayerDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, 13, whatIsPlayer);
+    public virtual RaycastHit2D IsPlayerDetected() 
+    {
+        RaycastHit2D playerDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, 13, whatIsPlayer);
+        RaycastHit2D wallDetected = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, 13, whatIsGround);
+
+        if(wallDetected)
+        {
+            if(wallDetected.distance < playerDetected.distance)
+                return default(RaycastHit2D);
+            
+        }
+        return playerDetected;
+    } 
     //My player detection for boss
     public virtual RaycastHit2D IsPlayerDetected2() => Physics2D.BoxCast(wallCheck.position, new Vector2(attackDistance, attackHeight), 0, Vector2.right * FacingDir, attackDistance, whatIsPlayer);
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();

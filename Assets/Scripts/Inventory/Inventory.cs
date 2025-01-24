@@ -207,38 +207,36 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
     {
-        List<InventoryItem> materialsUsed = new List<InventoryItem>();
-
-        for(int i = 0; i < _requiredMaterials.Count; i++)
+        //Check if all required materials are available with the required quantity
+        foreach(var requiredItem in _requiredMaterials)
         {
-            if(stashDictionary.TryGetValue(_requiredMaterials[i].data, out InventoryItem stashValue))
+            if(stashDictionary.TryGetValue(requiredItem.data, out InventoryItem stashItem))
             {
-                //add this to used material
-                if(stashValue.stackSize < _requiredMaterials[i].stackSize)
+                if(stashItem.stackSize < requiredItem.stackSize)
                 {
                     Debug.Log("Not enough materials");
                     return false;
                 }
-                else
-                {
-                    materialsUsed.Add(stashValue);
-                }
             }
             else
             {
-                Debug.Log("Not enough materials");
+                Debug.Log("Material not found");
                 return false;
             }
         }
 
-        for(int i = 0; i < materialsUsed.Count; i++)
+        //If all materials are available remove them from stash
+
+        foreach(var requiredItem in _requiredMaterials)
         {
-            RemoveItem(materialsUsed[i].data);
+            for(int i = 0; i < requiredItem.stackSize; i++)
+            {
+                RemoveItem(requiredItem.data);
+            }
         }
 
         AddItem(_itemToCraft);
-        Debug.Log("Crafted " + _itemToCraft.name);
-
+        Debug.Log("Crafted " + _itemToCraft.itemName);
         return true;
     }
 

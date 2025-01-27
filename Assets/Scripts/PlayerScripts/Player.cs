@@ -8,6 +8,7 @@ public class Player : Entity
     public GameObject sword { get; private set;}
     public PlayerStats playerStats { get; private set;}
     public PlayerFX fx { get; private set;}
+    public Collider2D ledgeCollider { get; private set;} 
 
     #region States
     public PlayerStateMachine stateMachine {get; private set;}
@@ -27,6 +28,7 @@ public class Player : Entity
     public PlayerBrakeState brakeState {get; private set;}
     public PlayerStunnedState stunnedState {get; private set;}
     public PlayerCrouchState crouchState {get; private set;}
+    public PlayerLedgeGrabState ledgeGrabState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -42,6 +44,14 @@ public class Player : Entity
     private float defaultMoveSpeed;
     private float defaultJumpForce;
     private float defaultDashSpeed;
+
+    [Header("Ledge info")]
+    public bool canGrabLedge = true;
+    [SerializeField] protected Transform ledgeCheck;
+    public float ledgeGrabRadius;
+    public Vector2 offset2;
+    public Vector2 offset1;
+    private bool canDetectLedge;
 
     [Header("Dash info")]
     public float dashSpeed;
@@ -75,6 +85,7 @@ public class Player : Entity
         brakeState = new PlayerBrakeState(this, stateMachine, "Brake");
         stunnedState = new PlayerStunnedState(this, stateMachine, "Stun");
         crouchState = new PlayerCrouchState(this, stateMachine, "Crouch");
+        ledgeGrabState = new PlayerLedgeGrabState(this, stateMachine, "Grab");
     }
 
     protected override void Start() 
@@ -84,6 +95,7 @@ public class Player : Entity
         playerStats = GetComponent<PlayerStats>();
         stateMachine.Initialize(idleState);
         fx = GetComponent<PlayerFX>();
+        ledgeCollider = GetComponentInChildren<Collider2D>();
         
         defaultMoveSpeed = moveSpeed;
         defaultJumpForce = jumpForce;
@@ -98,6 +110,7 @@ public class Player : Entity
         base.Update();
         stateMachine.currentState.Update();
         CheckForDashInput();
+        CheckForLedge();
 
         if(Input.GetKeyDown(KeyCode.F) && skill.crystal.crystalUnlocked)
             skill.crystal.CanUseSkill();
@@ -196,4 +209,43 @@ public class Player : Entity
     {
         knockbackPower = new Vector2(0, 0);
     }
+
+    #region Ledge grab regions
+    public bool IsLedgeDetected() => Physics2D.OverlapCircle(ledgeCheck.position, ledgeGrabRadius, whatIsGround);
+
+    private void CheckForLedge()
+    {
+        if (!canDetectLedge || !canGrabLedge)
+            return;
+
+        if (IsLedgeDetected() && canGrabLedge)
+        {
+            if(isDead)
+                return;
+            canGrabLedge = false;
+            stateMachine.ChangeState(ledgeGrabState);
+        }
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(ledgeCheck.position, ledgeGrabRadius);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+       if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            canDetectLedge = false;
+    }
+
+    private void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            canDetectLedge = true;
+    }
+    #endregion
+
+    
 }

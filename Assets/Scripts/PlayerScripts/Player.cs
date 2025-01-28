@@ -28,6 +28,7 @@ public class Player : Entity
     public PlayerStunnedState stunnedState {get; private set;}
     public PlayerCrouchState crouchState {get; private set;}
     public PlayerLedgeGrabState ledgeGrabState {get; private set;}
+    public PlayerLadderClimbState ladderClimbState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -43,6 +44,8 @@ public class Player : Entity
     private float defaultMoveSpeed;
     private float defaultJumpForce;
     private float defaultDashSpeed;
+    public bool IsTouchingLadder { get; private set; }
+    public bool isClimbing;
 
     [Header("Ledge info")]
     public bool canGrabLedge = true;
@@ -85,6 +88,7 @@ public class Player : Entity
         stunnedState = new PlayerStunnedState(this, stateMachine, "Stun");
         crouchState = new PlayerCrouchState(this, stateMachine, "Crouch");
         ledgeGrabState = new PlayerLedgeGrabState(this, stateMachine, "Grab");
+        ladderClimbState = new PlayerLadderClimbState(this, stateMachine, "LadderClimb");
     }
 
     protected override void Start() 
@@ -109,6 +113,7 @@ public class Player : Entity
         stateMachine.currentState.Update();
         CheckForDashInput();
         CheckForLedge();
+        CheckForLadderClimb();
 
         if(Input.GetKeyDown(KeyCode.F) && skill.crystal.crystalUnlocked)
             skill.crystal.CanUseSkill();
@@ -208,7 +213,7 @@ public class Player : Entity
         knockbackPower = new Vector2(0, 0);
     }
 
-    #region Ledge grab regions
+    #region Ledge & ladder grab regions
     public bool IsLedgeDetected() => Physics2D.OverlapCircle(ledgeCheck.position, ledgeGrabRadius, whatIsGround);
 
     private void CheckForLedge()
@@ -225,6 +230,15 @@ public class Player : Entity
         }
     }
 
+    private void CheckForLadderClimb()
+    {
+        if(IsTouchingLadder && Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0f && !isDead)
+        {
+            isClimbing = true;
+            stateMachine.ChangeState(ladderClimbState);
+        }
+    }
+
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
@@ -234,14 +248,20 @@ public class Player : Entity
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-       if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             canDetectLedge = false;
+
+        if(other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+            IsTouchingLadder = true;
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
             canDetectLedge = true;
+        
+        if(other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
+            IsTouchingLadder = false;
     }
     #endregion
 

@@ -46,7 +46,7 @@ public class PlayerLedgeGrabState : PlayerState
 
     private void LedgeClimbOver()
     {
-        Vector2 ledgePosition = player.ledgeCollider.transform.position;
+        Vector2 ledgePosition = player.transform.position;
         Vector2 offset = player.FacingDir == 1 ? player.offset2 : new Vector2(-player.offset2.x, player.offset2.y);
         climbEndPosition = ledgePosition + offset;
         player.transform.position = climbEndPosition;
@@ -55,7 +55,7 @@ public class PlayerLedgeGrabState : PlayerState
 
     private void DropDownLedge()
     {
-        Vector2 ledgePosition = player.ledgeCollider.transform.position;
+        Vector2 ledgePosition = player.transform.position;
         Vector2 offset = player.FacingDir == 1 ? player.offset1 : new Vector2(-player.offset1.x, player.offset1.y);
         climbEndPosition = ledgePosition + offset;
         player.transform.position = climbEndPosition;

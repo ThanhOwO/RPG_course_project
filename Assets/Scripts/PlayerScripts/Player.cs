@@ -8,7 +8,6 @@ public class Player : Entity
     public GameObject sword { get; private set;}
     public PlayerStats playerStats { get; private set;}
     public PlayerFX fx { get; private set;}
-    public BoxCollider2D ledgeCollider { get; private set;} 
 
     #region States
     public PlayerStateMachine stateMachine {get; private set;}
@@ -95,7 +94,6 @@ public class Player : Entity
         playerStats = GetComponent<PlayerStats>();
         stateMachine.Initialize(idleState);
         fx = GetComponent<PlayerFX>();
-        ledgeCollider = GetComponentInChildren<BoxCollider2D>();
         
         defaultMoveSpeed = moveSpeed;
         defaultJumpForce = jumpForce;

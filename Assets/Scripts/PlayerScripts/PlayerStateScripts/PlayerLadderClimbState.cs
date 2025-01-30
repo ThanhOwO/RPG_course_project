@@ -21,9 +21,15 @@ public class PlayerLadderClimbState : PlayerState
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         if (Mathf.Abs(verticalInput) > 0.1f)
+        {
+            player.anim.speed = 1;
             player.rb.linearVelocity = new Vector2(0, verticalInput * climbSpeed);
+        }
         else
+        {
             player.rb.linearVelocity = new Vector2(0, 0);
+            player.anim.speed = 0;
+        }
 
         player.anim.SetFloat("ladderSpeed", verticalInput);
 
@@ -43,5 +49,6 @@ public class PlayerLadderClimbState : PlayerState
         base.Exit();
         player.rb.gravityScale = 3.5f;
         player.isClimbing = false;
+        player.anim.speed = 1;
     }
 }

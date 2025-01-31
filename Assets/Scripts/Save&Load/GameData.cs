@@ -18,12 +18,14 @@ public class GameData
     public float lastDeathY;
     public int lastDeathAmount;
     public Serializable_Dictionary<string, float> volumeSettings;
+    public Vector2 playerLastestPosition;
 
     public GameData()
     {
         this.lastDeathAmount = 0;
         this.lastDeathX = 0;
         this.lastDeathY = 0;
+        playerLastestPosition = Vector2.zero;
         
         this.currency = 0;
         skillTree = new Serializable_Dictionary<string, bool>();

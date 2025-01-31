@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
+
         LoadLastDeath(_data);
         LoadLastActivatedSavePoint(_data);
         LoadSavePoint(_data);
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void SaveData(ref GameData _data)
     {
+        _data.playerLastestPosition = PlayerManager.instance.player.playerLastestPosition;
         _data.lastDeathAmount = lastDeathAmount;
         _data.lastDeathX = player.position.x;
         _data.lastDeathY = player.position.y;
@@ -101,13 +103,17 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     private void LoadLastDeath(GameData _data)
     {
+        Player player = PlayerManager.instance.player;
+        player.playerLastestPosition = _data.playerLastestPosition;
+        if (player == null) 
+            return;
+
         lastDeathAmount = _data.lastDeathAmount;
-        lastDeathX = _data.lastDeathX;
-        lastDeathY = _data.lastDeathY;
+        Vector3 spawnPosition = _data.playerLastestPosition;;
 
         if(lastDeathAmount > 0)
         {
-            GameObject newLastDeath = Instantiate(lastDeathPrefab, new Vector3(lastDeathX, lastDeathY), Quaternion.identity);
+            GameObject newLastDeath = Instantiate(lastDeathPrefab, spawnPosition, Quaternion.identity);
             newLastDeath.GetComponent<LastDeath_Controller>().currency = lastDeathAmount;
         }
 

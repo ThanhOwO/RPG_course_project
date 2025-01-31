@@ -4,6 +4,7 @@ public class PlayerGroundState : PlayerState
 {
     private float coyoteTime = 0.2f;
     private float coyoteTimeCounter;
+    private float lastPositionUpdateTime;
 
     public PlayerGroundState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -17,6 +18,33 @@ public class PlayerGroundState : PlayerState
     public override void Update()
     {
         base.Update();
+        GetInput();
+
+        //Get the current player position each 3 seconds
+        if (Time.time - lastPositionUpdateTime >= 3f)
+        {
+            player.playerLastestPosition = player.transform.position;
+            lastPositionUpdateTime = Time.time;
+        }
+
+    }
+    public override void Exit()
+    {
+        base.Exit();
+    }
+    private bool HasNoSword()
+    {
+        if(!player.sword)
+        {
+            return true;
+        }
+        
+        player.sword.GetComponent<Sword_Skill_Controller2>().ReturnSword();
+        return false;
+    }
+
+    private void GetInput()
+    {
         if(Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked)
         {
             if (player.skill.blackhole.cooldownTimer > 0)
@@ -47,7 +75,7 @@ public class PlayerGroundState : PlayerState
 
         if(Input.GetKeyDown(KeyCode.S) && player.IsGroundDetected())
             stateMachine.ChangeState(player.crouchState);
-        
+
         //Coyote jump
         if (!player.IsGroundDetected())
             coyoteTimeCounter -= Time.deltaTime;
@@ -56,20 +84,6 @@ public class PlayerGroundState : PlayerState
 
         if(Input.GetKeyDown(KeyCode.Space) && coyoteTimeCounter > 0)
             stateMachine.ChangeState(player.jumpState);
+    }
 
-    }
-    public override void Exit()
-    {
-        base.Exit();
-    }
-    private bool HasNoSword()
-    {
-        if(!player.sword)
-        {
-            return true;
-        }
-        
-        player.sword.GetComponent<Sword_Skill_Controller2>().ReturnSword();
-        return false;
-    }
 }

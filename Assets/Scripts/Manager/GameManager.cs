@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour, ISaveManager
     public int lastDeathAmount;
     [SerializeField] private float lastDeathX;
     [SerializeField] private float lastDeathY;
-
+    private Savepoint lastActivatedSavepoint;
 
     private void Awake() {
 
@@ -39,8 +39,13 @@ public class GameManager : MonoBehaviour, ISaveManager
     public void LoadData(GameData _data)
     {
         LoadLastDeath(_data);
-        LoadClosestSavePoint(_data);
+        LoadLastActivatedSavePoint(_data);
         LoadSavePoint(_data);
+    }
+
+    public void SetLastActivatedSavepoint(Savepoint savepoint)
+    {
+        lastActivatedSavepoint = savepoint; // Update the last activated savepoint
     }
 
     public void SaveData(ref GameData _data)
@@ -49,8 +54,8 @@ public class GameManager : MonoBehaviour, ISaveManager
         _data.lastDeathX = player.position.x;
         _data.lastDeathY = player.position.y;
 
-        if(FindClosestSavePoint() != null)
-            _data.closestSavepointID = FindClosestSavePoint().id;
+        if(lastActivatedSavepoint != null)
+            _data.lastActivatedSavepointID = lastActivatedSavepoint.id;
 
         _data.savePoints.Clear();
 
@@ -60,22 +65,38 @@ public class GameManager : MonoBehaviour, ISaveManager
         }
     }
 
-    private Savepoint FindClosestSavePoint()
-    {
-        float closestDistance = Mathf.Infinity;
-        Savepoint closestSavepoint = null;
+    // Alex's save logic is find the closest savepoint
+    // private Savepoint FindClosestSavePoint()
+    // {
+    //     float closestDistance = Mathf.Infinity;
+    //     Savepoint closestSavepoint = null;
 
-        foreach (Savepoint savepoint in savePoints)
+    //     foreach (Savepoint savepoint in savePoints)
+    //     {
+    //         float distanceToSavepoint = Vector2.Distance(player.position, savepoint.transform.position);
+    //         if(distanceToSavepoint < closestDistance && savepoint.activateStatus == true)
+    //         {
+    //             closestDistance = distanceToSavepoint;
+    //             closestSavepoint = savepoint;
+    //         }
+    //     }
+
+    //     return closestSavepoint;
+    // }
+
+    private void LoadLastActivatedSavePoint(GameData _data)
+    {
+        if(string.IsNullOrEmpty(_data.lastActivatedSavepointID))
+            return;
+
+        foreach(Savepoint savepoint in savePoints)
         {
-            float distanceToSavepoint = Vector2.Distance(player.position, savepoint.transform.position);
-            if(distanceToSavepoint < closestDistance && savepoint.activateStatus == true)
+            if(_data.lastActivatedSavepointID == savepoint.id)
             {
-                closestDistance = distanceToSavepoint;
-                closestSavepoint = savepoint;
+                player.position = savepoint.transform.position;
+                break;
             }
         }
-
-        return closestSavepoint;
     }
 
     private void LoadLastDeath(GameData _data)
@@ -107,19 +128,20 @@ public class GameManager : MonoBehaviour, ISaveManager
         }
     }
 
-    private void LoadClosestSavePoint(GameData _data)
-    {
-        if(_data.closestSavepointID == null)
-            return;
+    // Alex's load logic is find the closest savepoint
+    // private void LoadClosestSavePoint(GameData _data)
+    // {
+    //     if(_data.closestSavepointID == null)
+    //         return;
 
-        foreach(Savepoint savepoint in savePoints)
-        {
-            if(_data.closestSavepointID == savepoint.id)
-            {
-                player.position = savepoint.transform.position;
-            }
-        }
-    }
+    //     foreach(Savepoint savepoint in savePoints)
+    //     {
+    //         if(_data.closestSavepointID == savepoint.id)
+    //         {
+    //             player.position = savepoint.transform.position;
+    //         }
+    //     }
+    // }
 
     public void PauseGame(bool _pause)
     {

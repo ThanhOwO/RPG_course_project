@@ -12,7 +12,8 @@ public class GameData
     public Serializable_Dictionary<string, int> inventory;
     public List<string> equipmentID;
     public Serializable_Dictionary<string, bool> savePoints;
-    public string closestSavepointID;
+    //public string closestSavepointID;
+    public string lastActivatedSavepointID;
     public float lastDeathX;
     public float lastDeathY;
     public int lastDeathAmount;
@@ -29,7 +30,8 @@ public class GameData
         inventory = new Serializable_Dictionary<string, int>();
         equipmentID = new List<string>();
 
-        closestSavepointID = string.Empty;
+        //closestSavepointID = string.Empty;
+        lastActivatedSavepointID = string.Empty;
         savePoints = new Serializable_Dictionary<string, bool>();
         volumeSettings = new Serializable_Dictionary<string, float>();
     }

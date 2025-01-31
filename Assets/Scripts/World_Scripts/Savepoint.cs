@@ -33,6 +33,7 @@ public class Savepoint : MonoBehaviour
         if(other.GetComponent<Player>() != null)
         {
             ActivateSavepoint();
+            GameManager.instance.SetLastActivatedSavepoint(this);
         }
     }
 

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerMoveState : PlayerGroundState
 {
+    private float moveTimer;
     public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
 
@@ -9,6 +10,7 @@ public class PlayerMoveState : PlayerGroundState
     public override void Enter()
     {
         base.Enter();
+        moveTimer = 0f;
         AudioManager.instance.PlaySFX(14, null);
     }
     public override void Update()
@@ -16,9 +18,16 @@ public class PlayerMoveState : PlayerGroundState
         base.Update();
 
         player.setVelocity(xInput * player.moveSpeed, rb.linearVelocityY);
+
+        if (xInput != 0)
+            moveTimer += Time.deltaTime;
+
         if(xInput == 0 && player.IsGroundDetected())
         {
-            stateMachine.ChangeState(player.brakeState);
+            if(moveTimer >= 0.5f)
+                stateMachine.ChangeState(player.brakeState);
+            else
+                stateMachine.ChangeState(player.idleState);
         }
 
         if (xInput == player.FacingDir && player.IsWallDetected())

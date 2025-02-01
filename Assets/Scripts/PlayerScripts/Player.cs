@@ -39,10 +39,12 @@ public class Player : Entity
 
     [Header("Move info")]
     public float moveSpeed = 7.0f;
-    public float jumpForce;
+    public float maxJumpForce;
+    public float minJumpForce;
     public float swordReturnImpact;
     private float defaultMoveSpeed;
-    private float defaultJumpForce;
+    private float defaultMaxJumpForce;
+    private float defaultMinJumpForce;
     private float defaultDashSpeed;
     public bool IsTouchingLadder { get; private set; }
     public bool isClimbing;
@@ -101,7 +103,8 @@ public class Player : Entity
         fx = GetComponent<PlayerFX>();
         
         defaultMoveSpeed = moveSpeed;
-        defaultJumpForce = jumpForce;
+        defaultMaxJumpForce = maxJumpForce;
+        defaultMinJumpForce = minJumpForce;
         defaultDashSpeed = dashSpeed;
     }
 
@@ -125,7 +128,8 @@ public class Player : Entity
     public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
     {
        moveSpeed = moveSpeed * (1 - _slowPercentage);
-       jumpForce = jumpForce * (1 - _slowPercentage);
+       maxJumpForce = maxJumpForce * (1 - _slowPercentage);
+       minJumpForce = minJumpForce * (1 - _slowPercentage);
        dashSpeed = dashSpeed * (1 - _slowPercentage);
        anim.speed = anim.speed * (1 - _slowPercentage);
 
@@ -136,7 +140,8 @@ public class Player : Entity
         base.ReturnDefaultSpeed();
 
         moveSpeed = defaultMoveSpeed;
-        jumpForce = defaultJumpForce;
+        maxJumpForce = defaultMaxJumpForce;
+        minJumpForce = defaultMinJumpForce;
         dashSpeed = defaultDashSpeed;
     }
     public void AssignNewSword(GameObject _newSword)

@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerState
 {
+    private float jumpTime = 0.2f;
+    private float jumpTimeCounter;
+    private bool isJumping;
+
     public PlayerJumpState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
 
@@ -10,8 +14,9 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
-        player.setVelocity(xInput * player.moveSpeed, player.jumpForce);
+        isJumping = true;
+        jumpTimeCounter = jumpTime;
+        player.setVelocity(xInput * player.moveSpeed, player.minJumpForce);
     }
     public override void Update()
     {
@@ -27,10 +32,17 @@ public class PlayerJumpState : PlayerState
             stateMachine.ChangeState(player.wallSlide); 
             return; 
         }
+
+        if (Input.GetKey(KeyCode.Space) && jumpTimeCounter > 0 && isJumping)
+        {
+            player.setVelocity(xInput * player.moveSpeed, player.minJumpForce);
+            jumpTimeCounter -= Time.deltaTime;
+        }
+        else if(Input.GetKeyUp(KeyCode.Space))
+            isJumping = false;
     }
     public override void Exit()
     {
         base.Exit();
-
     }
 }

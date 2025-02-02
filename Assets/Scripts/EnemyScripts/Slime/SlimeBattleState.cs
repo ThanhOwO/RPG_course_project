@@ -49,12 +49,15 @@ public class SlimeBattleState : EnemyState
                 stateMachine.ChangeState(enemy.idleState);
         }
 
-        if(player.position.x > enemy.transform.position.x + .5f)
-            moveDir = 1;
-        else if(player.position.x < enemy.transform.position.x -.5f)
-            moveDir = -1;
-        
-        enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
+        if (enemy.moveType == EnemyMoveType.AlwaysMove || enemy.moveType == EnemyMoveType.MoveOnBattle)
+        {
+            if (player.position.x > enemy.transform.position.x + .5f)
+                moveDir = 1;
+            else if (player.position.x < enemy.transform.position.x - .5f)
+                moveDir = -1;
+
+            enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
+        }
     }
     public override void Exit()
     {

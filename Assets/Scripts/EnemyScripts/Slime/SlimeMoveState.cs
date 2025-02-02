@@ -14,13 +14,18 @@ public class SlimeMoveState : SlimeGroundedState
     {
         base.Update();
 
-        enemy.setVelocity(enemy.moveSpeed * enemy.FacingDir, rb.linearVelocityY);
-
-        if(enemy.IsWallDetected() || !enemy.IsGroundDetected())
+        if(enemy.moveType == EnemyMoveType.AlwaysMove || (enemy.moveType == EnemyMoveType.MoveOnBattle && enemy.IsPlayerDetected()))
         {
-            stateMachine.ChangeState(enemy.idleState);
-            enemy.Flip();
-        }
+            enemy.setVelocity(enemy.moveSpeed * enemy.FacingDir, rb.linearVelocityY);
+
+            if(enemy.IsWallDetected() || !enemy.IsGroundDetected())
+            {
+                stateMachine.ChangeState(enemy.idleState);
+                enemy.Flip();
+            }
+        } 
+        else
+            stateMachine.ChangeState(enemy.idleState);  
     }
     public override void Exit()
     {

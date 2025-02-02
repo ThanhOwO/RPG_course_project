@@ -14,13 +14,18 @@ public class ArcherMoveState : ArcherGroundedState
     {
         base.Update();
 
-        enemy.setVelocity(enemy.moveSpeed * enemy.FacingDir, rb.linearVelocityY);
-
-        if(enemy.IsWallDetected() || !enemy.IsGroundDetected())
+        if(enemy.moveType == EnemyMoveType.AlwaysMove || (enemy.moveType == EnemyMoveType.MoveOnBattle && enemy.IsPlayerDetected()))
         {
+            enemy.setVelocity(enemy.moveSpeed * enemy.FacingDir, rb.linearVelocityY);
+
+            if(enemy.IsWallDetected() || !enemy.IsGroundDetected())
+            {
+                stateMachine.ChangeState(enemy.idleState);
+                enemy.Flip();
+            }
+        } 
+        else
             stateMachine.ChangeState(enemy.idleState);
-            enemy.Flip();
-        }
     }
     public override void Exit()
     {

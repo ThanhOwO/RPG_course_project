@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+public enum EnemyMoveType { Idle, MoveOnBattle, AlwaysMove }
+
 [RequireComponent(typeof(Rigidbody2D))]
 
 [RequireComponent(typeof(CapsuleCollider2D))]
@@ -21,6 +23,7 @@ public class Enemy : Entity
     [SerializeField] protected GameObject counterImage;
 
     [Header("Move info")]
+    public EnemyMoveType moveType = EnemyMoveType.AlwaysMove;
     public float moveSpeed = 2;
     public float idleTime = 2;
     public float battleTime = 7;

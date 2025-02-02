@@ -15,8 +15,18 @@ public class SlimeIdleState : SlimeGroundedState
     public override void Update()
     {
         base.Update();
-        if(stateTimer < 0)
-            stateMachine.ChangeState(enemy.moveState);
+        if (stateTimer < 0)
+        {
+            if (enemy.moveType == EnemyMoveType.AlwaysMove)
+            {
+                stateMachine.ChangeState(enemy.moveState);
+            }
+            else if (enemy.moveType == EnemyMoveType.MoveOnBattle && enemy.IsPlayerDetected())
+            {
+                stateMachine.ChangeState(enemy.moveState);
+            }
+            // If moveType is Idle, the enemy will stay idle
+        }
     }
 
     public override void Exit()

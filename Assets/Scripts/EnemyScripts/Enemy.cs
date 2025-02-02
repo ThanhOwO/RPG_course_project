@@ -15,7 +15,7 @@ public class Enemy : Entity
     [SerializeField] protected LayerMask whatIsPlayer;
 
     [Header("Stunned info")]
-    public float stunDuration = 1;
+    public float stunDuration = 2;
     protected bool canBeStunned;
     public bool isStaggered;
     [SerializeField] protected GameObject counterImage;

@@ -52,7 +52,7 @@ public class Enemy_Slime : Enemy
 
         return false;
     }
-        public override void Die()
+    public override void Die()
     {
         base.Die();
 
@@ -118,7 +118,7 @@ public class Enemy_Slime : Enemy
     {
         for(int i = 0; i < _amount; i++)
         {
-            GameObject newSlime = Instantiate(slimePrefab, transform.position, Quaternion.identity);
+            GameObject newSlime = Instantiate(_slimePrefab, transform.position, Quaternion.identity);
             newSlime.GetComponent<Enemy_Slime>().SetupSlimes(FacingDir);
         }
     }

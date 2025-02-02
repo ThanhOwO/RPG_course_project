@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class HealthBar_UI : MonoBehaviour
 {
     private Entity entity => GetComponentInParent<Entity>();
-    private RectTransform myTransform;
+    private RectTransform myTransform => GetComponent<RectTransform>();
     private CharacterStats myStats => GetComponentInParent<CharacterStats>();
     [SerializeField] private Slider topSlider; //health slider
     [SerializeField] private Slider bottomSlider; //damage slider
@@ -15,7 +15,6 @@ public class HealthBar_UI : MonoBehaviour
 
     private void Start()
     {
-        myTransform = GetComponent<RectTransform>();
         topSlider = transform.Find("TopSlider").GetComponent<Slider>();
         bottomSlider = transform.Find("BottomSlider").GetComponent<Slider>();
         
@@ -67,7 +66,15 @@ public class HealthBar_UI : MonoBehaviour
         }
     }
 
-    private void FlipUI() => myTransform.Rotate(0, 180, 0);
+    private void FlipUI()
+    {
+        if (myTransform == null)
+        {
+            Debug.LogWarning("HealthBar_UI: myTransform is NULL! Skipping FlipUI.");
+            return;
+        }
+        myTransform.Rotate(0, 180, 0);
+    } 
 
     private void OnDisable()
     {

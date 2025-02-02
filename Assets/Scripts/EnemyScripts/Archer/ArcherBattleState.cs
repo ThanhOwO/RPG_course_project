@@ -29,6 +29,8 @@ public class ArcherBattleState : EnemyState
     {
         base.Update();
 
+        float verticalDistance = Mathf.Abs(enemy.transform.position.y - player.position.y);
+
         if(enemy.IsPlayerDetected())
         {
             stateTimer = enemy.battleTime;
@@ -39,14 +41,14 @@ public class ArcherBattleState : EnemyState
                     stateMachine.ChangeState(enemy.jumpState);
             }
             
-            if(enemy.IsPlayerDetected().distance < enemy.attackDistance)
+            if(enemy.IsPlayerDetected().distance < enemy.attackDistance && verticalDistance < 2)
             {
                 if(CanAttack())
                     stateMachine.ChangeState(enemy.attackState);
             } 
         }else
         {
-            if(stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > 7)
+            if(stateTimer < 0 || Vector2.Distance(player.transform.position, enemy.transform.position) > enemy.agroDistance || verticalDistance > 2f)
                 stateMachine.ChangeState(enemy.idleState);
         }
 

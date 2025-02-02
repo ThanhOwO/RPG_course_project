@@ -150,6 +150,7 @@ public class Enemy : Entity
             new Vector3(transform.position.x + attackDistance * FacingDir, transform.position.y),
             new Vector3(attackDistance, attackHeight, 1)
         );
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + agroDistance, transform.position.y));
     }
 
     public override void Stagger()

@@ -15,6 +15,7 @@ public class Enemy_Shady : Enemy
     public ShadyDeathState deathState { get; private set; }
     public ShadyStunnedState stunnedState { get; private set; }
     public ShadyBattleState battleState { get; private set; }
+    public ShadyWaitingState waitingState { get; private set; }
     #endregion
     protected override void Awake()
     {
@@ -24,6 +25,7 @@ public class Enemy_Shady : Enemy
         battleState = new ShadyBattleState(this, stateMachine, "Run", this);
         deathState = new ShadyDeathState(this, stateMachine, "Explode", this);
         stunnedState = new ShadyStunnedState(this, stateMachine, "Stun", this);
+        waitingState = new ShadyWaitingState(this, stateMachine, "Waiting", this);
 
     }
 

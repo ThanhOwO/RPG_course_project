@@ -23,7 +23,7 @@ public class ArcherIdleState : ArcherGroundedState
             }
             else if (enemy.moveType == EnemyMoveType.MoveOnBattle && enemy.IsPlayerDetected())
             {
-                stateMachine.ChangeState(enemy.moveState);
+                stateMachine.ChangeState(enemy.battleState);
             }
             // If moveType is Idle, the enemy will stay idle
         }

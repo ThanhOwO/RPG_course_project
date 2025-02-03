@@ -23,7 +23,7 @@ public class ArcherBattleState : EnemyState
         }
 
         if(player.GetComponent<Player>().isDead)
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.idleState);
     }
     public override void Update()
     {

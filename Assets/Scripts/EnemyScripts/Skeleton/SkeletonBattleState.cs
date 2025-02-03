@@ -17,20 +17,17 @@ public class SkeletonBattleState : EnemyState
         flippedOnce = false;
         player = PlayerManager.instance.player.transform;
 
+        //Avoid enemy moving too close to player when attacking
         if (enemy.IsPlayerDetected() && enemy.IsPlayerDetected().distance < enemy.attackDistance)
         {
             if (CanAttack())
-            {
                 enemy.stateMachine.ChangeState(enemy.attackState);
-            }
             else
-            {
                 enemy.stateMachine.ChangeState(enemy.idleState);
-            }
         }
 
         if(player.GetComponent<Player>().isDead)
-            stateMachine.ChangeState(enemy.moveState);
+            stateMachine.ChangeState(enemy.idleState);
     }
     public override void Update()
     {
@@ -58,7 +55,7 @@ public class SkeletonBattleState : EnemyState
                 stateMachine.ChangeState(enemy.idleState);
         }
 
-        if (enemy.moveType == EnemyMoveType.AlwaysMove || enemy.moveType == EnemyMoveType.MoveOnBattle)
+        if ((enemy.moveType == EnemyMoveType.AlwaysMove || enemy.moveType == EnemyMoveType.MoveOnBattle) && enemy.IsGroundDetected())
         {
             if (player.position.x > enemy.transform.position.x + .5f)
                 moveDir = 1;
@@ -67,6 +64,8 @@ public class SkeletonBattleState : EnemyState
 
             enemy.setVelocity(enemy.moveSpeed * moveDir, rb.linearVelocityY);
         }
+        else if (!enemy.IsGroundDetected() || enemy.moveType == EnemyMoveType.Idle)
+            stateMachine.ChangeState(enemy.waitingState);
 
     }
     public override void Exit()

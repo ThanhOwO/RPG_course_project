@@ -21,6 +21,7 @@ public class Enemy_Slime : Enemy
     public SlimeStunnedState stunnedState { get; private set;}
     public SlimeDeathState deathState { get; private set;}
     public SlimeStaggerState staggerState { get; private set;}
+    public SlimeWaitingState waitingState { get; private set;}
     #endregion
 
     protected override void Awake()
@@ -35,7 +36,7 @@ public class Enemy_Slime : Enemy
         stunnedState = new SlimeStunnedState(this, stateMachine, "Stun", this);
         deathState = new SlimeDeathState(this, stateMachine, "Die", this);
         staggerState = new SlimeStaggerState(this, stateMachine, "Stagger", this);
-
+        waitingState = new SlimeWaitingState(this, stateMachine, "Waiting", this);
     }
     protected override void Start()
     {

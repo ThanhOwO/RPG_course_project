@@ -23,9 +23,12 @@ public class SkeletonIdleState : SkeletonGroundedState
             }
             else if (enemy.moveType == EnemyMoveType.MoveOnBattle && enemy.IsPlayerDetected())
             {
-                stateMachine.ChangeState(enemy.moveState);
+                stateMachine.ChangeState(enemy.battleState);
             }
-            // If moveType is Idle, the enemy will stay idle
+            else if(enemy.moveType == EnemyMoveType.Idle)
+            {
+                stateMachine.ChangeState(enemy.waitingState);
+            }
         }
     }
 

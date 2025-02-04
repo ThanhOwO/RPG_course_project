@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class Savepoint : MonoBehaviour
+public class Savepoint : MonoBehaviour, IInteractable
 {
     private Animator anim;
     public bool activateStatus;
@@ -12,25 +12,25 @@ public class Savepoint : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         light2D = GetComponentInChildren<Light2D>();
-    }
 
-    private void Update()
-    {
-        if(activateStatus == false)
+        if (!activateStatus)
         {
             light2D.enabled = false;
         }
     }
 
+    //Remember to generate savepoint-id for each savepoint
     [ContextMenu("Generate Savepoint id")]
     private void GenerateId()
     {
         id = System.Guid.NewGuid().ToString();
     }
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    public void Interact()
     {
-        if(other.GetComponent<Player>() != null)
+        SaveGame();
+        
+        if (!activateStatus)
         {
             ActivateSavepoint();
             GameManager.instance.SetLastActivatedSavepoint(this);
@@ -45,5 +45,12 @@ public class Savepoint : MonoBehaviour
         activateStatus = true;
         anim.SetBool("Active", true);
         light2D.enabled = true;
+    }
+
+    private void SaveGame()
+    {
+        Debug.Log("Game Saved at Savepoint: " + id);
+        AudioManager.instance.PlaySFX(5, transform);
+        GameManager.instance.SetLastActivatedSavepoint(this);
     }
 }

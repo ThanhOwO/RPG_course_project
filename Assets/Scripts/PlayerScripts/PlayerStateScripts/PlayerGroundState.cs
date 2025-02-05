@@ -17,6 +17,8 @@ public class PlayerGroundState : PlayerState
     }
     public override void Update()
     {
+        if(DialogueController.isTalking) return;
+        
         base.Update();
         GetInput();
 

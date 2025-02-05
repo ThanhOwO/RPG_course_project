@@ -110,7 +110,7 @@ public class Player : Entity
 
     protected override void Update() 
     {
-        if(Time.timeScale == 0)
+        if(Time.timeScale == 0 || DialogueController.isTalking)
             return;
             
         base.Update();

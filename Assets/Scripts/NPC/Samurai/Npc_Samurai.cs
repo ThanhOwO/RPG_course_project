@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class Npc_Samurai : Npc, IInteractable
+public class Npc_Samurai : Npc, ITalkable
 {
 
+    [SerializeField] private DialogueText dialogueText;
+    [SerializeField] private DialogueController dialogueController;
     #region States
     public SamuraiIdleState idleState { get; private set;}
 
@@ -25,13 +27,17 @@ public class Npc_Samurai : Npc, IInteractable
         base.Update();
     }
 
-    public void Interact()
+    public override void Interact()
     {
         Transform player = PlayerManager.instance.player.transform;
         if(player != null)
-        {
             FacePlayer(player);
-        }
-        Debug.Log("Hello, I'm Yukanasi the samurai. How can I help you?");
+        
+        Talk(dialogueText);
+    }
+
+    public void Talk(DialogueText dialogueText)
+    {
+        dialogueController.DisplayNextParagraph(dialogueText);
     }
 }

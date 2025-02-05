@@ -4,8 +4,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider2D))]
 
-public class Npc : Entity
+public class Npc : Entity, IInteractable
 {
+    public Transform interactUI;
     [SerializeField] protected LayerMask whatIsPlayer;
     public NpcStateMachine stateMachine {get; private set;}
     public string lastAnimBoolName  {get; private set;}
@@ -60,6 +61,13 @@ public class Npc : Entity
         if ((direction > 0 && !FacingRight) || (direction < 0 && FacingRight))
         {
             Flip();
+            if (interactUI != null)
+                interactUI.rotation = Quaternion.identity;
         }
+    }
+
+    public virtual void Interact()
+    {
+        
     }
 }

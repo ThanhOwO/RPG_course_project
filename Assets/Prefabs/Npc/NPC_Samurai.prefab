@@ -288,7 +288,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.05855179, y: -0.91409945}
+  m_Offset: {x: 0.05855179, y: -1.8466808}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -298,7 +298,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 4, y: 3}
+  m_Size: {x: 4, y: 1.1348374}
   m_EdgeRadius: 0
 --- !u!114 &8625088073456235676
 MonoBehaviour:
@@ -325,9 +325,12 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  interactUI: {fileID: 1221755753095002607}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
+  dialogueText: {fileID: 11400000, guid: ed5574507341ebd4dae02236f84018c8, type: 2}
+  dialogueController: {fileID: 0}
 --- !u!114 &2695260027806328352
 MonoBehaviour:
   m_ObjectHideFlags: 0

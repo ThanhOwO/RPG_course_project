@@ -29,9 +29,12 @@ public class Npc_Samurai : Npc, ITalkable
 
     public override void Interact()
     {
-        Transform player = PlayerManager.instance.player.transform;
-        if(player != null)
-            FacePlayer(player);
+        Player player = PlayerManager.instance.player;
+        if(player.transform != null)
+        {
+            player.stateMachine.ChangeState(player.idleState);
+            FacePlayer(player.transform);
+        }
         
         Talk(dialogueText);
     }

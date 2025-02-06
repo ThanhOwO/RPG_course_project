@@ -33,5 +33,24 @@ public class RoomManager : MonoBehaviour
             confiner.InvalidateCache();
         }
     }
+
+    public void UpdateConfiner(string _roomId)
+    {
+        Room[] rooms = FindObjectsByType<Room>(FindObjectsSortMode.None);
+
+        foreach(Room room in rooms)
+        {
+            if(room.roomID == _roomId)
+            {
+                PolygonCollider2D bounds = room.GetComponentInChildren<PolygonCollider2D>();
+                if (bounds!= null && confiner!= null)
+                {
+                    confiner.m_BoundingShape2D = bounds;
+                    confiner.InvalidateCache();
+                }
+            }
+            break;
+        }
+    }
     
 }

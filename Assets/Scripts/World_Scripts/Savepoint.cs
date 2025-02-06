@@ -7,16 +7,20 @@ public class Savepoint : MonoBehaviour, IInteractable
     public bool activateStatus;
     public string id;
     private Light2D light2D;
+    public Room parentRoom;
+    public string roomId;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         light2D = GetComponentInChildren<Light2D>();
+        parentRoom = GetComponentInParent<Room>();
 
         if (!activateStatus)
-        {
             light2D.enabled = false;
-        }
+
+        if (parentRoom != null)
+            roomId = parentRoom.roomID;
     }
 
     //Remember to generate savepoint-id for each savepoint

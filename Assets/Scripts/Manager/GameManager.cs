@@ -38,15 +38,25 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void LoadData(GameData _data)
     {
-
         LoadLastDeath(_data);
         LoadLastActivatedSavePoint(_data);
         LoadSavePoint(_data);
+
+        if (!string.IsNullOrEmpty(_data.lastActivatedRoomID))
+        {
+            RoomManager.instance.UpdateConfiner(_data.lastActivatedRoomID);
+        }
     }
 
     public void SetLastActivatedSavepoint(Savepoint savepoint)
     {
         lastActivatedSavepoint = savepoint; // Update the last activated savepoint
+        if (savepoint != null)
+        {
+            GameData data = new GameData();
+            SaveData(ref data);
+            data.lastActivatedRoomID = savepoint.roomId;
+        }
     }
 
     public void SaveData(ref GameData _data)
@@ -57,7 +67,10 @@ public class GameManager : MonoBehaviour, ISaveManager
         _data.lastDeathY = player.position.y;
 
         if(lastActivatedSavepoint != null)
+        {
             _data.lastActivatedSavepointID = lastActivatedSavepoint.id;
+            _data.lastActivatedRoomID = lastActivatedSavepoint.roomId;
+        }
 
         _data.savePoints.Clear();
 
@@ -96,6 +109,7 @@ public class GameManager : MonoBehaviour, ISaveManager
             if(_data.lastActivatedSavepointID == savepoint.id)
             {
                 player.position = savepoint.transform.position;
+                RoomManager.instance.MovePlayerToRoom(savepoint.parentRoom, player.position);
                 break;
             }
         }

@@ -12,24 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821f231f615673a4da99649e1d3952ec, type: 3}
   m_Name: Npc1
   m_EditorClassIdentifier: 
-  speakerName: Yukanasi
+  speakerName: Tao
   paragraphs:
-  - 'a b c d e f g h i j k l m n o p q r s t u v w x y z
-
-'
-  - A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
-  - 1 2 3 4 5 6 7 8 9 0
-  - "\xB1 ! @ # $ % ^ & * ( ) _ + - = \xA7 \xA3 \u2122 \xA1 \xA2 \u221E \xA7 \xB6
-    \u2022 \xAA \xBA \u2013 \u2260"
-  - "\u0153 \u2211 \xB4 \xAE \u2020 \xA5 \xA8 \u02C6 \xF8 \u03C0 \u201C \u2018 \xE5
-    \xDF \u2202 \u0192 \xA9 \u02D9 \u02DA \xAC \u2026 \xE6 \xAB ` ~ \u03A9 \u2248
-    \xE7 \u221A \u222B \u02DC \xB5 \u2264 \u2265 \xF7 \u20A9"
-  - "\xC8 \xC9 \xCA \xCB \u0112 \u0116 \u0118 \xC0 \xC1 \xC2 \xC4 \xC6 \xC3 \u0100
-    \u015A \u0160 \u0178 \xDB \xDC \xD9 \xDA \u016A \xCE \xCF \xCD \u012A \u012E
-    \xCC \xD4 \xD6 \xD2 \xD3 \u0152 \u014C \xD5 \u0141 \u017D \u0179 \u017B \xC7
-    \u0106 \u010C \xD1 \u0143"
-  - "\xE8 \xE9 \xEA \xEB \u0113 \u0117 \u0119 \xE0 \xE1 \xE2 \xE4 \xE6 \xE3 \u0101
-    \u015B \u0161 \xFF \xFB \xFC \xF9 \xFA \u016B \xEE \xEF \xED \u012B \u012F \xEC
-    \xF4 \xF6 \xF2 \xF3 \u0153 \u014D \xF5 \u0142 \u017E \u017A \u017C \xE7 \u0107
-    \u010D \xF1 \u0144 \r\n"
-  - "This is a test text. English, Vi\u1EC7t Nam"
+  - "Kill all m\u1ECDi An rape all m\u1ECDi An"

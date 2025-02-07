@@ -39,6 +39,8 @@ public class Savepoint : MonoBehaviour, IInteractable
             ActivateSavepoint();
             GameManager.instance.SetLastActivatedSavepoint(this);
         }
+
+        RestorePlayerHealth();
     }
 
     public void ActivateSavepoint()
@@ -56,5 +58,14 @@ public class Savepoint : MonoBehaviour, IInteractable
         Debug.Log("Game Saved at Savepoint: " + id);
         AudioManager.instance.PlaySFX(5, transform);
         GameManager.instance.SetLastActivatedSavepoint(this);
+    }
+
+    private void RestorePlayerHealth()
+    {
+        PlayerStats playerStats = PlayerManager.instance.player.GetComponent<PlayerStats>();
+        if(playerStats != null)
+        {
+            playerStats.IncreaseHealthBy(playerStats.GetMaxHealthValue());
+        }
     }
 }

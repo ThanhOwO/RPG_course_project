@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour, ISaveManager
             if(_data.lastActivatedSavepointID == savepoint.id)
             {
                 player.position = savepoint.transform.position;
-                RoomManager.instance.MovePlayerToRoom(savepoint.parentRoom, player.position);
+                RoomManager.instance.MovePlayerToRoom(savepoint.parentRoom, player.position, false);
                 break;
             }
         }

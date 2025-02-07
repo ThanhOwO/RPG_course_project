@@ -23,9 +23,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void MovePlayerToRoom(Room newRoom, Vector2 newPosition)
+    public void MovePlayerToRoom(Room newRoom, Vector2 newPosition, bool useFade = true)
     {
-        StartCoroutine(TransitionToRoom(newRoom, newPosition));
+        StartCoroutine(TransitionToRoom(newRoom, newPosition, useFade));
     }
 
     public void UpdateConfiner(string _roomId)
@@ -47,9 +47,9 @@ public class RoomManager : MonoBehaviour
         }
     }
     
-    private IEnumerator TransitionToRoom(Room newRoom, Vector2 newPosition)
+    private IEnumerator TransitionToRoom(Room newRoom, Vector2 newPosition, bool useFade)
     {
-        if (roomFadeCanvas != null)
+        if (useFade && roomFadeCanvas != null)
         {
             roomFadeCanvas.FadeOut();
             yield return new WaitUntil(() => roomFadeCanvas.isFadingOut == false);
@@ -65,9 +65,9 @@ public class RoomManager : MonoBehaviour
             confiner.InvalidateCache();
         }
 
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.3f);
 
-        if (roomFadeCanvas != null)
+        if (useFade && roomFadeCanvas != null)
         {
             roomFadeCanvas.FadeIn();
         }

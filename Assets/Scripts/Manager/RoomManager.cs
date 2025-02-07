@@ -1,3 +1,4 @@
+using System.Collections;
 using Cinemachine;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class RoomManager : MonoBehaviour
     public CinemachineVirtualCamera virtualCamera;
     private CinemachineConfiner2D confiner;
     public Transform player;
+    public RoomFadeCanvas roomFadeCanvas;
 
     private void Awake() 
     {
@@ -23,15 +25,7 @@ public class RoomManager : MonoBehaviour
 
     public void MovePlayerToRoom(Room newRoom, Vector2 newPosition)
     {
-        player.position = newPosition;
-        virtualCamera.Follow = player;
-
-        PolygonCollider2D newBounds = newRoom.GetComponentInChildren<PolygonCollider2D>();
-        if (newBounds != null && confiner != null)
-        {
-            confiner.m_BoundingShape2D = newBounds;
-            confiner.InvalidateCache();
-        }
+        StartCoroutine(TransitionToRoom(newRoom, newPosition));
     }
 
     public void UpdateConfiner(string _roomId)
@@ -53,4 +47,29 @@ public class RoomManager : MonoBehaviour
         }
     }
     
+    private IEnumerator TransitionToRoom(Room newRoom, Vector2 newPosition)
+    {
+        if (roomFadeCanvas != null)
+        {
+            roomFadeCanvas.FadeOut();
+            yield return new WaitUntil(() => roomFadeCanvas.isFadingOut == false);
+        }
+
+        player.position = newPosition;
+        virtualCamera.Follow = player;
+
+        PolygonCollider2D newBounds = newRoom.GetComponentInChildren<PolygonCollider2D>();
+        if (newBounds != null && confiner != null)
+        {
+            confiner.m_BoundingShape2D = newBounds;
+            confiner.InvalidateCache();
+        }
+
+        yield return new WaitForSeconds(0.7f);
+
+        if (roomFadeCanvas != null)
+        {
+            roomFadeCanvas.FadeIn();
+        }
+    }
 }

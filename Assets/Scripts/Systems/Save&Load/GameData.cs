@@ -20,6 +20,7 @@ public class GameData
     public int lastDeathAmount;
     public Serializable_Dictionary<string, float> volumeSettings;
     public Vector2 playerLastestPosition;
+    public List<string> discoveredRooms;
 
     public GameData()
     {
@@ -38,5 +39,7 @@ public class GameData
         lastActivatedRoomID = string.Empty;
         savePoints = new Serializable_Dictionary<string, bool>();
         volumeSettings = new Serializable_Dictionary<string, float>();
+
+        discoveredRooms = new List<string>();
     }
 }

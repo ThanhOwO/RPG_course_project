@@ -26,6 +26,7 @@ public class RoomManager : MonoBehaviour
     public void MovePlayerToRoom(Room newRoom, Vector2 newPosition, bool useFade = true)
     {
         StartCoroutine(TransitionToRoom(newRoom, newPosition, useFade));
+        MapManager.instance.DiscoverRoom(newRoom.roomID);
     }
 
     public void UpdateConfiner(string _roomId)

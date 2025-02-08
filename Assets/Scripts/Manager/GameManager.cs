@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,11 +42,11 @@ public class GameManager : MonoBehaviour, ISaveManager
         LoadLastDeath(_data);
         LoadLastActivatedSavePoint(_data);
         LoadSavePoint(_data);
+        LoadMap(_data);
 
         if (!string.IsNullOrEmpty(_data.lastActivatedRoomID))
-        {
             RoomManager.instance.UpdateConfiner(_data.lastActivatedRoomID);
-        }
+        
     }
 
     public void SetLastActivatedSavepoint(Savepoint savepoint)
@@ -65,6 +66,7 @@ public class GameManager : MonoBehaviour, ISaveManager
         _data.lastDeathAmount = lastDeathAmount;
         _data.lastDeathX = player.position.x;
         _data.lastDeathY = player.position.y;
+        _data.discoveredRooms = MapManager.instance.GetDiscoveredRooms();
 
         if(lastActivatedSavepoint != null)
         {
@@ -171,4 +173,6 @@ public class GameManager : MonoBehaviour, ISaveManager
             Time.timeScale = 1;
     }
 
+    private void LoadMap(GameData _data) => MapManager.instance.LoadDiscoveredRooms(_data.discoveredRooms);
+    
 }

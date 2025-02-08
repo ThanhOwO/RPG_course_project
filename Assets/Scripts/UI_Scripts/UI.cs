@@ -40,7 +40,7 @@ public class UI : MonoBehaviour, ISaveManager
     {
         if(Input.GetKeyDown(KeyCode.Tab))
             SwitchWithKeyTo(characterUI);
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.M))
             SwitchWithKeyTo(craftUI);
         if(Input.GetKeyDown(KeyCode.O))
             SwitchWithKeyTo(optionUI);

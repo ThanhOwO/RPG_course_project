@@ -16,6 +16,8 @@ public class UI : MonoBehaviour, ISaveManager
     [SerializeField] private GameObject inGameUi;
     [SerializeField] private CanvasGroup inGameUICanvasGroup;
     [SerializeField] private UI_VolumeSlider[] volumeSettings;
+    [SerializeField] private MapCameraController mapCameraController;
+
     public UI_ItemTooltip itemTooltip;
     public UI_StatToolTip statTooltip;
     public UI_SkillToolTip skillToolTip;
@@ -109,6 +111,11 @@ public class UI : MonoBehaviour, ISaveManager
             //Debug.Log($"Deactivating {_menu.name}");
             _menu.SetActive(false);
             CheckForInGameUI();
+            if (_menu == craftUI && mapCameraController != null)
+            {
+                mapCameraController.ResetCamera();
+            }
+            
             return;
         }
 

@@ -15,7 +15,10 @@ public class InteractTrigger : MonoBehaviour
     void Update()
     {
         if(isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        {
             interactableObject?.Interact();
+            interactSprite.gameObject.SetActive(false);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -38,6 +41,12 @@ public class InteractTrigger : MonoBehaviour
             isPlayerInRange = false;
             interactSprite.gameObject.SetActive(false);
         }
-
     }
+
+    public void ResetInteraction()
+    {
+        if (isPlayerInRange)
+            interactSprite.gameObject.SetActive(true);
+    }
+
 }

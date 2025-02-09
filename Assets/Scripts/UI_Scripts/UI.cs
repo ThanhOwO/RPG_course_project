@@ -22,6 +22,7 @@ public class UI : MonoBehaviour, ISaveManager
     public UI_StatToolTip statTooltip;
     public UI_SkillToolTip skillToolTip;
     public UI_CraftWindow craftWindow;
+    public static bool isInputBlocked = false;
 
     private void Awake() 
     {
@@ -40,6 +41,8 @@ public class UI : MonoBehaviour, ISaveManager
     // Update is called once per frame
     void Update()
     {
+        if (isInputBlocked) return;
+
         if(Input.GetKeyDown(KeyCode.Tab))
             SwitchWithKeyTo(characterUI);
         if(Input.GetKeyDown(KeyCode.M))

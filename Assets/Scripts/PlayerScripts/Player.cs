@@ -29,6 +29,7 @@ public class Player : Entity
     public PlayerCrouchState crouchState {get; private set;}
     public PlayerLedgeGrabState ledgeGrabState {get; private set;}
     public PlayerLadderClimbState ladderClimbState {get; private set;}
+    public PlayerRestState restState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -92,6 +93,7 @@ public class Player : Entity
         crouchState = new PlayerCrouchState(this, stateMachine, "Crouch");
         ledgeGrabState = new PlayerLedgeGrabState(this, stateMachine, "Grab");
         ladderClimbState = new PlayerLadderClimbState(this, stateMachine, "LadderClimb");
+        restState = new PlayerRestState(this, stateMachine, "Rest");
     }
 
     protected override void Start() 

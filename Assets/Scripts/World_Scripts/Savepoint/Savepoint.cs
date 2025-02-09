@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -9,15 +10,22 @@ public class Savepoint : MonoBehaviour, IInteractable
     private Light2D light2D;
     public Room parentRoom;
     public string roomId;
+    private Player player;
+    [SerializeField] private SavePoint_UI savePointUI;
+    [SerializeField] private GameObject mapIcon;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         light2D = GetComponentInChildren<Light2D>();
         parentRoom = GetComponentInParent<Room>();
+        player = PlayerManager.instance.player;
 
         if (!activateStatus)
+        {
             light2D.enabled = false;
+            mapIcon.SetActive(false);
+        }
 
         if (parentRoom != null)
             roomId = parentRoom.roomID;
@@ -32,15 +40,10 @@ public class Savepoint : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        SaveGame();
-        
-        if (!activateStatus)
-        {
-            ActivateSavepoint();
-            GameManager.instance.SetLastActivatedSavepoint(this);
-        }
+        if(savePointUI.isOpen)
+            return;
 
-        RestorePlayerHealth();
+        StartCoroutine(SaveAction()); 
     }
 
     public void ActivateSavepoint()
@@ -51,6 +54,7 @@ public class Savepoint : MonoBehaviour, IInteractable
         activateStatus = true;
         anim.SetBool("Active", true);
         light2D.enabled = true;
+        mapIcon.SetActive(true);
     }
 
     private void SaveGame()
@@ -67,5 +71,22 @@ public class Savepoint : MonoBehaviour, IInteractable
         {
             playerStats.IncreaseHealthBy(playerStats.GetMaxHealthValue());
         }
+    }
+
+    private IEnumerator SaveAction()
+    {
+        player.stateMachine.ChangeState(player.restState);
+
+        yield return new WaitForSeconds(1f);
+
+        SaveGame();
+        if (!activateStatus)
+        {
+            ActivateSavepoint();
+            GameManager.instance.SetLastActivatedSavepoint(this);
+        }
+        RestorePlayerHealth();
+        if (savePointUI != null)
+            savePointUI.OpenMenu();
     }
 }

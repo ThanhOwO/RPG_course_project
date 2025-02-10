@@ -5,58 +5,104 @@ using UnityEngine.UI;
 
 public class Teleport_UI : MonoBehaviour
 {
-    [SerializeField] private GameObject savePointButton;
+    [SerializeField] private GameObject savePointButtonPrefab;
     [SerializeField] private Transform savePointParent;
+    [SerializeField] private TeleportCameraController teleportMap;
+    private SavePoint_UI savePointUI;
+    private List<Savepoint> activeSavePoints = new List<Savepoint>();
+    private List<Button> savePointButtons = new List<Button>();
+    private int selectedIndex = 0;
 
     private void OnEnable() 
     {
+        savePointUI = GetComponentInParent<SavePoint_UI>();
         PopulateSavepointList();
+
+        if (activeSavePoints.Count > 0)
+        {
+            selectedIndex = 0;
+            HighlightButton(selectedIndex);
+            MoveMiniMapToSavePoint(selectedIndex);
+        }
+    }
+
+    private void Update()
+    {
+        //Navigation buttons by keyboard
+        if(savePointButtons.Count == 0) return;
+        Navigate();
+    }
+
+    private void Navigate()
+    {
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+            selectedIndex = (selectedIndex - 1 + savePointButtons.Count) % savePointButtons.Count;
+        else if(Input.GetKeyDown(KeyCode.DownArrow))
+            selectedIndex = (selectedIndex + 1) % savePointButtons.Count;
+        else if(Input.GetKeyDown(KeyCode.Space))
+        {
+            savePointButtons[selectedIndex].onClick.Invoke();
+            return;
+        }
+
+        HighlightButton(selectedIndex);
+        MoveMiniMapToSavePoint(selectedIndex);
     }
 
     private void PopulateSavepointList()
     {
+        savePointButtons.Clear();
+        activeSavePoints.Clear();
+
         foreach (Transform child in savePointParent)
-        {
             Destroy(child.gameObject);
-        }
 
-        List<Savepoint> activeSavePoints = GetActiveSavePoints();
-
-        foreach (Savepoint savePoint in activeSavePoints)
+        foreach (Savepoint savePoint in FindObjectsByType<Savepoint>(FindObjectsSortMode.None))
         {
-            CreateSavePointButton(savePoint);
+            if(savePoint.activateStatus)
+            {
+                activeSavePoints.Add(savePoint);
+                CreateSavePointButton(savePoint);
+            }
         }
     }
 
     private void CreateSavePointButton(Savepoint savePoint)
     {
-        GameObject buttonObj = Instantiate(savePointButton, savePointParent);
+        GameObject buttonObj = Instantiate(savePointButtonPrefab, savePointParent);
         TMP_Text buttonText = buttonObj.GetComponentInChildren<TMP_Text>();
         Button button = buttonObj.GetComponent<Button>();
 
         buttonText.text = $"{savePoint.parentRoom.roomID}";
 
-        button.onClick.AddListener(() => SelectSavePoint(savePoint));
+        button.onClick.AddListener(() => TeleportToSavePoint(savePoint));
+        savePointButtons.Add(button);
     }
 
-    private void SelectSavePoint(Savepoint savePoint)
+    private void TeleportToSavePoint(Savepoint savePoint)
     {
-        Debug.Log($"Selected Save Point: Room {savePoint.parentRoom.roomID}");
+        RoomManager.instance.MovePlayerToRoom(savePoint.parentRoom, savePoint.transform.position);
+        savePointUI.CloseAll();
     }
 
-    private List<Savepoint> GetActiveSavePoints()
+    private void HighlightButton(int index)
     {
-        List<Savepoint> activePoints = new List<Savepoint>();
-        Savepoint[] allSavePoints = FindObjectsByType<Savepoint>(FindObjectsSortMode.None);
-
-        foreach (Savepoint sp in allSavePoints)
+        for (int i = 0; i < savePointButtons.Count; i++)
         {
-            if (sp.activateStatus)
+            Image buttonImg = savePointButtons[i].GetComponent<Image>();
+            if(buttonImg != null)
             {
-                activePoints.Add(sp);
+                Color32 color = buttonImg.color;
+                color.a = (i == index) ? (byte)255 : (byte)36;
+                buttonImg.color = color;
             }
         }
-
-        return activePoints;
     }
+    
+    private void MoveMiniMapToSavePoint(int index)
+    {
+        if (index >= 0 && index < activeSavePoints.Count)
+            teleportMap.FocusOnSavePoint(activeSavePoints[index].transform.position);
+    }
+
 }

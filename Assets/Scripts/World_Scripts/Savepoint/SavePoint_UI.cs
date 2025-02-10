@@ -20,10 +20,10 @@ public class SavePoint_UI : MonoBehaviour
 
     void Update()
     {
-        if (!isOpen || isTeleporting) return;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (isOpen && Input.GetKeyDown(KeyCode.Escape))
             CloseAll();
+
+        if (!isOpen || isTeleporting) return;
         
         NavigateButtons();
     }

@@ -28,6 +28,8 @@ public class Teleport_UI : MonoBehaviour
 
     private void Update()
     {
+        if (!gameObject.activeSelf) return;
+        
         //Navigation buttons by keyboard
         if(savePointButtons.Count == 0) return;
         Navigate();

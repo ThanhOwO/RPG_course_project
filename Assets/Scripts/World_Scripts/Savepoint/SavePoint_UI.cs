@@ -7,7 +7,7 @@ public class SavePoint_UI : MonoBehaviour
     [SerializeField] private GameObject teleportMapPanel;
     [SerializeField] private Player player;
     [SerializeField] private Button[] buttons;
-
+    private bool isTeleporting = false;
     private int selectedIndex = 0;
     private InteractTrigger interactTrigger;
     public bool isOpen = false;
@@ -20,7 +20,7 @@ public class SavePoint_UI : MonoBehaviour
 
     void Update()
     {
-        if (!isOpen) return;
+        if (!isOpen || isTeleporting) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
             CloseAll();
@@ -43,6 +43,7 @@ public class SavePoint_UI : MonoBehaviour
 
     public void OpenTeleportMap()
     {
+        isTeleporting = true;
         menuPanel.SetActive(false);
         teleportMapPanel.SetActive(true);
         Time.timeScale = 0; 
@@ -51,6 +52,7 @@ public class SavePoint_UI : MonoBehaviour
     public void CloseAll()
     {
         isOpen = false;
+        isTeleporting = false;
         UI.isInputBlocked = false;
         MapCameraController.isTeleportMap = false;
         CameraLookAround.isMoving = false;

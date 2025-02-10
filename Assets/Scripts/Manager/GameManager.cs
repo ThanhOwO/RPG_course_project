@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour, ISaveManager
     [SerializeField] private float lastDeathY;
     private Savepoint lastActivatedSavepoint;
 
+    [Header("Map")]
+    [SerializeField] private FogOfWar fogOfWar;
+
     private void Awake() {
 
         if (instance != null && instance != this) 
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour, ISaveManager
         if (!string.IsNullOrEmpty(_data.lastActivatedRoomID))
             RoomManager.instance.UpdateConfiner(_data.lastActivatedRoomID);
         
+        fogOfWar.RestoreClearedTiles(_data.clearedFogTiles);
     }
 
     public void SetLastActivatedSavepoint(Savepoint savepoint)
@@ -67,6 +71,7 @@ public class GameManager : MonoBehaviour, ISaveManager
         _data.lastDeathX = player.position.x;
         _data.lastDeathY = player.position.y;
         _data.discoveredRooms = MapManager.instance.GetDiscoveredRooms();
+        fogOfWar.SaveFogState(ref _data);
 
         if(lastActivatedSavepoint != null)
         {

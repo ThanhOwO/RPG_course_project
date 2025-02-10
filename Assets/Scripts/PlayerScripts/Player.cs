@@ -114,7 +114,7 @@ public class Player : Entity
 
     protected override void Update() 
     {
-        if(Time.timeScale == 0 || DialogueController.isTalking)
+        if(Time.timeScale == 0 || DialogueController.isTalking || UI.isInputBlocked)
             return;
             
         base.Update();
@@ -169,8 +169,10 @@ public class Player : Entity
     public IEnumerator BusyFor(float _seconds)
     {
         isBusy = true;
+        UI.isInputBlocked = true;
         yield return new WaitForSeconds(_seconds);
         isBusy = false;
+        UI.isInputBlocked = false;
     }
     private void CheckForDashInput()
     {   

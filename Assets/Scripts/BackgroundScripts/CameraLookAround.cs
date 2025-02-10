@@ -15,6 +15,7 @@ public class CameraLookAround : MonoBehaviour
     private float initialDeadZoneWidth;
     private float initialDeadZoneHeight;
     private bool isWaiting = false;
+    public static bool isMoving = false;
 
     void Start()
     {
@@ -28,6 +29,8 @@ public class CameraLookAround : MonoBehaviour
 
     void Update()
     {
+        if(isMoving) return;
+        
         Vector3 moveDir = Vector3.zero;
         bool isInputActive = false;
         

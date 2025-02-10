@@ -11,6 +11,7 @@ public class MapCameraController : MonoBehaviour
     private float defaultZoom;
     [SerializeField] private Vector2 minBounds;
     [SerializeField] private Vector2 maxBounds;
+    public static bool isTeleportMap = false;
 
     
     void Start()
@@ -30,6 +31,8 @@ public class MapCameraController : MonoBehaviour
 
     void HandleMovement()
     {
+        if(isTeleportMap) return;
+
         float moveX = Input.GetAxisRaw("CameraHorizontal");
         float moveY = Input.GetAxisRaw("CameraVertical");
 

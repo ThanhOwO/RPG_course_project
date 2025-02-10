@@ -115,9 +115,7 @@ public class UI : MonoBehaviour, ISaveManager
             _menu.SetActive(false);
             CheckForInGameUI();
             if (_menu == craftUI && mapCameraController != null)
-            {
                 mapCameraController.ResetCamera();
-            }
             
             return;
         }
@@ -174,6 +172,8 @@ public class UI : MonoBehaviour, ISaveManager
                 AudioManager.instance.PlaySFX(7, null);
                 child.SetActive(false);
                 isAnyMenuClosed = true;
+                if (child == craftUI && mapCameraController != null)
+                    mapCameraController.ResetCamera();
             }
         }
         // If any menu was closed, ensure the in-game UI is shown

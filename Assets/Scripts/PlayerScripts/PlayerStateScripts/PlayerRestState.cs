@@ -21,6 +21,6 @@ public class PlayerRestState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.StartCoroutine("BusyFor", 0.5f);
+        player.StartCoroutine("BusyFor", 1f);
     }
 }

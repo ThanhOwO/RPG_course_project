@@ -62,6 +62,8 @@ public class Player : Entity
     public float dashSpeed;
     public float dashDuration;
     public float dashDir {get; private set;}
+
+    [Header("Interaction info")]
     public bool playerIsInBlackHole;
     public bool isDead;
 

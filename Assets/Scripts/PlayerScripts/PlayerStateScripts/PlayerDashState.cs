@@ -22,6 +22,9 @@ public class PlayerDashState : PlayerState
 
         if(player.isDead)
             return;
+        
+        if(Input.GetButtonDown("Jump") && player.IsGroundDetected())
+            stateMachine.ChangeState(player.jumpState);
 
         if(!player.IsGroundDetected() && player.IsWallDetected())
             stateMachine.ChangeState(player.wallSlide);

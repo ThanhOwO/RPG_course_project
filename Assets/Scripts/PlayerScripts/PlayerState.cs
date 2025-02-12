@@ -10,6 +10,7 @@ public class PlayerState
     private string animBoolName;
     protected float stateTimer;
     protected bool triggerCalled;
+    protected bool isAnimationFinished;
 
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName)
     {
@@ -22,6 +23,7 @@ public class PlayerState
         player.anim.SetBool(animBoolName, true);
         rb = player.rb;
         triggerCalled = false;
+        isAnimationFinished = false;
     }
     public virtual void Update()
     {
@@ -29,6 +31,10 @@ public class PlayerState
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
         player.anim.SetFloat("yVelocity", rb.linearVelocityY);
+        if (player.anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && !player.anim.IsInTransition(0))
+        {
+            isAnimationFinished = true;
+        }
     }
     public virtual void Exit()
     {

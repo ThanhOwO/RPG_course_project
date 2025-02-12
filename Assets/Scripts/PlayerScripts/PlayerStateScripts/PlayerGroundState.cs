@@ -72,14 +72,14 @@ public class PlayerGroundState : PlayerState
         if(Input.GetKeyDown(KeyCode.Mouse0))
             stateMachine.ChangeState(player.primaryAttack);
         
-        if(!player.IsGroundDetected() && coyoteTimeCounter <= 0)
+        if(!player.IsGroundDetected() && !player.IsOnOneWayPlatform() && coyoteTimeCounter <= 0)
             stateMachine.ChangeState(player.airState);
 
-        if(Input.GetKeyDown(KeyCode.S) && player.IsGroundDetected())
+        if(Input.GetKeyDown(KeyCode.S) && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
             stateMachine.ChangeState(player.crouchState);
 
         //Coyote jump
-        if (!player.IsGroundDetected())
+        if (!player.IsGroundDetected() && !player.IsOnOneWayPlatform())
             coyoteTimeCounter -= Time.deltaTime;
         else
             coyoteTimeCounter = coyoteTime;

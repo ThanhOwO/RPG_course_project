@@ -58,6 +58,11 @@ public class Player : Entity
     public Vector2 offset1;
     private bool canDetectLedge;
 
+    [Header("One_way platform info")]
+    public Transform oneWayCheck;
+    public float oneWayCheckDistance = 0.1f;
+    public LayerMask whatIsOneWayPlatform;
+
     [Header("Dash info")]
     public float dashSpeed;
     public float dashDuration;
@@ -226,7 +231,10 @@ public class Player : Entity
     }
 
     #region Ledge & ladder grab regions
-    public bool IsLedgeDetected() => Physics2D.OverlapCircle(ledgeCheck.position, ledgeGrabRadius, whatIsGround);
+    public bool IsLedgeDetected()
+    {
+        return Physics2D.OverlapCircle(ledgeCheck.position, ledgeGrabRadius, whatIsGround);
+    } 
 
     private void CheckForLedge()
     {
@@ -251,13 +259,6 @@ public class Player : Entity
         }
     }
 
-    protected override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(ledgeCheck.position, ledgeGrabRadius);
-    }
-
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -277,5 +278,14 @@ public class Player : Entity
     }
     #endregion
 
-    
+    public bool IsOnOneWayPlatform() => Physics2D.Raycast(oneWayCheck.position, Vector2.down, oneWayCheckDistance, whatIsOneWayPlatform);
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(ledgeCheck.position, ledgeGrabRadius);
+        Gizmos.DrawLine(oneWayCheck.position, new Vector3(oneWayCheck.position.x, oneWayCheck.position.y - oneWayCheckDistance));
+    }
+
 }

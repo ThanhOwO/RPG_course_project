@@ -19,7 +19,7 @@ TagManager:
   - Npc
   - Map
   - MapFog
-  - 
+  - OneWayPlatform
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 1021753231
+    locked: 0
+  - name: OneWayPlatform
+    uniqueID: 3315459595
     locked: 0
   - name: Ladder
     uniqueID: 4183624257

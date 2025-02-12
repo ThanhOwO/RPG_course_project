@@ -28,9 +28,9 @@ public class PlayerDashState : PlayerState
 
         player.setVelocity(player.dashSpeed * player.dashDir, 0);
 
-        if(stateTimer < 0 && player.IsGroundDetected())
+        if(stateTimer < 0 && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
             stateMachine.ChangeState(player.brakeState);
-        else if(stateTimer < 0 && !player.IsGroundDetected())
+        else if(stateTimer < 0 && (!player.IsGroundDetected() || !player.IsOnOneWayPlatform()))
             stateMachine.ChangeState(player.airState);
         
         player.fx.CreateAfterImage();

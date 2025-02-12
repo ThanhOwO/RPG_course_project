@@ -33,7 +33,7 @@ public class PlayerAirState : PlayerState
             rb.gravityScale = fallGravityScale;
         }
 
-        if(player.IsGroundDetected())
+        if(player.IsGroundDetected() || player.IsOnOneWayPlatform())
         {
             stateMachine.ChangeState(player.idleState);
         }

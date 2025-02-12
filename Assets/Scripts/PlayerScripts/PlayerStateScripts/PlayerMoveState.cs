@@ -22,7 +22,7 @@ public class PlayerMoveState : PlayerGroundState
         if (xInput != 0)
             moveTimer += Time.deltaTime;
 
-        if(xInput == 0 && player.IsGroundDetected())
+        if(xInput == 0 && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
         {
             if(moveTimer >= 0.5f)
                 stateMachine.ChangeState(player.brakeState);

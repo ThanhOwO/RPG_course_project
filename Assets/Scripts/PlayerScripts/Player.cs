@@ -65,6 +65,8 @@ public class Player : Entity
     public LayerMask whatIsOneWayPlatform;
     [SerializeField] private Vector2 overlapSize = new Vector2(0.3f, 1f);
     [SerializeField] private Vector2 overlapOffset = Vector2.zero;
+    [HideInInspector] public bool disableOneWayCheck = false;
+
 
     [Header("Dash info")]
     public float dashSpeed;
@@ -285,7 +287,13 @@ public class Player : Entity
     }
     #endregion
 
-    public bool IsOnOneWayPlatform() => Physics2D.Raycast(oneWayCheck.position, Vector2.down, oneWayCheckDistance, whatIsOneWayPlatform);
+    public bool IsOnOneWayPlatform() 
+    {
+        if (disableOneWayCheck)
+            return false;
+            
+        return Physics2D.Raycast(oneWayCheck.position, Vector2.down, oneWayCheckDistance, whatIsOneWayPlatform);
+    } 
 
     protected override void OnDrawGizmos()
     {

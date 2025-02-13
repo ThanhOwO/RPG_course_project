@@ -30,16 +30,19 @@ public class PlayerCrouchState : PlayerState
         base.Update();
         player.zeroVelocity();
         
-        if (Input.GetKeyUp(KeyCode.S) && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
-            stateMachine.ChangeState(player.idleState);
-        
         if(player.IsOnOneWayPlatform() && Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
         {
+            player.disableOneWayCheck = true;
             stateMachine.ChangeState(player.airState);
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), platformCollider, true);
             player.StartCoroutine(ReenableCollision(platformCollider));
         }
 
+        if (Input.GetKeyUp(KeyCode.S) && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
+        {
+            stateMachine.ChangeState(player.idleState);
+        }
+        
         if (Input.GetKeyDown(KeyCode.A) && player.FacingDir == 1)
         {
             player.Flip();
@@ -61,5 +64,6 @@ public class PlayerCrouchState : PlayerState
     {
         yield return new WaitForSeconds(0.5f);
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), platformCollider, false);
+        player.disableOneWayCheck = false;
     }
 }

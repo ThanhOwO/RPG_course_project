@@ -8,6 +8,7 @@ public class Player : Entity
     public GameObject sword { get; private set;}
     public PlayerStats playerStats { get; private set;}
     public PlayerFX fx { get; private set;}
+    private CapsuleCollider2D playerCollider;
 
     #region States
     public PlayerStateMachine stateMachine {get; private set;}
@@ -51,17 +52,19 @@ public class Player : Entity
     public bool isClimbing;
 
     [Header("Ledge info")]
-    public bool canGrabLedge = true;
+    public bool isGrabbingLedge = false;
     [SerializeField] protected Transform ledgeCheck;
-    public float ledgeGrabRadius;
+    public LayerMask whatIsLedge;
+    public float grabRange = 0.5f;
     public Vector2 offset2;
     public Vector2 offset1;
-    private bool canDetectLedge;
 
     [Header("One_way platform info")]
     public Transform oneWayCheck;
     public float oneWayCheckDistance = 0.1f;
     public LayerMask whatIsOneWayPlatform;
+    [SerializeField] private Vector2 overlapSize = new Vector2(0.3f, 1f);
+    [SerializeField] private Vector2 overlapOffset = Vector2.zero;
 
     [Header("Dash info")]
     public float dashSpeed;
@@ -110,6 +113,7 @@ public class Player : Entity
         playerStats = GetComponent<PlayerStats>();
         stateMachine.Initialize(idleState);
         fx = GetComponent<PlayerFX>();
+        playerCollider = GetComponent<CapsuleCollider2D>();
         
         defaultMoveSpeed = moveSpeed;
         defaultMaxJumpForce = maxJumpForce;
@@ -231,21 +235,30 @@ public class Player : Entity
     }
 
     #region Ledge & ladder grab regions
+    private bool IsCollidingWithOneWayPlatformAbove()
+    {
+        if (playerCollider == null)
+            return false;
+        // Calculate the center and size of the overlap area
+        Vector2 overlapCenter = (Vector2)playerCollider.bounds.center + overlapOffset;
+        // Check for overlapping colliders within the extended area
+        Collider2D[] overlappingColliders = Physics2D.OverlapBoxAll(overlapCenter, overlapSize, 0, whatIsOneWayPlatform);
+        // If any overlapping colliders are found, return true
+        return overlappingColliders.Length > 0;
+    }
+
     public bool IsLedgeDetected()
     {
-        return Physics2D.OverlapCircle(ledgeCheck.position, ledgeGrabRadius, whatIsGround);
-    } 
+        RaycastHit2D hit = Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDir, grabRange, whatIsLedge);
+        bool isCollidingWithOneWayPlatformAbove = IsCollidingWithOneWayPlatformAbove();
+        return hit.collider != null && !isCollidingWithOneWayPlatformAbove;
+    }
 
     private void CheckForLedge()
     {
-        if (!canDetectLedge || !canGrabLedge)
-            return;
-
-        if (IsLedgeDetected() && canGrabLedge)
+        if (IsLedgeDetected() && !isGrabbingLedge && !isDead)
         {
-            if(isDead)
-                return;
-            canGrabLedge = false;
+            isGrabbingLedge = true;
             stateMachine.ChangeState(ledgeGrabState);
         }
     }
@@ -261,18 +274,12 @@ public class Player : Entity
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            canDetectLedge = false;
-
         if(other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
             IsTouchingLadder = true;
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            canDetectLedge = true;
-        
         if(other.gameObject.layer == LayerMask.NameToLayer("Ladder"))
             IsTouchingLadder = false;
     }
@@ -284,8 +291,21 @@ public class Player : Entity
     {
         base.OnDrawGizmos();
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(ledgeCheck.position, ledgeGrabRadius);
         Gizmos.DrawLine(oneWayCheck.position, new Vector3(oneWayCheck.position.x, oneWayCheck.position.y - oneWayCheckDistance));
+
+        if (ledgeCheck != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + Vector3.right * FacingDir * grabRange);
+        }
+
+        //Visualize the overlap of player with one way platform
+        // if (playerCollider != null)
+        // {
+        //     Vector2 overlapCenter = (Vector2)playerCollider.bounds.center + overlapOffset;
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawWireCube(overlapCenter, overlapSize); // Overlap area visualization
+        // }
     }
 
 }

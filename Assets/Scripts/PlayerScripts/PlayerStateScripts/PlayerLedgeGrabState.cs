@@ -13,13 +13,13 @@ public class PlayerLedgeGrabState : PlayerState
         base.Enter();
         player.zeroVelocity();
         player.rb.gravityScale = 0;
-        
+        player.isGrabbingLedge = true;
     }
 
     public override void Update()
     {
         base.Update();
-        if (!player.IsLedgeDetected() || player.canGrabLedge)
+        if (!player.IsLedgeDetected())
         {
             stateMachine.ChangeState(player.airState);
             return;
@@ -41,7 +41,7 @@ public class PlayerLedgeGrabState : PlayerState
     {
         base.Exit();
         player.rb.gravityScale = 3.5f;
-        player.canGrabLedge = true;
+         player.isGrabbingLedge = false;
     }
 
     private void LedgeClimbOver()
@@ -50,7 +50,7 @@ public class PlayerLedgeGrabState : PlayerState
         Vector2 offset = player.FacingDir == 1 ? player.offset2 : new Vector2(-player.offset2.x, player.offset2.y);
         climbEndPosition = ledgePosition + offset;
         player.transform.position = climbEndPosition;
-        player.canGrabLedge = true;
+        stateMachine.ChangeState(player.idleState);
     }
 
     private void DropDownLedge()
@@ -59,6 +59,6 @@ public class PlayerLedgeGrabState : PlayerState
         Vector2 offset = player.FacingDir == 1 ? player.offset1 : new Vector2(-player.offset1.x, player.offset1.y);
         climbEndPosition = ledgePosition + offset;
         player.transform.position = climbEndPosition;
-        player.canGrabLedge = true;
+        stateMachine.ChangeState(player.airState);
     }
 }

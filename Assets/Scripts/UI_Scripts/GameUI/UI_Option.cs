@@ -1,16 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UI_Option : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private string sceneName = "MainMenu";
+    public void ExitToMainMenu()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        SceneManager.LoadScene(sceneName);
     }
 }

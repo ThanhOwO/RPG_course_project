@@ -26,6 +26,9 @@ public class SaveManager : MonoBehaviour
             Destroy(instance.gameObject);
         else
             instance = this;
+
+        string path = Application.persistentDataPath;
+        dataHandler = new FileDataHandler(path, fileName, encryptData);
     }
 
     private void Start() 
@@ -73,7 +76,7 @@ public class SaveManager : MonoBehaviour
 
     private void OnApplicationQuit() 
     {
-        //SaveGame();
+        //SaveGame(); 
     }
 
     private List<ISaveManager> FindAllSaveManagers()
@@ -85,9 +88,9 @@ public class SaveManager : MonoBehaviour
 
     public bool HasSaveData()
     {
-        if(dataHandler.Load() != null)
-            return true;
-            
-        return false;
+        if (dataHandler == null)
+            return false;
+
+        return dataHandler.Load() != null;
     }
 }

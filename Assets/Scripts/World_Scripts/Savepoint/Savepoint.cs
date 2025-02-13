@@ -63,6 +63,7 @@ public class Savepoint : MonoBehaviour, IInteractable
         AudioManager.instance.PlaySFX(5, transform);
         GameManager.instance.SetLastActivatedSavepoint(this);
         GameManager.instance.RespawnEnemies();
+        SaveManager.instance.SaveGame();
     }
 
     private void RestorePlayerHealth()
@@ -80,13 +81,13 @@ public class Savepoint : MonoBehaviour, IInteractable
 
         yield return new WaitForSeconds(1f);
 
-        SaveGame();
         if (!activateStatus)
         {
             ActivateSavepoint();
             GameManager.instance.SetLastActivatedSavepoint(this);
         }
         RestorePlayerHealth();
+        SaveGame();
         if (savePointUI != null)
             savePointUI.OpenMenu();
     }

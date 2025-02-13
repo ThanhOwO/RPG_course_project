@@ -35,7 +35,7 @@ public class HealthBar_UI : MonoBehaviour
         ShrinkDamageBar();
     }
 
-    private void UpdateHealthUI()
+    public void UpdateHealthUI()
     {
         // Alex's Udemy code
         // slider.maxValue = myStats.GetMaxHealthValue();
@@ -83,6 +83,17 @@ public class HealthBar_UI : MonoBehaviour
 
         if(myStats!= null)
             myStats.onHealthChanged -= UpdateHealthUI; 
-    } 
+    }
+
+    public void ResetUIRotation(int facingDir)
+    {
+        if (myTransform == null)
+            return;
+        if (facingDir == -1)
+            myTransform.localRotation = Quaternion.Euler(0, 180, 0);
+        else
+            myTransform.localRotation = Quaternion.identity;
+    }
+
     
 }

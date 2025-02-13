@@ -11,7 +11,7 @@ public class Enemy_Slime : Enemy
     [SerializeField] private GameObject slimePrefab;
     [SerializeField] private Vector2 minCreationVelocity;
     [SerializeField] private Vector2 maxCreationVelocity;
-
+    private int defaultFacingDir;
 
     #region States
     public SlimeIdleState idleState { get; private set;}
@@ -27,7 +27,8 @@ public class Enemy_Slime : Enemy
     protected override void Awake()
     {
         base.Awake();
-        SetupDefaultFacingDir(-1);
+        defaultFacingDir = -1;
+        SetupDefaultFacingDir(defaultFacingDir);
 
         idleState = new SlimeIdleState(this, stateMachine, "Idle", this);
         moveState = new SlimeMoveState(this, stateMachine, "Move", this);
@@ -92,7 +93,10 @@ public class Enemy_Slime : Enemy
         }
  
         // Destroy the game object after fading out
-        Destroy(gameObject);
+        if(isBoss)
+            Destroy(gameObject);
+        else
+            gameObject.SetActive(false);
     }
 
     private void DisableColliders()
@@ -139,4 +143,35 @@ public class Enemy_Slime : Enemy
     }
 
     private void CancelKnockback() => isKnocked = false;
+
+    public override void Respawn()
+    {
+        base.Respawn();
+        ResetEnemy();
+    }
+
+    private void ResetEnemy()
+    {
+        FacingDir = defaultFacingDir;
+        FacingRight = (FacingDir == 1);
+
+        Color originalColor = sr.color;
+        sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+
+        cd.enabled = true;
+        rb.simulated = true;
+
+        stateMachine.Initialize(idleState);
+
+        isStaggered = false;
+        canBeStunned = false;
+        stats.isDead = false;
+
+        enemyStats.ResetHealth();
+
+        healthBarUI.gameObject.SetActive(true);
+        healthBarUI.ResetUIRotation(1);
+        healthBarUI.UpdateHealthUI();
+
+    }
 }

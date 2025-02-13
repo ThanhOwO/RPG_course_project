@@ -73,7 +73,7 @@ public class SaveManager : MonoBehaviour
 
     private void OnApplicationQuit() 
     {
-        SaveGame();
+        //SaveGame();
     }
 
     private List<ISaveManager> FindAllSaveManagers()

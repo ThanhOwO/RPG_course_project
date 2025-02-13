@@ -80,7 +80,10 @@ public class Enemy_Shady : Enemy
         }
  
         // Destroy the game object after fading out
-        Destroy(gameObject);
+        //Destroy(gameObject);
+
+        //Respawn
+        gameObject.SetActive(false);
     }
 
     private void DisableColliders()
@@ -109,5 +112,36 @@ public class Enemy_Shady : Enemy
     public override void Stagger() 
     {
         stateMachine.ChangeState(stunnedState);
+    }
+
+    public override void Respawn()
+    {
+        base.Respawn();
+        ResetEnemy();
+    }
+
+    private void ResetEnemy()
+    {
+        FacingDir = 1;
+        FacingRight = true;
+
+        Color originalColor = sr.color;
+        sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+
+        cd.enabled = true;
+        rb.simulated = true;
+
+        stateMachine.Initialize(idleState);
+
+        isStaggered = false;
+        canBeStunned = false;
+        stats.isDead = false;
+
+        enemyStats.ResetHealth();
+
+        healthBarUI.gameObject.SetActive(true);
+        healthBarUI.ResetUIRotation(FacingDir);
+        healthBarUI.UpdateHealthUI();
+
     }
 }

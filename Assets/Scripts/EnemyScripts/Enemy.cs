@@ -15,6 +15,11 @@ public enum EnemyMoveType { Idle, MoveOnBattle, AlwaysMove }
 public class Enemy : Entity
 {
     [SerializeField] protected LayerMask whatIsPlayer;
+    public bool isBoss = false;
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+    public HealthBar_UI healthBarUI {get; private set;}
+    public EnemyStats enemyStats {get; private set;}
 
     [Header("Stunned info")]
     public float stunDuration = 2;
@@ -52,7 +57,14 @@ public class Enemy : Entity
     protected override void Start()
     {
         base.Start();
+        healthBarUI = GetComponentInChildren<HealthBar_UI>();
+        enemyStats = GetComponent<EnemyStats>();
         fx = GetComponent<EntityFx>();
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
+
+        if(!isBoss)
+            GameManager.instance.RegisterEnemy(this);
     }
 
     protected override void Update()
@@ -160,6 +172,19 @@ public class Enemy : Entity
     {
         base.Stagger();
         isStaggered = true;
+    }
+
+    public virtual void Respawn()
+    {
+        if (isBoss) return;
+
+        gameObject.SetActive(true);
+
+        if (!enabled)
+            enabled = true;
+            
+        transform.position = initialPosition;
+        transform.rotation = initialRotation;
     }
 
 }

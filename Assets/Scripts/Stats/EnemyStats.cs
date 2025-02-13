@@ -74,4 +74,10 @@ public class EnemyStats : CharacterStats
         dropSystem.GenerateDrop();
 
     }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth.GetValue();
+    }
+    
 }

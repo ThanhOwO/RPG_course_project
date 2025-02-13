@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour, ISaveManager
 {
     public static GameManager instance;
     private Transform player;
+    [SerializeField] private List<Enemy> enemiesToRespawn = new List<Enemy>();
+
     [SerializeField] private Savepoint[] savePoints;
 
     [Header("Last Death")]
@@ -179,5 +181,21 @@ public class GameManager : MonoBehaviour, ISaveManager
     }
 
     private void LoadMap(GameData _data) => MapManager.instance.LoadDiscoveredRooms(_data.discoveredRooms);
+
+    //Respawn enemies function
+    public void RegisterEnemy(Enemy enemy)
+    {
+        if (!enemiesToRespawn.Contains(enemy))
+            enemiesToRespawn.Add(enemy);
+    }
+
+    public void RespawnEnemies()
+    {
+        foreach (var enemy in enemiesToRespawn)
+        {
+            enemy.Respawn();
+        }
+        Debug.Log("All enemies have been respawned.");
+    }
     
 }

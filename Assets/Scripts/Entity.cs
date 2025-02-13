@@ -29,7 +29,7 @@ public class Entity : MonoBehaviour
 
     public int knockbackDir {get; private set;}
 
-    public int FacingDir {get; private set;} = 1;
+    [HideInInspector] public int FacingDir = 1;
     protected bool FacingRight = true;
     public System.Action onFlipped;
     protected virtual void Awake()

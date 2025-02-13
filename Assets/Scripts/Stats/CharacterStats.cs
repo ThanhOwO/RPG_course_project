@@ -77,8 +77,7 @@ public class CharacterStats : MonoBehaviour
 
     public int currentHealth; 
     public System.Action onHealthChanged;
-    public bool isDead { get; private set; }
-    public bool isStagger { get; private set; }
+    [HideInInspector] public bool isDead;
     private bool isVulnerable;
     public bool isInvincible { get; private set; }
     public bool isCriticalHit;

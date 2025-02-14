@@ -15,6 +15,7 @@ public class PlayerDashState : PlayerState
         stateTimer = player.dashDuration;
 
         player.stats.MakeInvincible(true);
+        rb.gravityScale = 0;
     }
     public override void Update()
     {
@@ -22,14 +23,14 @@ public class PlayerDashState : PlayerState
 
         if(player.isDead)
             return;
-        
+
+        player.setVelocity(player.dashSpeed * player.dashDir, 0);
+
         if(Input.GetButtonDown("Jump") && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
 
         if(!player.IsGroundDetected() && player.IsWallDetected())
             stateMachine.ChangeState(player.wallSlide);
-
-        player.setVelocity(player.dashSpeed * player.dashDir, 0);
 
         if(stateTimer < 0 && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
             stateMachine.ChangeState(player.brakeState);
@@ -45,6 +46,7 @@ public class PlayerDashState : PlayerState
         player.skill.dash.CloneOnArrival();
         player.setVelocity(0, rb.linearVelocityY);
         player.stats.MakeInvincible(false);
+        rb.gravityScale = 3.5f;
 
     }
 }

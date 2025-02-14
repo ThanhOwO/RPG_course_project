@@ -73,7 +73,7 @@ public class Enemy_DeathBringer : Enemy
     //Death animation remain time
     private IEnumerator DestroyObject()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         Destroy(gameObject);
     }
 

@@ -72,7 +72,7 @@ public class Enemy_Archer : Enemy
     //Death animation remain time of skeleton
     private IEnumerator CorpseRemainTime()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
 
         yield return StartCoroutine(FadeOutAndDestroy());
     }

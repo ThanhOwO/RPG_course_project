@@ -37,11 +37,12 @@ public class Teleport_UI : MonoBehaviour
 
     private void Navigate()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             selectedIndex = (selectedIndex - 1 + savePointButtons.Count) % savePointButtons.Count;
-        else if(Input.GetKeyDown(KeyCode.DownArrow))
+        else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             selectedIndex = (selectedIndex + 1) % savePointButtons.Count;
-        else if(Input.GetKeyDown(KeyCode.Space))
+        
+        if(Input.GetKeyDown(KeyCode.Space))
         {
             savePointButtons[selectedIndex].onClick.Invoke();
             return;

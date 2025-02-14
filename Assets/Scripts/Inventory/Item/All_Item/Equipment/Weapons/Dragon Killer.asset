@@ -15,10 +15,12 @@ MonoBehaviour:
   itemType: 1
   itemName: Dragon Killer
   icon: {fileID: -96611047, guid: be55291aae08d434db3da3b59db3ab4a, type: 3}
-  dropChance: 0
+  itemID: c64fa0f7ec232fc4b9543491e4ba622c
+  dropChance: 100
   equipmentType: 0
-  itemEffect: []
   itemCooldown: 0
+  itemEffect: []
+  itemEffectDescription: 
   strength: 0
   agility: 0
   intelligence: 0

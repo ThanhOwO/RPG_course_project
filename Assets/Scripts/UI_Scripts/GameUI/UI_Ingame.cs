@@ -34,9 +34,9 @@ public class UI_Ingame : MonoBehaviour
             SetCooldown(parryImage);
         if(Input.GetKeyDown(KeyCode.F) && skills.crystal.crystalUnlocked)
             SetCooldown(crystalImage);
-        if(Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
             SetCooldown(blackholeImage);
-        if(Input.GetKeyDown(KeyCode.Alpha1) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
+        if(Input.GetKeyDown(KeyCode.R) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
             SetCooldown(flaskImage);
         
         CheckCooldown(dashImage, skills.dash.cooldown);

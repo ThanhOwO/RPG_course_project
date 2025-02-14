@@ -47,7 +47,7 @@ public class PlayerGroundState : PlayerState
 
     private void GetInput()
     {
-        if(Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked)
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R) && player.skill.blackhole.blackholeUnlocked)
         {
             if (player.skill.blackhole.cooldownTimer > 0)
             {

@@ -33,8 +33,8 @@ public class MapCameraController : MonoBehaviour
     {
         if(isTeleportMap) return;
 
-        float moveX = Input.GetAxisRaw("CameraHorizontal");
-        float moveY = Input.GetAxisRaw("CameraVertical");
+        float moveX = Input.GetAxisRaw("UIHorizontal");
+        float moveY = Input.GetAxisRaw("UIVertical");
 
         Vector3 move = new Vector3(moveX, moveY, 0) * moveSpeed * Time.unscaledDeltaTime;
         transform.position += move;

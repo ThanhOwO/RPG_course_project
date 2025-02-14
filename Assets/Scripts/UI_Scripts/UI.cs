@@ -17,6 +17,8 @@ public class UI : MonoBehaviour, ISaveManager
     [SerializeField] private CanvasGroup inGameUICanvasGroup;
     [SerializeField] private UI_VolumeSlider[] volumeSettings;
     [SerializeField] private MapCameraController mapCameraController;
+    private GameObject[] menus;
+    private int currentMenuIndex = 0;
 
     public UI_ItemTooltip itemTooltip;
     public UI_StatToolTip statTooltip;
@@ -32,6 +34,7 @@ public class UI : MonoBehaviour, ISaveManager
 
     void Start()
     {
+        menus = new GameObject[] { characterUI, skillTreeUI, craftUI, optionUI };
         SwitchTo(inGameUi);
 
         itemTooltip.gameObject.SetActive(false);
@@ -53,6 +56,19 @@ public class UI : MonoBehaviour, ISaveManager
             SwitchWithKeyTo(skillTreeUI);
         if(Input.GetKeyDown(KeyCode.Escape))
             HandleEscapeKey();
+
+        if (IsAnyUIOpen())
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+                SwitchMenu(-1);
+            else if (Input.GetKeyDown(KeyCode.E))
+                SwitchMenu(1);
+        }
+    }
+
+    bool IsAnyUIOpen()
+    {
+        return characterUI.activeSelf || skillTreeUI.activeSelf || craftUI.activeSelf || optionUI.activeSelf;
     }
 
     public void SwitchTo(GameObject _menu)
@@ -186,6 +202,19 @@ public class UI : MonoBehaviour, ISaveManager
     {
         fadeScreen.FadeOut();
         StartCoroutine(EndScreenCoroutine());
+    }
+
+    //Switch menu with keyboard
+    private void SwitchMenu(int direction)
+    {
+        currentMenuIndex += direction;
+
+        if (currentMenuIndex < 0)
+            currentMenuIndex = menus.Length - 1;
+        else if (currentMenuIndex >= menus.Length)
+            currentMenuIndex = 0;
+
+        SwitchTo(menus[currentMenuIndex]);
     }
 
     IEnumerator EndScreenCoroutine()

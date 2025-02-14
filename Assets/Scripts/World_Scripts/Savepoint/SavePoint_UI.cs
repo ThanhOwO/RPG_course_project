@@ -11,6 +11,8 @@ public class SavePoint_UI : MonoBehaviour
     private int selectedIndex = 0;
     private InteractTrigger interactTrigger;
     public bool isOpen = false;
+    private float inputCooldown = 0.2f;
+    private float lastInputTime = 0f;
 
     private void Start()
     {
@@ -68,12 +70,25 @@ public class SavePoint_UI : MonoBehaviour
 
     private void NavigateButtons()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        float verticalInput = Input.GetAxisRaw("UIVertical");
+
+        if (Time.time - lastInputTime > inputCooldown)
         {
-            selectedIndex = (selectedIndex == 0) ? 1 : 0;
-            HighlightButton(selectedIndex);
+            if (verticalInput > 0)
+            {
+                selectedIndex = Mathf.Max(0, selectedIndex - 1);
+                HighlightButton(selectedIndex);
+                lastInputTime = Time.time;
+            }
+            else if (verticalInput < 0)
+            {
+                selectedIndex = Mathf.Min(buttons.Length - 1, selectedIndex + 1);
+                HighlightButton(selectedIndex);
+                lastInputTime = Time.time;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             buttons[selectedIndex].onClick.Invoke();
         }

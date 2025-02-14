@@ -84,7 +84,6 @@ public class CharacterStats : MonoBehaviour
 
     protected virtual void Start()
     {
-        critPower.SetDefaultValue(150);
         currentHealth = GetMaxHealthValue();
 
         fx = GetComponent<EntityFx>();

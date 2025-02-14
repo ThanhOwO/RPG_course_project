@@ -124,7 +124,6 @@ public class Enemy_Skeleton : Enemy
 
         isStaggered = false;
         canBeStunned = false;
-        stats.isDead = false;
 
         enemyStats.ResetHealth();
 

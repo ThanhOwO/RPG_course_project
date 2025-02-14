@@ -1518,6 +1518,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Transition_DarkScreen
       objectReference: {fileID: 0}
+    - target: {fileID: 3836728069042626167, guid: 92bf5e54614a9514280dbf83dea1a928, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4511171223962117303, guid: 92bf5e54614a9514280dbf83dea1a928, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -193,9 +193,14 @@ public class GameManager : MonoBehaviour, ISaveManager
     {
         foreach (var enemy in enemiesToRespawn)
         {
-            enemy.Respawn();
+            if (enemy.enemyStats.isDead)
+                enemy.Respawn();
+            else
+            {
+                enemy.enemyStats.ResetHealth();
+                enemy.healthBarUI.UpdateHealthUI();
+            }
         }
-        Debug.Log("All enemies have been respawned.");
     }
     
 }

@@ -78,6 +78,7 @@ public class EnemyStats : CharacterStats
     public void ResetHealth()
     {
         currentHealth = maxHealth.GetValue();
+        isDead = false;
     }
     
 }

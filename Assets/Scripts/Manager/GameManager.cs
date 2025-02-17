@@ -174,10 +174,16 @@ public class GameManager : MonoBehaviour, ISaveManager
 
     public void PauseGame(bool _pause)
     {
-        if(_pause)
+            if (_pause)
+        {
             Time.timeScale = 0;
-        else   
+            AudioListener.pause = true;
+        }
+        else
+        {
             Time.timeScale = 1;
+            AudioListener.pause = false;
+        }
     }
 
     private void LoadMap(GameData _data) => MapManager.instance.LoadDiscoveredRooms(_data.discoveredRooms);

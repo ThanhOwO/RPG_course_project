@@ -18,18 +18,6 @@ public class DeathBringerBattleState : EnemyState
         flippedOnce = false;
         player = PlayerManager.instance.player.transform;
 
-        if (enemy.IsPlayerDetected2() && enemy.IsPlayerDetected2().distance < enemy.attackDistance)
-        {
-            if (CanAttack())
-            {
-                enemy.stateMachine.ChangeState(enemy.attackState);
-            }
-            else
-            {
-                enemy.stateMachine.ChangeState(enemy.idleState);
-            }
-        }
-
         if(player.GetComponent<Player>().isDead)
             stateMachine.ChangeState(enemy.moveState);
     }

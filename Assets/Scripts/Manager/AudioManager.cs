@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private float sfxMinimumDistance;
     [SerializeField] private AudioSource[] sfx;
     [SerializeField] private AudioSource[] bgm;
+    [SerializeField] private AudioSource[] uiSfx;
     public bool playBGM;
     private int bgmIndex;
     private bool canPlaySFX;
@@ -22,6 +23,16 @@ public class AudioManager : MonoBehaviour
             instance = this;
         
         Invoke(nameof(AllowSFX), .1f);
+
+        foreach(var source in uiSfx)
+        {
+            source.ignoreListenerPause = true;
+        }
+        
+        foreach(var source in bgm)
+        {
+            source.ignoreListenerPause = true;
+        }
     }
 
     private void Update() {
@@ -50,6 +61,18 @@ public class AudioManager : MonoBehaviour
         {
             sfx[_sfxIndex].pitch = Random.Range(0.85f, 1.2f);
             sfx[_sfxIndex].Play();
+        }
+    }
+
+    public void PlayUISFX(int _sfxIndex)
+    {
+        if(!canPlaySFX)
+            return;
+            
+        if(_sfxIndex >= 0 && _sfxIndex < uiSfx.Length)
+        {
+            uiSfx[_sfxIndex].pitch = Random.Range(0.85f, 1.2f);
+            uiSfx[_sfxIndex].Play();
         }
     }
 

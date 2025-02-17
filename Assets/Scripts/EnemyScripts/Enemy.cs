@@ -161,11 +161,9 @@ public class Enemy : Entity
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + attackDistance * FacingDir, transform.position.y));
-        Gizmos.DrawWireCube(
-            new Vector3(transform.position.x + attackDistance * FacingDir, transform.position.y),
-            new Vector3(attackDistance, attackHeight, 1)
-        );
-        //Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + agroDistance, transform.position.y));
+        
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x + agroDistance, transform.position.y));
     }
 
     public override void Stagger()

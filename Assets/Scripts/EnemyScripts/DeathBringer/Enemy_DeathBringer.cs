@@ -96,8 +96,14 @@ public class Enemy_DeathBringer : Enemy
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
+        Gizmos.color = Color.blue;
         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - GroundBelow().distance));
         Gizmos.DrawWireCube(transform.position, surroundingCheckSize);
+
+        Gizmos.color = Color.red;
+        Vector2 boxCenter = (Vector2)wallCheck.position + Vector2.right * FacingDir * (attackDistance / 2);
+        Vector2 boxSize = new Vector2(attackDistance, attackHeight);
+        Gizmos.DrawWireCube(boxCenter, boxSize);
     }
 
     public bool CanTeleport()

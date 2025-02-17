@@ -49,14 +49,12 @@ public class PlayerHealthBar_UI : MonoBehaviour
 
     private void ShrinkDamageBar()
     {
-        damagedHealthShrinkTimer -= Time.deltaTime;
-
-        if(damagedHealthShrinkTimer < 0)
+        if(bottomSlider.value > topSlider.value)
         {
-            if(bottomSlider.value > topSlider.value)
-            {
-                bottomSlider.value -= shrinkSpeed * Time.deltaTime;
-            }
+            if(damagedHealthShrinkTimer > 0)
+                damagedHealthShrinkTimer -= Time.deltaTime;
+            else
+                bottomSlider.value = Mathf.Lerp(bottomSlider.value, topSlider.value, shrinkSpeed * Time.deltaTime);
         }
     }
 

@@ -13,6 +13,7 @@ public class DeathBringerDeathState : EnemyState
         base.Enter();
 
         enemy.enabled = false;
+        enemy.HideBossHealth();
 
     }
 

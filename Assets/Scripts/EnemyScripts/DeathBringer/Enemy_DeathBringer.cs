@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy_DeathBringer : Enemy
 {
     public bool bossFightBegun;
+    [SerializeField] private BossHealthBar_UI bossHealthBar;
 
     [Header("Teleport Details")]
     [SerializeField] private BoxCollider2D arena;
@@ -129,4 +130,21 @@ public class Enemy_DeathBringer : Enemy
         return false;
     }
 
+    public void StartShowBossHealth()
+    {
+        bossHealthBar.SetBoss(enemyStats);
+        StartCoroutine(delayBossStart());
+    }
+
+    public void HideBossHealth()
+    {
+        bossFightBegun = false;
+        bossHealthBar.HideBossHealthBar();
+    }
+
+    private IEnumerator delayBossStart()
+    {
+        yield return new WaitForSeconds(1f);
+        bossFightBegun = true;
+    }
 }

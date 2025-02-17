@@ -135,9 +135,10 @@ public class CharacterStats : MonoBehaviour
 
         if(canCrit())
         {
-            totalDamage = CalculateCritDamage(totalDamage);
+            int totalCritDamage = CalculateCritDamage(totalDamage);
             critHit = true;
             _targetStats.isCriticalHit = true;
+            totalDamage += totalCritDamage;
         }
 
         fx.CreateHitFX(_targetStats.transform, critHit);

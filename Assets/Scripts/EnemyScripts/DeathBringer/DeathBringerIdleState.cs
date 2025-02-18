@@ -19,7 +19,7 @@ public class DeathBringerIdleState : EnemyState
     public override void Update()
     {
         base.Update();
-        if(Vector2.Distance(player.transform.position, enemy.transform.position) < 7)
+        if(Vector2.Distance(player.transform.position, enemy.transform.position) < 7 && !enemy.bossFightBegun)
         {
             enemy.StartShowBossHealth();
         }

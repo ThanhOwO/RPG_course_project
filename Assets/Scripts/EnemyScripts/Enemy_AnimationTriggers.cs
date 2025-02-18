@@ -17,8 +17,11 @@ public class Enemy_AnimationTriggers : MonoBehaviour
             if(hit.GetComponent<Player>() != null)
             {
                 PlayerStats _target = hit.GetComponent<PlayerStats>();
-                hit.GetComponent<Player>().Stagger();
-                enemy.stats.DoDamge(_target);
+                if(!_target.isInvincible)
+                {
+                    enemy.stats.DoDamge(_target);
+                    hit.GetComponent<Player>().Stagger();
+                }
             }
         }
     }

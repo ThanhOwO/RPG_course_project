@@ -80,5 +80,4 @@ public class EnemyStats : CharacterStats
         currentHealth = maxHealth.GetValue();
         isDead = false;
     }
-    
 }

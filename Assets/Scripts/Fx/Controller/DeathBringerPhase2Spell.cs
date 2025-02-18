@@ -8,9 +8,6 @@ public class DeathBringerPhase2Spell : MonoBehaviour
     private CharacterStats myStats;
     private Animator animator;
 
-    private float damageDelay = 0.5f;
-    private float damageTimer = 0f;
-
     [Header("Duration info")] 
     [SerializeField] private float waitDuration = 2f;
     [SerializeField] private float startDuration = 1f;
@@ -65,9 +62,11 @@ public class DeathBringerPhase2Spell : MonoBehaviour
         if (other.GetComponent<Player>())
         {
             other.GetComponent<Entity>().SetupKnockBackDir(transform);
-            other.GetComponent<Player>().Stagger();
-            myStats.DoDamge(other.GetComponent<CharacterStats>());
-            damageTimer = damageDelay;
+            if(!myStats.isInvincible)
+            {
+                myStats.DoDamge(other.GetComponent<CharacterStats>());
+                other.GetComponent<Player>().Stagger();
+            }
         }
     }
 
@@ -75,17 +74,11 @@ public class DeathBringerPhase2Spell : MonoBehaviour
     {
         if (other.GetComponent<Player>())
         {
-            if (damageTimer > 0)
+            other.GetComponent<Entity>().SetupKnockBackDir(transform);
+            if(!myStats.isInvincible)
             {
-                damageTimer -= Time.deltaTime;
-            }
-            else
-            {
-                other.GetComponent<Entity>().SetupKnockBackDir(transform);
-                other.GetComponent<Player>().Stagger();
                 myStats.DoDamge(other.GetComponent<CharacterStats>());
-                
-                damageTimer = damageDelay;
+                other.GetComponent<Player>().Stagger();
             }
         }
     }

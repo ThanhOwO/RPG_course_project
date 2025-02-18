@@ -22,7 +22,7 @@ public class PlayerStats : CharacterStats
 
         GameManager.instance.lastDeathAmount = PlayerManager.instance.currency;
         PlayerManager.instance.currency = 0;
-        GetComponent<PlayerItemDrop>()?.GenerateDrop();
+        //GetComponent<PlayerItemDrop>()?.GenerateDrop();
     }
 
     protected override void DecreaseHealthBy(int _damage)

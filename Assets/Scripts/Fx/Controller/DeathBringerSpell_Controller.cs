@@ -22,9 +22,8 @@ public class DeathBringerSpell_Controller : MonoBehaviour
         if (other.GetComponent<Player>())
         {
             other.GetComponent<Entity>().SetupKnockBackDir(transform);
-            other.GetComponent<Player>().Stagger();
             myStats.DoDamge(other.GetComponent<CharacterStats>());
-
+            other.GetComponent<Player>().Stagger();
             hitbox.enabled = false;
         }
     }

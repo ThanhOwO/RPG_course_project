@@ -141,7 +141,8 @@ public class CharacterStats : MonoBehaviour
             totalDamage += totalCritDamage;
         }
 
-        fx.CreateHitFX(_targetStats.transform, critHit);
+        if(!isInvincible)
+            fx.CreateHitFX(_targetStats.transform, critHit);
 
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
         _targetStats.TakeDamage(totalDamage); //Physical damage to target

@@ -213,7 +213,6 @@ public class Player : Entity
     public override void Stagger()
     {
         base.Stagger();
-        canBeStunned = true;
         stateMachine.ChangeState(stunnedState);
     }
 

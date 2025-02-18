@@ -39,8 +39,11 @@ public class ShadyExplode_Controller : MonoBehaviour
             if(hit.GetComponent<CharacterStats>() != null)
             {
                 hit.GetComponent<Entity>().SetupKnockBackDir(transform);
-                hit.GetComponent<Player>().Stagger();
-                myStats.DoDamge(hit.GetComponent<CharacterStats>());
+                if(!myStats.isInvincible)
+                {
+                    hit.GetComponent<Player>().Stagger();
+                    myStats.DoDamge(hit.GetComponent<CharacterStats>());
+                }
 
             }
         }

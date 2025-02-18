@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_DeathBringer : Enemy
@@ -20,6 +21,13 @@ public class Enemy_DeathBringer : Enemy
     public float spellCooldown;
     [SerializeField] private Vector2 spellOffset;
 
+    [Header("Phase 2 spell cast details")]
+    [SerializeField] private GameObject spellPrefab2;
+    [SerializeField] private GameObject spellPrefab3;
+    [SerializeField] private float spell2StateCooldown;
+    public float lastTimeCast2;
+    [SerializeField] private List<Transform> spawnPositions;
+
     #region States
     public DeathBringerIdleState idleState { get; set; }
     public DeathBringerMoveState moveState { get; set; }
@@ -28,6 +36,7 @@ public class Enemy_DeathBringer : Enemy
     public DeathBringerSpellCastState spellCastState { get; set; }
     public DeathBringerTeleportState teleportState { get; set; }
     public DeathBringerDeathState deathState { get; set; }
+    public DeathBringerPhase2State phase2State { get; set; }
 
     #endregion
 
@@ -43,25 +52,13 @@ public class Enemy_DeathBringer : Enemy
         spellCastState = new DeathBringerSpellCastState(this, stateMachine, "SpellCast", this);
         teleportState = new DeathBringerTeleportState(this, stateMachine, "Teleport", this);
         deathState = new DeathBringerDeathState(this, stateMachine, "Die", this);
+        phase2State = new DeathBringerPhase2State(this, stateMachine, "Phase2Cast", this);
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(idleState);
-    }
-
-    public void CastSpell()
-    {
-        Player player = PlayerManager.instance.player;
-        float xOffset = 0;
-
-        if(player.rb.linearVelocityX != 0)
-            xOffset = player.FacingDir * spellOffset.x;
-
-        Vector3 spellPosition = new Vector3(player.transform.position.x + xOffset, player.transform.position.y + spellOffset.y);
-        GameObject newSpell = Instantiate(spellPrefab, spellPosition, Quaternion.identity);
-        newSpell.GetComponent<DeathBringerSpell_Controller>().SetupSpell(stats);
     }
 
     public override void Die()
@@ -107,6 +104,74 @@ public class Enemy_DeathBringer : Enemy
         Gizmos.DrawWireCube(boxCenter, boxSize);
     }
 
+    #region Spell casting
+    public void CastSpell()
+    {
+        Player player = PlayerManager.instance.player;
+        float xOffset = 0;
+
+        if(player.rb.linearVelocityX != 0)
+            xOffset = player.FacingDir * spellOffset.x;
+
+        Vector3 spellPosition = new Vector3(player.transform.position.x + xOffset, player.transform.position.y + spellOffset.y);
+        GameObject newSpell = Instantiate(spellPrefab, spellPosition, Quaternion.identity);
+        newSpell.GetComponent<DeathBringerSpell_Controller>().SetupSpell(stats);
+    }
+
+    public void CastSpell2()
+    {
+        if (spawnPositions.Count == 0)
+        {
+            Debug.LogError("No spawn positions assigned!");
+            return;
+        }
+
+        List<GameObject> prefabsToSpawn = new List<GameObject>
+        {
+            spellPrefab2,
+            spellPrefab3,
+            spellPrefab2,
+            spellPrefab3,
+            spellPrefab2,
+            spellPrefab3
+        };
+
+        for (int i = 0; i < spawnPositions.Count; i++)
+        {
+            if (i < prefabsToSpawn.Count)
+            {
+                GameObject prefabToSpawn = prefabsToSpawn[i];
+                GameObject spawnedSpell = Instantiate(prefabToSpawn, spawnPositions[i].position, Quaternion.identity);
+
+                if (prefabToSpawn == spellPrefab3)
+                    spawnedSpell.transform.Rotate(0f, 0f, 180f);
+
+                spawnedSpell.GetComponent<DeathBringerPhase2Spell>().SetupPhase2Spell(stats);
+            }
+        }
+    }
+
+
+    public bool CanDoSpellCast()
+    {
+        if(Time.time >= lastTimeCast + spellStateCooldown)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool CanDoPhase2SpellCast()
+    {
+        if(Time.time >= lastTimeCast2 + spell2StateCooldown)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     public bool CanTeleport()
     {
         if(Random.Range(0, 100) < chanceToTeleport)
@@ -119,17 +184,9 @@ public class Enemy_DeathBringer : Enemy
             return false;
         }
     }
+    #endregion
 
-    public bool CanDoSpellCast()
-    {
-        if(Time.time >= lastTimeCast + spellStateCooldown)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
+    #region Health UI
     public void StartShowBossHealth()
     {
         bossHealthBar.SetBoss(enemyStats);
@@ -147,4 +204,7 @@ public class Enemy_DeathBringer : Enemy
         yield return new WaitForSeconds(1f);
         bossFightBegun = true;
     }
+    #endregion
+
+
 }

@@ -2,30 +2,37 @@ using UnityEngine;
 
 public class DeathBringerSpell_Controller : MonoBehaviour
 {
-    [SerializeField] private Transform check;
-    [SerializeField] private Vector2 boxSize;
-    [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private BoxCollider2D hitbox;
     private CharacterStats myStats;
 
     public void SetupSpell(CharacterStats _stats) => myStats = _stats; 
 
-    private void AnimationTrigger()
+    private void Start()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(check.position, boxSize, whatIsPlayer);
+        hitbox.enabled = false;
+    }
 
-        foreach(var hit in colliders)
+    public void ActivateHitbox()
+    {
+        hitbox.enabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<Player>())
         {
-            if(hit.GetComponent<Player>() != null)
-            {
-                hit.GetComponent<Entity>().SetupKnockBackDir(transform);
-                hit.GetComponent<Player>().Stagger();
-                myStats.DoDamge(hit.GetComponent<CharacterStats>());
+            other.GetComponent<Entity>().SetupKnockBackDir(transform);
+            other.GetComponent<Player>().Stagger();
+            myStats.DoDamge(other.GetComponent<CharacterStats>());
 
-            }
+            hitbox.enabled = false;
         }
     }
 
-    private void OnDrawGizmos() => Gizmos.DrawWireCube(check.position, boxSize);
-
     private void SelfDestroy() => Destroy(gameObject);
+
+    public void DisableHitbox()
+    {
+        hitbox.enabled = false;
+    }
 }

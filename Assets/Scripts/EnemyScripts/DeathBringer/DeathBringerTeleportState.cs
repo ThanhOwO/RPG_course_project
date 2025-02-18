@@ -19,10 +19,29 @@ public class DeathBringerTeleportState : EnemyState
         base.Update();
         if(triggerCalled)
         {
-            if(enemy.CanDoSpellCast())
-                stateMachine.ChangeState(enemy.spellCastState);
+            if(enemy.stats.currentHealth > enemy.stats.maxHealth.GetValue() * 0.5f)
+            {
+                if(enemy.CanDoSpellCast())
+                    stateMachine.ChangeState(enemy.spellCastState);
+                else
+                    stateMachine.ChangeState(enemy.battleState);
+            }
             else
-                stateMachine.ChangeState(enemy.battleState);
+            {
+                int rand = Random.Range(0, 100);
+                if(rand < 70 && enemy.CanDoPhase2SpellCast())
+                {
+                    stateMachine.ChangeState(enemy.phase2State);
+                }
+                else if(enemy.CanDoSpellCast())
+                {
+                    stateMachine.ChangeState(enemy.spellCastState);
+                }
+                else
+                {
+                    stateMachine.ChangeState(enemy.battleState);
+                }
+            }
         }
     }
 

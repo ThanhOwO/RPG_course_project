@@ -31,7 +31,12 @@ public class DeathBringerBattleState : EnemyState
             if(enemy.IsPlayerDetected2().distance < enemy.attackDistance)
             {
                 if(CanAttack())
-                    stateMachine.ChangeState(enemy.attackState);
+                {
+                    if(Time.time >= enemy.lastTimeShootSpell + enemy.shootSpellCooldown && Random.value < 0.3f)
+                        stateMachine.ChangeState(enemy.shootState);
+                    else
+                        stateMachine.ChangeState(enemy.attackState);
+                }
                 else
                     stateMachine.ChangeState(enemy.idleState);
             } 

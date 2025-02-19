@@ -27,6 +27,15 @@ public class Enemy_DeathBringer : Enemy
     [SerializeField] private float spell2StateCooldown;
     public float lastTimeCast2;
     [SerializeField] private List<Transform> spawnPositions;
+    private List<GameObject> phase2Spells = new List<GameObject>();
+
+    [Header("Bullet Spell Details")]
+    public BulletSpawnerController bulletSpawnerLeft;
+    public BulletSpawnerController bulletSpawnerRight;
+    [SerializeField] private int bulletNumberLeft = 7;
+    [SerializeField] private int bulletNumberRight = 5;
+    public float lastTimeShootSpell;
+    public float shootSpellCooldown = 10f;
 
     #region States
     public DeathBringerIdleState idleState { get; set; }
@@ -37,6 +46,7 @@ public class Enemy_DeathBringer : Enemy
     public DeathBringerTeleportState teleportState { get; set; }
     public DeathBringerDeathState deathState { get; set; }
     public DeathBringerPhase2State phase2State { get; set; }
+    public DeathBringerShootState shootState { get; set; }
 
     #endregion
 
@@ -53,12 +63,14 @@ public class Enemy_DeathBringer : Enemy
         teleportState = new DeathBringerTeleportState(this, stateMachine, "Teleport", this);
         deathState = new DeathBringerDeathState(this, stateMachine, "Die", this);
         phase2State = new DeathBringerPhase2State(this, stateMachine, "Phase2Cast", this);
+        shootState = new DeathBringerShootState(this, stateMachine, "Bullet", this);
     }
 
     protected override void Start()
     {
         base.Start();
         stateMachine.Initialize(idleState);
+        InitializeSpells();
     }
 
     public override void Die()
@@ -105,6 +117,12 @@ public class Enemy_DeathBringer : Enemy
     }
 
     #region Spell casting
+
+    public void CastBulletSpell()
+    {
+        StartCoroutine(bulletSpawnerLeft.SpawnBulletsFromLeftWithDelay(bulletNumberLeft, 1f, stats));
+        StartCoroutine(bulletSpawnerRight.SpawnBulletsFromRightWithDelay(bulletNumberRight, 1.7f, stats));
+    }
     public void CastSpell()
     {
         Player player = PlayerManager.instance.player;
@@ -118,6 +136,12 @@ public class Enemy_DeathBringer : Enemy
         newSpell.GetComponent<DeathBringerSpell_Controller>().SetupSpell(stats);
     }
 
+    private void InitializeSpells()
+    {
+        phase2Spells.Add(spellPrefab2);
+        phase2Spells.Add(spellPrefab3);
+    }
+
     public void CastSpell2()
     {
         if (spawnPositions.Count == 0)
@@ -126,28 +150,15 @@ public class Enemy_DeathBringer : Enemy
             return;
         }
 
-        List<GameObject> prefabsToSpawn = new List<GameObject>
-        {
-            spellPrefab2,
-            spellPrefab3,
-            spellPrefab2,
-            spellPrefab3,
-            spellPrefab2,
-            spellPrefab3
-        };
-
         for (int i = 0; i < spawnPositions.Count; i++)
         {
-            if (i < prefabsToSpawn.Count)
-            {
-                GameObject prefabToSpawn = prefabsToSpawn[i];
-                GameObject spawnedSpell = Instantiate(prefabToSpawn, spawnPositions[i].position, Quaternion.identity);
+            GameObject prefabToSpawn = phase2Spells[i % phase2Spells.Count];
+            GameObject spawnedSpell = Instantiate(prefabToSpawn, spawnPositions[i].position, Quaternion.identity);
 
-                if (prefabToSpawn == spellPrefab3)
-                    spawnedSpell.transform.Rotate(0f, 0f, 180f);
+            if (prefabToSpawn == spellPrefab3)
+                spawnedSpell.transform.Rotate(0f, 0f, 180f);
 
-                spawnedSpell.GetComponent<DeathBringerPhase2Spell>().SetupPhase2Spell(stats);
-            }
+            spawnedSpell.GetComponent<DeathBringerPhase2Spell>().SetupPhase2Spell(stats);
         }
     }
 

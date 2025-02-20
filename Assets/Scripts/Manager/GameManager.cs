@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour, ISaveManager
     [Header("Map")]
     [SerializeField] private FogOfWar fogOfWar;
 
+    [Header("NewGameCutScene")]
+    [SerializeField] private GameObject newGameCutScene;
+
     private void Awake() {
 
         if (instance != null && instance != this) 
@@ -33,6 +36,9 @@ public class GameManager : MonoBehaviour, ISaveManager
     {
         savePoints = FindObjectsByType<Savepoint>(FindObjectsSortMode.None);
         player = PlayerManager.instance.player.transform;
+
+        if(!SaveManager.instance.HasSaveData())
+            newGameCutScene.gameObject.SetActive(true);
     }
 
     public void RestartScene()

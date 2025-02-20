@@ -17,7 +17,7 @@ public class PlayerGroundState : PlayerState
     }
     public override void Update()
     {
-        if(DialogueController.isTalking || UI.isInputBlocked) return;
+        if(DialogueController.isTalking || UI.isInputBlocked || player.isCutScene) return;
         
         base.Update();
         GetInput();

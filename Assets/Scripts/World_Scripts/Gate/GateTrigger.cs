@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GateTrigger : MonoBehaviour
@@ -16,6 +17,12 @@ public class GateTrigger : MonoBehaviour
 
     private void TriggerGateFall()
     {
+        StartCoroutine(delayCloseGate());
+    }
+
+    private IEnumerator delayCloseGate()
+    {
+        yield return new WaitForSeconds(1f);
         Rigidbody2D gateRb = gate.GetComponent<Rigidbody2D>();
 
         if (gateRb != null)

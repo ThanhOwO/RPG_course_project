@@ -9,6 +9,7 @@ public class Player : Entity
     public PlayerStats playerStats { get; private set;}
     public PlayerFX fx { get; private set;}
     private CapsuleCollider2D playerCollider;
+    [HideInInspector] public bool isCutScene = false;
 
     #region States
     public PlayerStateMachine stateMachine {get; private set;}
@@ -125,7 +126,7 @@ public class Player : Entity
 
     protected override void Update() 
     {
-        if(Time.timeScale == 0 || DialogueController.isTalking || UI.isInputBlocked)
+        if(Time.timeScale == 0 || DialogueController.isTalking || UI.isInputBlocked || isCutScene)
             return;
             
         base.Update();

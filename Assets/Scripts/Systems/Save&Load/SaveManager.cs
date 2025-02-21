@@ -42,6 +42,8 @@ public class SaveManager : MonoBehaviour
     public void NewGame()
     {
         gameData = new GameData();
+        PlayerPrefs.DeleteKey("BossCutscenePlayed");
+        PlayerPrefs.Save();
     }
 
     public void LoadGame()
@@ -93,4 +95,17 @@ public class SaveManager : MonoBehaviour
 
         return dataHandler.Load() != null;
     }
+
+        //Boss room 4 gate 
+    public void SetGateOpened(bool opened)
+    {
+        gameData.isGateOpened = opened;
+        SaveGame();
+    }
+
+    public bool IsGateOpened()
+    {
+        return gameData.isGateOpened;
+    }
+
 }

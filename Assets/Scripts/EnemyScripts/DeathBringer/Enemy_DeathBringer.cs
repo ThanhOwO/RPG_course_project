@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class Enemy_DeathBringer : Enemy
 {
     public bool bossFightBegun;
     [SerializeField] private BossHealthBar_UI bossHealthBar;
+    [HideInInspector] public bool skipAppearState = false;
+    public event Action OnBossDeath;
 
     [Header("Teleport Details")]
     [SerializeField] private BoxCollider2D arena;
@@ -47,6 +50,7 @@ public class Enemy_DeathBringer : Enemy
     public DeathBringerDeathState deathState { get; set; }
     public DeathBringerPhase2State phase2State { get; set; }
     public DeathBringerShootState shootState { get; set; }
+    public DeathBringerAppearState appearState { get; set; }
 
     #endregion
 
@@ -64,20 +68,24 @@ public class Enemy_DeathBringer : Enemy
         deathState = new DeathBringerDeathState(this, stateMachine, "Die", this);
         phase2State = new DeathBringerPhase2State(this, stateMachine, "Phase2Cast", this);
         shootState = new DeathBringerShootState(this, stateMachine, "Bullet", this);
+        appearState = new DeathBringerAppearState(this, stateMachine, "Appear", this);
     }
 
     protected override void Start()
     {
         base.Start();
-        stateMachine.Initialize(idleState);
+        if(skipAppearState)
+            stateMachine.Initialize(idleState);
+        else
+            stateMachine.Initialize(appearState);
         InitializeSpells();
     }
-
     public override void Die()
     {
         base.Die();
         StartCoroutine(DestroyObject());
         stateMachine.ChangeState(deathState);
+        OnBossDeath?.Invoke();
     }
 
     //Death animation remain time
@@ -89,8 +97,8 @@ public class Enemy_DeathBringer : Enemy
 
     public void FindPositon()
     {
-        float x = Random.Range(arena.bounds.min.x + 3, arena.bounds.max.x - 3);
-        float y = Random.Range(arena.bounds.min.y + 3, arena.bounds.max.y - 3);
+        float x = UnityEngine.Random.Range(arena.bounds.min.x + 3, arena.bounds.max.x - 3);
+        float y = UnityEngine.Random.Range(arena.bounds.min.y + 3, arena.bounds.max.y - 3);
 
         transform.position = new Vector3(x, y);
         transform.position = new Vector3(transform.position.x, transform.position.y - GroundBelow().distance + (cd.size.y / 2));
@@ -185,7 +193,7 @@ public class Enemy_DeathBringer : Enemy
 
     public bool CanTeleport()
     {
-        if(Random.Range(0, 100) < chanceToTeleport)
+        if(UnityEngine.Random.Range(0, 100) < chanceToTeleport)
         {
             chanceToTeleport = defaultChanceToTeleport;
             return true;
@@ -212,7 +220,7 @@ public class Enemy_DeathBringer : Enemy
 
     private IEnumerator delayBossStart()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         bossFightBegun = true;
     }
     #endregion

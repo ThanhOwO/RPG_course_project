@@ -13,7 +13,7 @@ public class UI : MonoBehaviour, ISaveManager
     [SerializeField] private GameObject skillTreeUI;
     [SerializeField] private GameObject craftUI;
     [SerializeField] private GameObject optionUI;
-    [SerializeField] private GameObject inGameUi;
+    public GameObject inGameUi;
     [SerializeField] private CanvasGroup inGameUICanvasGroup;
     [SerializeField] private UI_VolumeSlider[] volumeSettings;
     [SerializeField] private MapCameraController mapCameraController;
@@ -44,7 +44,7 @@ public class UI : MonoBehaviour, ISaveManager
     // Update is called once per frame
     void Update()
     {
-        if (isInputBlocked) return;
+        if (isInputBlocked || PlayerManager.instance.player.isCutScene) return;
 
         if(Input.GetKeyDown(KeyCode.Tab))
             SwitchWithKeyTo(characterUI);

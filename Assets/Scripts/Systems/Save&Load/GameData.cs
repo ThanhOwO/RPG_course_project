@@ -22,6 +22,8 @@ public class GameData
     public Vector2 playerLastestPosition;
     public List<string> discoveredRooms;
     public List<Vector3Int> clearedFogTiles;
+    //Boss room 4 gate
+    public bool isGateOpened;
 
     public GameData()
     {
@@ -43,5 +45,7 @@ public class GameData
 
         discoveredRooms = new List<string>();
         clearedFogTiles = new List<Vector3Int>();
+
+        isGateOpened = false;
     }
 }

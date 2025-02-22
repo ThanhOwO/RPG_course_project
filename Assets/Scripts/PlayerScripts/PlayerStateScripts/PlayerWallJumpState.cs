@@ -18,7 +18,10 @@ public class PlayerWallJumpState : PlayerState
         if(stateTimer < 0)
             stateMachine.ChangeState(player.airState);
         if(player.IsGroundDetected() || player.IsOnOneWayPlatform())
+        {
             stateMachine.ChangeState(player.idleState);
+            player.fx.LandingDust();
+        }
 
         if(player.IsWallDetected())
             stateMachine.ChangeState(player.wallSlide);

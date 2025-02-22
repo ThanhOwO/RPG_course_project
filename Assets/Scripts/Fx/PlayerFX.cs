@@ -17,6 +17,8 @@ public class PlayerFX : EntityFx
 
     [Space]
     [SerializeField] private ParticleSystem dustFx;
+    [SerializeField] private GameObject dustTrailPrefab;
+
 
     protected override void Start()
     {
@@ -49,4 +51,14 @@ public class PlayerFX : EntityFx
         if(dustFx != null)
             dustFx.Play();
     }
+
+    public void LandingDust()
+    {
+        if (dustTrailPrefab != null)
+        {
+            GameObject dust = Instantiate(dustTrailPrefab, transform.position + new Vector3(0f, -0.9f, 0), Quaternion.identity);
+            Destroy(dust, 0.3f);
+        }
+    }
+
 }

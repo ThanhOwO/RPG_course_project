@@ -41,10 +41,14 @@ public class PlayerAirState : PlayerState
             if (player.isCrouchBuffered)
             {
                 player.isCrouchBuffered = false;
+                player.fx.LandingDust();
                 stateMachine.ChangeState(player.crouchState);
             }
             else
+            {
                 stateMachine.ChangeState(player.idleState);
+                player.fx.LandingDust();
+            }
         }
 
         if (Input.GetKey(KeyCode.S))

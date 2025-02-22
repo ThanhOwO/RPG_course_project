@@ -51,6 +51,7 @@ public class Player : Entity
     private float defaultDashSpeed;
     public bool IsTouchingLadder { get; private set; }
     public bool isClimbing;
+    [HideInInspector] public bool isCrouchBuffered; // save buffer crouch state
 
     [Header("Ledge info")]
     public bool isGrabbingLedge = false;

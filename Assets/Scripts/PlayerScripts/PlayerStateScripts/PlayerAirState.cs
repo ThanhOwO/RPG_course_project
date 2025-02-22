@@ -35,8 +35,17 @@ public class PlayerAirState : PlayerState
 
         if(player.IsGroundDetected() || player.IsOnOneWayPlatform())
         {
-            stateMachine.ChangeState(player.idleState);
+            if (player.isCrouchBuffered)
+            {
+                player.isCrouchBuffered = false;
+                stateMachine.ChangeState(player.crouchState);
+            }
+            else
+                stateMachine.ChangeState(player.idleState);
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+            player.isCrouchBuffered = true;
     }
     public override void Exit()
     {

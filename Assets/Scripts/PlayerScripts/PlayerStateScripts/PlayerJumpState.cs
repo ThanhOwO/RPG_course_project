@@ -40,6 +40,9 @@ public class PlayerJumpState : PlayerState
         }
         else if(Input.GetKeyUp(KeyCode.Space))
             isJumping = false;
+
+        if (Input.GetKeyDown(KeyCode.S))
+            player.isCrouchBuffered = true;
     }
     public override void Exit()
     {

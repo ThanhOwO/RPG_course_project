@@ -25,7 +25,7 @@ public class Enemy_AnimationTriggers : MonoBehaviour
                     if (enemy.isBoss)
                     {
                         enemy.GetComponent<Cinemachine.CinemachineImpulseSource>().GenerateImpulse();
-                        HitStopFX.instance.StopTime(0.2f, 0.05f);
+                        HitStopFX.instance.StopTime(0.1f, 0.05f);
                     }
                 }
             }

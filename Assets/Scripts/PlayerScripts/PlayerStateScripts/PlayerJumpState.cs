@@ -5,6 +5,7 @@ public class PlayerJumpState : PlayerState
     private float jumpTime = 0.2f;
     private float jumpTimeCounter;
     private bool isJumping;
+    private float jumpAcceleration = 10f;
 
     public PlayerJumpState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -16,7 +17,7 @@ public class PlayerJumpState : PlayerState
         base.Enter();
         isJumping = true;
         jumpTimeCounter = jumpTime;
-        player.setVelocity(xInput * player.moveSpeed, player.minJumpForce);
+        player.setVelocity(xInput * player.moveSpeed, player.jumpForce);
     }
     public override void Update()
     {
@@ -35,14 +36,17 @@ public class PlayerJumpState : PlayerState
 
         if (Input.GetKey(KeyCode.Space) && jumpTimeCounter > 0 && isJumping)
         {
-            player.setVelocity(xInput * player.moveSpeed, player.minJumpForce);
+            float newJumpForce = player.jumpForce + (jumpAcceleration * (jumpTime - jumpTimeCounter));
+            player.setVelocity(xInput * player.moveSpeed, newJumpForce);
             jumpTimeCounter -= Time.deltaTime;
         }
         else if(Input.GetKeyUp(KeyCode.Space))
             isJumping = false;
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
             player.isCrouchBuffered = true;
+        else
+            player.isCrouchBuffered = false;
     }
     public override void Exit()
     {

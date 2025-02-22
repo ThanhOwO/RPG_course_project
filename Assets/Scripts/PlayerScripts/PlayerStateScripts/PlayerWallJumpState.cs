@@ -10,7 +10,7 @@ public class PlayerWallJumpState : PlayerState
     {
         base.Enter();
         stateTimer = 1f;
-        player.setVelocity(5 * -player.FacingDir, player.maxJumpForce);
+        player.setVelocity(5 * -player.FacingDir, player.wallJumpForce);
     }
     public override void Update()
     {

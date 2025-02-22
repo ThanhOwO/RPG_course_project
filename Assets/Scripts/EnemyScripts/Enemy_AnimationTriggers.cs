@@ -21,6 +21,12 @@ public class Enemy_AnimationTriggers : MonoBehaviour
                 {
                     enemy.stats.DoDamge(_target);
                     hit.GetComponent<Player>().Stagger();
+
+                    if (enemy.isBoss)
+                    {
+                        enemy.GetComponent<Cinemachine.CinemachineImpulseSource>().GenerateImpulse();
+                        HitStopFX.instance.StopTime(0.2f, 0.05f);
+                    }
                 }
             }
         }

@@ -4,7 +4,6 @@ public class DeathBringerShootState : EnemyState
 {
     private Enemy_DeathBringer enemy;
     private float shootDuration = 10f;
-    private float timer;
     public DeathBringerShootState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_DeathBringer _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
     {
         this.enemy = _enemy;
@@ -13,7 +12,7 @@ public class DeathBringerShootState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        timer = shootDuration;
+        stateTimer = shootDuration;
         enemy.bulletSpawnerLeft.gameObject.SetActive(true);
         enemy.bulletSpawnerRight.gameObject.SetActive(true);
         enemy.Invoke("CastBulletSpell", 0.5f);
@@ -22,8 +21,7 @@ public class DeathBringerShootState : EnemyState
     public override void Update()
     {
         base.Update();
-        timer -= Time.deltaTime;
-        if (timer <= 0)
+        if (stateTimer <= 0)
         {
             stateMachine.ChangeState(enemy.teleportState);
         }

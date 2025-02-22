@@ -1,9 +1,16 @@
+using Cinemachine;
 using UnityEngine;
 
 public class DeathBringerSpell_Controller : MonoBehaviour
 {
     [SerializeField] private BoxCollider2D hitbox;
     private CharacterStats myStats;
+    private CinemachineImpulseSource impulseSource;
+
+    private void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
     public void SetupSpell(CharacterStats _stats) => myStats = _stats; 
 
@@ -24,6 +31,7 @@ public class DeathBringerSpell_Controller : MonoBehaviour
             other.GetComponent<Entity>().SetupKnockBackDir(transform);
             myStats.DoDamge(other.GetComponent<CharacterStats>());
             other.GetComponent<Player>().Stagger();
+            
             hitbox.enabled = false;
         }
     }
@@ -34,4 +42,7 @@ public class DeathBringerSpell_Controller : MonoBehaviour
     {
         hitbox.enabled = false;
     }
+
+    public void GenerateImpulse() => impulseSource?.GenerateImpulse();
+
 }

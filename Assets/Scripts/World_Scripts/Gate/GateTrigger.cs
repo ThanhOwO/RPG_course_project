@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 public class GateTrigger : MonoBehaviour
@@ -11,10 +12,13 @@ public class GateTrigger : MonoBehaviour
     private float cutsceneGateDelay = 1.5f;
     public Enemy_DeathBringer boss;
     public CanvasGroup victoryCanvasGroup;
+    [SerializeField] private ParticleSystem dustCloudPrefab;
+    private CinemachineImpulseSource impulseSource;
 
     private void Awake()
     {
         victoryCanvasGroup.alpha = 0;
+        impulseSource = GetComponentInParent<CinemachineImpulseSource>();
     }
 
     private IEnumerator Start()
@@ -59,8 +63,11 @@ public class GateTrigger : MonoBehaviour
     {
         Rigidbody2D gateRb = gate.GetComponent<Rigidbody2D>();
         yield return new WaitForSeconds(delay);
-        if (gateRb != null)
-            gateRb.bodyType = RigidbodyType2D.Dynamic;
+        gateRb.bodyType = RigidbodyType2D.Dynamic;
+        impulseSource.GenerateImpulse();
+        dustCloudPrefab.Play();
+        Destroy(dustCloudPrefab.gameObject, dustCloudPrefab.main.duration + dustCloudPrefab.main.startLifetime.constant);
+
     }
 
     private void OpenGate()

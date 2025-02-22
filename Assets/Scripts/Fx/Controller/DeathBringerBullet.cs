@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class DeathBringerBullet : MonoBehaviour
@@ -6,6 +7,12 @@ public class DeathBringerBullet : MonoBehaviour
     private Vector2 direction;
     private CharacterStats myStats;
     [SerializeField] private GameObject hitFxPrefab;
+    private CinemachineImpulseSource impulseSource;
+
+    private void Awake()
+    {
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+    }
 
     public void Setup(Vector2 _direction, CharacterStats _myStats)
     {
@@ -33,6 +40,7 @@ public class DeathBringerBullet : MonoBehaviour
                 myStats.DoDamge(other.GetComponent<CharacterStats>());
                 other.GetComponent<Player>().Stagger();
             }
+            impulseSource?.GenerateImpulse();
             hit = true;
         }
         

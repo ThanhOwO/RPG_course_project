@@ -1,4 +1,5 @@
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 public class DeathBringerPhase2Spell : MonoBehaviour
@@ -7,6 +8,8 @@ public class DeathBringerPhase2Spell : MonoBehaviour
     [SerializeField] private BoxCollider2D largeHitbox;
     private CharacterStats myStats;
     private Animator animator;
+    private CinemachineImpulseSource impulseSource;
+    private Coroutine shakeCoroutine;
 
     [Header("Duration info")] 
     [SerializeField] private float waitDuration = 2f;
@@ -66,6 +69,7 @@ public class DeathBringerPhase2Spell : MonoBehaviour
             {
                 myStats.DoDamge(other.GetComponent<CharacterStats>());
                 other.GetComponent<Player>().Stagger();
+                GenerateImpulse();
             }
         }
     }
@@ -89,4 +93,6 @@ public class DeathBringerPhase2Spell : MonoBehaviour
     {
         largeHitbox.enabled = false;
     }
+
+    public void GenerateImpulse() => impulseSource?.GenerateImpulse();
 }

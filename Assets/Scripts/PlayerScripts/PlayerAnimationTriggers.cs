@@ -24,6 +24,9 @@ public class PlayerAnimationTriggers : MonoBehaviour
                 if(player.primaryAttack.IsLastComboAtk() && !_target.isDead)
                     hit.GetComponent<Enemy>().Stagger();
 
+                if(!_target.isInvincible)
+                    HitStopFX.instance.StopTime(0.1f, 0.05f);
+                    
                 //inventory get weapon call item effect 
                 Inventory.instance.GetEquipment(EquipmentType.Weapon)?.Effect(_target.transform);       
             }

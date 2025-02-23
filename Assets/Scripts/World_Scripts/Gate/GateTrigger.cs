@@ -8,7 +8,7 @@ public class GateTrigger : MonoBehaviour
     [SerializeField] private GameObject cutScene;
     private bool cutscenePlayed = false;
     private const string CutsceneKey = "BossCutscenePlayed";
-    private float defaultGateDelay = 0.5f;
+    private float defaultGateDelay = 0.2f;
     private float cutsceneGateDelay = 1.5f;
     public Enemy_DeathBringer boss;
     public CanvasGroup victoryCanvasGroup;

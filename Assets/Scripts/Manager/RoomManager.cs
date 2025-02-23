@@ -9,6 +9,7 @@ public class RoomManager : MonoBehaviour
     private CinemachineConfiner2D confiner;
     public Transform player;
     public RoomFadeCanvas roomFadeCanvas;
+    private bool isTransitioning = false;
 
     private void Awake() 
     {
@@ -25,6 +26,8 @@ public class RoomManager : MonoBehaviour
 
     public void MovePlayerToRoom(Room newRoom, Vector2 newPosition, bool useFade = true)
     {
+        if (isTransitioning) return;
+
         StartCoroutine(TransitionToRoom(newRoom, newPosition, useFade));
         MapManager.instance.DiscoverRoom(newRoom.roomID);
     }
@@ -50,6 +53,7 @@ public class RoomManager : MonoBehaviour
     
     private IEnumerator TransitionToRoom(Room newRoom, Vector2 newPosition, bool useFade)
     {
+        isTransitioning = true;
         if (useFade && roomFadeCanvas != null)
         {
             roomFadeCanvas.FadeOut();
@@ -72,5 +76,8 @@ public class RoomManager : MonoBehaviour
         {
             roomFadeCanvas.FadeIn();
         }
+
+        yield return new WaitForSeconds(0.3f);
+        isTransitioning = false;
     }
 }

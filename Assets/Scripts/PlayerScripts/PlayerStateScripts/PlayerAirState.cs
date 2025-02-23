@@ -49,6 +49,8 @@ public class PlayerAirState : PlayerState
                 stateMachine.ChangeState(player.idleState);
                 player.fx.LandingDust();
             }
+            //landing sfx
+            AudioManager.instance.PlaySFX(5, null);
         }
 
         if (Input.GetKey(KeyCode.S))

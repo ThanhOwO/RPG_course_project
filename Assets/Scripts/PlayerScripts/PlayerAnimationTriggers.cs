@@ -25,7 +25,10 @@ public class PlayerAnimationTriggers : MonoBehaviour
                     hit.GetComponent<Enemy>().Stagger();
 
                 if(!_target.isInvincible)
+                {
                     HitStopFX.instance.StopTime(0.05f, 0.05f);
+                    AudioManager.instance.PlaySFX(9, null); //hit sound effect
+                }
 
                 //inventory get weapon call item effect 
                 Inventory.instance.GetEquipment(EquipmentType.Weapon)?.Effect(_target.transform);       
@@ -40,4 +43,11 @@ public class PlayerAnimationTriggers : MonoBehaviour
             return;
         }
     }
+
+    #region SFX regions
+    private void PlayFootstep()
+    {
+        AudioManager.instance.PlaySFX(4, null);
+    }
+    #endregion
 }

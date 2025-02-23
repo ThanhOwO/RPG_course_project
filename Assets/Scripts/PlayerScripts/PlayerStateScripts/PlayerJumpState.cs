@@ -18,6 +18,8 @@ public class PlayerJumpState : PlayerState
         isJumping = true;
         jumpTimeCounter = jumpTime;
         player.setVelocity(xInput * player.moveSpeed, player.jumpForce);
+        //jump sfx
+        AudioManager.instance.PlaySFX(6, null);
     }
     public override void Update()
     {

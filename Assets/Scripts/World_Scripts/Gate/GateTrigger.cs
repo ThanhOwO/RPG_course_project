@@ -40,8 +40,6 @@ public class GateTrigger : MonoBehaviour
     {
         if (other.GetComponent<Player>())
         {
-            //Stop player moving audio
-            //AudioManager.instance.StopSFX(14);
             float gateDelay = cutscenePlayed ? defaultGateDelay : cutsceneGateDelay;
 
             StartCoroutine(CloseGate(gateDelay));

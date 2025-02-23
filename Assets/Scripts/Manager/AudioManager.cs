@@ -52,6 +52,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlaySFXNoPitch(int _sfxIndex, Transform _source)
+    {
+        if(!canPlaySFX)
+            return;
+        
+        //sound distance logic
+        if(_source != null && Vector2.Distance(PlayerManager.instance.player.transform.position, _source.position) > sfxMinimumDistance)
+            return;
+
+        if(_sfxIndex < sfx.Length)
+            sfx[_sfxIndex].Play();
+    }
+
     public void PlayUISFX(int _sfxIndex)
     {
         if(!canPlaySFX)

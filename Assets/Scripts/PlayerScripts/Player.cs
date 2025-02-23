@@ -304,8 +304,6 @@ public class Player : Entity
     }
     #endregion
 
-
-
     public bool IsWallSlideDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, wallCheckDistance, whatIsWallSlide);
     
     protected override void OnDrawGizmos()

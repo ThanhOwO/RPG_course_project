@@ -9,6 +9,8 @@ public class PlayerBrakeState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        //brake sfx
+        AudioManager.instance.PlaySFX(8, null);
     }
 
     public override void Update()

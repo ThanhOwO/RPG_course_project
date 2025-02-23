@@ -12,6 +12,11 @@ public class EnemyStats : CharacterStats
     private ItemDrop dropSystem;
     public Stat soulsDropAmount;
 
+    [Header("Get hit effect")]
+    [SerializeField] private GameObject hitEffectPrefab;
+    [Header("Get hit sfx")]
+    [SerializeField] private int hitSfxIndex = -1;
+
     protected override void Start()
     {
         //Lvl apply must be called first
@@ -63,6 +68,12 @@ public class EnemyStats : CharacterStats
             enemy.fx.CreatePopUpText(_damage.ToString(), textColor);
             isCriticalHit = false;    
         }
+
+        if (hitSfxIndex >= 0)
+            AudioManager.instance.PlaySFX(hitSfxIndex, null);
+
+        if(hitEffectPrefab != null)
+            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
     }
 
     protected override void Die()

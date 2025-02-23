@@ -11,7 +11,8 @@ public class PlayerMoveState : PlayerGroundState
     {
         base.Enter();
         moveTimer = 0f;
-        AudioManager.instance.PlaySFX(14, null);
+        //Player move sound effect
+        //AudioManager.instance.PlaySFX(14, null);
     }
     public override void Update()
     {
@@ -36,7 +37,8 @@ public class PlayerMoveState : PlayerGroundState
     public override void Exit()
     {
         base.Exit();
-        AudioManager.instance.StopSFX(14);
+        //stop sound effect
+        //AudioManager.instance.StopSFX(14);
 
     }
 }

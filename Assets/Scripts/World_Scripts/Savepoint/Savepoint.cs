@@ -48,8 +48,9 @@ public class Savepoint : MonoBehaviour, IInteractable
 
     public void ActivateSavepoint()
     {
+        //play save point sound effect
         if(activateStatus == false)
-            AudioManager.instance.PlaySFX(5, transform);
+            AudioManager.instance.PlaySFX(1, transform);
             
         activateStatus = true;
         anim.SetBool("Active", true);
@@ -60,7 +61,8 @@ public class Savepoint : MonoBehaviour, IInteractable
     private void SaveGame()
     {
         Debug.Log("Game Saved at Savepoint: " + id);
-        AudioManager.instance.PlaySFX(5, transform);
+        //play save point sound effect
+        AudioManager.instance.PlaySFX(1, transform);
         GameManager.instance.SetLastActivatedSavepoint(this);
         GameManager.instance.RespawnEnemies();
         SaveManager.instance.SaveGame();

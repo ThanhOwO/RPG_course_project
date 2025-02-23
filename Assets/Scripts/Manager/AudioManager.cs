@@ -8,8 +8,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource[] sfx;
     [SerializeField] private AudioSource[] bgm;
     [SerializeField] private AudioSource[] uiSfx;
-    public bool playBGM;
-    private int bgmIndex;
+    private AudioSource currentBGM;
     private bool canPlaySFX;
 
     private void Awake() 
@@ -33,16 +32,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Update() {
-        if(!playBGM)
-            StopAllBGM();
-        else
-        {
-            if(!bgm[bgmIndex].isPlaying)
-                PlayBGM(bgmIndex);
-        }
-    }
-
+    #region SFX region
     public void PlaySFX(int _sfxIndex, Transform _source)
     {
         // if(sfx[_sfxIndex].isPlaying)
@@ -74,33 +64,36 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayRandomBGM()
-    {
-        bgmIndex = Random.Range(0, bgm.Length);
-        PlayBGM(bgmIndex);
-    }
-
     public void StopSFX(int _index) => sfx[_index].Stop();
-
-    public void PlayBGM(int _bgmIndex)
-    {
-        bgmIndex = _bgmIndex;
-
-        StopAllBGM();
-        bgm[bgmIndex].Play();
-    }
-
-    public void StopAllBGM()
-    {
-        for(int i = 0; i < bgm.Length; i++)
-        {
-            bgm[i].Stop();
-        }
-    }
     
     private void AllowSFX() => canPlaySFX = true;
 
     public void StopFSXWithTime(int _index) => StartCoroutine(DecreaseVolume(sfx[_index]));
+    #endregion
+
+    #region BGM music region
+    public void PlayBGM(int _bgmIndex)
+    {
+        if (currentBGM == bgm[_bgmIndex]) 
+            return;
+
+        StopBGM();
+
+        currentBGM = bgm[_bgmIndex];
+        currentBGM.loop = true;
+        currentBGM.Play();
+    }
+
+    public void StopBGM()
+    {
+        if (currentBGM != null)
+        {
+            currentBGM.Stop();
+            currentBGM = null;
+        }
+    }
+
+    #endregion
 
     private IEnumerator DecreaseVolume(AudioSource _audio)
     {

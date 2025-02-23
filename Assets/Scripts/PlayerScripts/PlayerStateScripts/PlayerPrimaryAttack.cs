@@ -34,6 +34,9 @@ public class PlayerPrimaryAttack : PlayerState
 
         if(triggerCalled)
             stateMachine.ChangeState(player.idleState);
+
+        if(!player.IsGroundDetected())
+            stateMachine.ChangeState(player.airState);
     }
     public override void Exit()
     {

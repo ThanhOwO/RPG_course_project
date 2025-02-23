@@ -29,7 +29,7 @@ public class PlayerDashState : PlayerState
         if(Input.GetButtonDown("Jump") && player.IsGroundDetected())
             stateMachine.ChangeState(player.jumpState);
 
-        if(!player.IsGroundDetected() && player.IsWallDetected())
+        if(!player.IsGroundDetected() && player.IsWallSlideDetected())
             stateMachine.ChangeState(player.wallSlide);
 
         if(stateTimer < 0 && (player.IsGroundDetected() || player.IsOnOneWayPlatform()))
@@ -46,7 +46,7 @@ public class PlayerDashState : PlayerState
         player.skill.dash.CloneOnArrival();
         player.setVelocity(0, rb.linearVelocityY);
         player.stats.MakeInvincible(false);
-        rb.gravityScale = 3.5f;
+        rb.gravityScale = player.defaultGravityScale;
 
     }
 }

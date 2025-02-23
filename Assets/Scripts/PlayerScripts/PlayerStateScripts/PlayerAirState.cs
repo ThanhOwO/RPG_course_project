@@ -20,16 +20,16 @@ public class PlayerAirState : PlayerState
     {
         base.Update();
 
-        if(player.IsWallDetected())
+        if(player.IsWallSlideDetected())
             stateMachine.ChangeState(player.wallSlide);
 
-        if (Mathf.Abs(xInput) > 0.3f && !player.IsWallDetected()) 
+        if (Mathf.Abs(xInput) > 0.3f && !player.IsWallSlideDetected()) 
             player.setVelocity(player.moveSpeed * .8f * xInput, rb.linearVelocityY);
         else
             player.setVelocity(0, rb.linearVelocityY); //Keep falling straight down if input too small
 
         // Increase gravity as player falls, but keep it controlled
-        if(rb.linearVelocityY < 0 && !player.IsWallDetected())
+        if(rb.linearVelocityY < 0 && !player.IsWallSlideDetected())
         {
             fallGravityScale += fallAcceleration * Time.deltaTime;
             fallGravityScale = Mathf.Min(fallGravityScale, maxFallGravityScale);

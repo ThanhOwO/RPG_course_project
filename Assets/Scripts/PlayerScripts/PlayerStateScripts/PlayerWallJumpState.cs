@@ -23,11 +23,9 @@ public class PlayerWallJumpState : PlayerState
             player.fx.LandingDust();
         }
 
-        if(player.IsWallDetected())
+        if(player.IsWallSlideDetected())
             stateMachine.ChangeState(player.wallSlide);
 
-        if(xInput != 0 && !player.IsWallDetected())
-            player.setVelocity(player.moveSpeed * .8f * xInput, rb.linearVelocityY);
     }
     public override void Exit()
     {

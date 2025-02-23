@@ -53,6 +53,7 @@ public class Player : Entity
     public bool IsTouchingLadder { get; private set; }
     public bool isClimbing;
     [HideInInspector] public bool isCrouchBuffered; // save buffer crouch state
+    [SerializeField] protected LayerMask whatIsWallSlide;
 
     [Header("Ledge info")]
     public bool isGrabbingLedge = false;
@@ -143,25 +144,7 @@ public class Player : Entity
         if(Input.GetKeyDown(KeyCode.R))
             Inventory.instance.UseFlask();
     }
-    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
-    {
-       moveSpeed = moveSpeed * (1 - _slowPercentage);
-       wallJumpForce = wallJumpForce * (1 - _slowPercentage);
-       jumpForce = jumpForce * (1 - _slowPercentage);
-       dashSpeed = dashSpeed * (1 - _slowPercentage);
-       anim.speed = anim.speed * (1 - _slowPercentage);
 
-       Invoke(nameof(ReturnDefaultSpeed), _slowDuration);
-    }
-    protected override void ReturnDefaultSpeed()
-    {
-        base.ReturnDefaultSpeed();
-
-        moveSpeed = defaultMoveSpeed;
-        wallJumpForce = defaultWallJumpForce;
-        jumpForce = defaultJumpForce;
-        dashSpeed = defaultDashSpeed;
-    }
     public void AssignNewSword(GameObject _newSword)
     {
         sword = _newSword;
@@ -205,40 +188,12 @@ public class Player : Entity
         }
     }
 
-    public override void Die()
-    {
-        base.Die();
-        DisableColliders();
-        DisableRigidBody();
-        isDead = true;
-        stateMachine.ChangeState(deathState);
-    }
-    public override void Stagger()
-    {
-        base.Stagger();
-        stateMachine.ChangeState(stunnedState);
-    }
-
-    private void DisableColliders()
-    {
-        Collider2D[] colliders = GetComponents<Collider2D>();
-        foreach(Collider2D collider in colliders)
-            collider.enabled = false;
-    }
-
-    private void DisableRigidBody()
-    {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if(rb != null)
-            rb.simulated = false;
-    }
-
     protected override void SetupZeroKnockbackPower()
     {
         knockbackPower = new Vector2(0, 0);
     }
 
-    #region Ledge & ladder grab regions
+    #region Ledge, one way platform & ladder grab regions
     private bool IsCollidingWithOneWayPlatformAbove()
     {
         if (playerCollider == null)
@@ -250,6 +205,14 @@ public class Player : Entity
         // If any overlapping colliders are found, return true
         return overlappingColliders.Length > 0;
     }
+
+    public bool IsOnOneWayPlatform() 
+    {
+        if (disableOneWayCheck)
+            return false;
+            
+        return Physics2D.Raycast(oneWayCheck.position, Vector2.down, oneWayCheckDistance, whatIsOneWayPlatform);
+    } 
 
     public bool IsLedgeDetected()
     {
@@ -289,14 +252,62 @@ public class Player : Entity
     }
     #endregion
 
-    public bool IsOnOneWayPlatform() 
+    #region Die logic regions
+    public override void Die()
     {
-        if (disableOneWayCheck)
-            return false;
-            
-        return Physics2D.Raycast(oneWayCheck.position, Vector2.down, oneWayCheckDistance, whatIsOneWayPlatform);
-    } 
+        base.Die();
+        DisableColliders();
+        DisableRigidBody();
+        isDead = true;
+        stateMachine.ChangeState(deathState);
+    }
 
+    private void DisableColliders()
+    {
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach(Collider2D collider in colliders)
+            collider.enabled = false;
+    }
+
+    private void DisableRigidBody()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if(rb != null)
+            rb.simulated = false;
+    }
+    #endregion
+
+    #region Debuff regions
+    public override void Stagger()
+    {
+        base.Stagger();
+        stateMachine.ChangeState(stunnedState);
+    }
+    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
+    {
+       moveSpeed = moveSpeed * (1 - _slowPercentage);
+       wallJumpForce = wallJumpForce * (1 - _slowPercentage);
+       jumpForce = jumpForce * (1 - _slowPercentage);
+       dashSpeed = dashSpeed * (1 - _slowPercentage);
+       anim.speed = anim.speed * (1 - _slowPercentage);
+
+       Invoke(nameof(ReturnDefaultSpeed), _slowDuration);
+    }
+    protected override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+
+        moveSpeed = defaultMoveSpeed;
+        wallJumpForce = defaultWallJumpForce;
+        jumpForce = defaultJumpForce;
+        dashSpeed = defaultDashSpeed;
+    }
+    #endregion
+
+
+
+    public bool IsWallSlideDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDir, wallCheckDistance, whatIsWallSlide);
+    
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();

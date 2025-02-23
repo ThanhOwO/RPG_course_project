@@ -40,8 +40,8 @@ public class PlayerLedgeGrabState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.rb.gravityScale = 3.5f;
-         player.isGrabbingLedge = false;
+        rb.gravityScale = player.defaultGravityScale;
+        player.isGrabbingLedge = false;
     }
 
     private void LedgeClimbOver()

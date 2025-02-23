@@ -28,7 +28,7 @@ public class PlayerJumpState : PlayerState
         
         player.setVelocity(xInput * player.moveSpeed, rb.linearVelocityY);
         
-        if (player.IsWallDetected() && !player.IsGroundDetected()) 
+        if (player.IsWallSlideDetected() && !player.IsGroundDetected()) 
         { 
             stateMachine.ChangeState(player.wallSlide); 
             return; 

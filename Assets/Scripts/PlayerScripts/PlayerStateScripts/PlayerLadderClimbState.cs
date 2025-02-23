@@ -47,7 +47,7 @@ public class PlayerLadderClimbState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.rb.gravityScale = 3.5f;
+        player.rb.gravityScale = player.defaultGravityScale;
         player.isClimbing = false;
         player.anim.speed = 1;
     }

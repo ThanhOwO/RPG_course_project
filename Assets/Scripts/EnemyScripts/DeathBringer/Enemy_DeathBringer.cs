@@ -213,18 +213,21 @@ public class Enemy_DeathBringer : Enemy
     {
         bossHealthBar.SetBoss(enemyStats);
         StartCoroutine(delayBossStart());
+        AudioManager.instance.PlayBGM(7);
     }
 
     public void HideBossHealth()
     {
         bossFightBegun = false;
         bossHealthBar.HideBossHealthBar();
+        AudioManager.instance.StopBGM();
     }
 
     private IEnumerator delayBossStart()
     {
         yield return new WaitForSeconds(0.5f);
         bossFightBegun = true;
+        
     }
     #endregion
 

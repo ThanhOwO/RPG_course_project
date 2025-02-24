@@ -92,7 +92,7 @@ public class Entity : MonoBehaviour
     }
     #endregion
     #region Flip
-    public void Flip()
+    public virtual void Flip()
     {
         FacingDir *= -1;
         FacingRight = !FacingRight;

@@ -63,6 +63,7 @@ public class GateTrigger : MonoBehaviour
         yield return new WaitForSeconds(delay);
         gateRb.bodyType = RigidbodyType2D.Dynamic;
         impulseSource.GenerateImpulse();
+        AudioManager.instance.PlaySFXNoPitch(10, null);
         dustCloudPrefab.Play();
         Destroy(dustCloudPrefab.gameObject, dustCloudPrefab.main.duration + dustCloudPrefab.main.startLifetime.constant);
 
@@ -95,6 +96,7 @@ public class GateTrigger : MonoBehaviour
     private IEnumerator ShowVictoryUI()
     {
         yield return new WaitForSeconds(1f);
+        AudioManager.instance.PlaySFXNoPitch(13, null);
         float duration = 0.5f;
         float elapsedTime = 0f;
 

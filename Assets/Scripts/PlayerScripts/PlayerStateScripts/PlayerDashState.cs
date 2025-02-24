@@ -16,6 +16,9 @@ public class PlayerDashState : PlayerState
 
         player.stats.MakeInvincible(true);
         rb.gravityScale = 0;
+        
+        //dash sfx
+        AudioManager.instance.PlaySFX(11, null);
     }
     public override void Update()
     {

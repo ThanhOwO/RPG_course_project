@@ -16,6 +16,11 @@ public class PlayerDeathState : PlayerState
     {
         base.Enter();
         GameObject.Find("UICanvas").GetComponent<UI>().SwitchOnEndScreen();
+        
+        //Game over sfx
+        var sfx = AudioManager.instance;
+        sfx.StopBGM();
+        sfx.PlaySFXNoPitch(12, null);
     }
 
     public override void Update()

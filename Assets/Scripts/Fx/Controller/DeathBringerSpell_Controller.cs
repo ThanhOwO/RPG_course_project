@@ -43,6 +43,10 @@ public class DeathBringerSpell_Controller : MonoBehaviour
         hitbox.enabled = false;
     }
 
-    public void GenerateImpulse() => impulseSource?.GenerateImpulse();
+    private void GenerateImpulse() => impulseSource?.GenerateImpulse();
+
+    //Spell sfx
+    private void MagicStartSFX() => AudioManager.instance.PlaySFXNoPitch(23, null);
+    private void ImpactSFX() => AudioManager.instance.PlaySFXNoPitch(24, null);
 
 }

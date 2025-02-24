@@ -38,6 +38,7 @@ public class DeathBringerBullet : MonoBehaviour
             if(!myStats.isInvincible)
             {
                 myStats.DoDamge(other.GetComponent<CharacterStats>());
+                AudioManager.instance.PlaySFXNoPitch(22, null);
                 other.GetComponent<Player>().Stagger();
             }
             impulseSource?.GenerateImpulse();

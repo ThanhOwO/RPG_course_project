@@ -8,4 +8,8 @@ public class Enemy_DeathBringerTrigger : Enemy_AnimationTriggers
     
     private void MakeInvisible() => enemyDeathBringer.fx.makeTransparent(true);
     private void MakeVisible() => enemyDeathBringer.fx.makeTransparent(false);
+
+    private void AttackSFX() => AudioManager.instance.PlaySFX(18, null);
+    private void MoveSFX() => AudioManager.instance.PlaySFX(19, null);
+
 }

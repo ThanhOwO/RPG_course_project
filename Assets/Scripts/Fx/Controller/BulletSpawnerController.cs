@@ -18,6 +18,7 @@ public class BulletSpawnerController : MonoBehaviour
         for (int i = 0; i < bulletCount; i++)
         {
             Vector3 spawnPos = new Vector3(bounds.min.x, Random.Range(bounds.min.y, bounds.max.y), 0);
+            AudioManager.instance.PlaySFXNoPitch(21, null);
             GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
             bullet.GetComponent<DeathBringerBullet>().Setup(Vector2.right, stats);
             yield return new WaitForSeconds(delay);
@@ -31,6 +32,7 @@ public class BulletSpawnerController : MonoBehaviour
         for (int i = 0; i < bulletCount; i++)
         {
             Vector3 spawnPos = new Vector3(bounds.min.x, Random.Range(bounds.min.y, bounds.max.y), 0);
+            AudioManager.instance.PlaySFXNoPitch(21, null);
             GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
             bullet.GetComponent<DeathBringerBullet>().Setup(Vector2.left, stats);
             SpriteRenderer sr = bullet.GetComponent<SpriteRenderer>();

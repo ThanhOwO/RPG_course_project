@@ -49,5 +49,9 @@ public class PlayerAnimationTriggers : MonoBehaviour
     {
         AudioManager.instance.PlaySFX(4, null);
     }
+    private void PlayGrabSfx()
+    {
+        AudioManager.instance.PlaySFX(17, null);
+    }
     #endregion
 }

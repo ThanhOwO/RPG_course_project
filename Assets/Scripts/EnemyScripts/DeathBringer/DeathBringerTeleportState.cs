@@ -12,6 +12,9 @@ public class DeathBringerTeleportState : EnemyState
     {
         base.Enter();
         enemy.stats.MakeInvincible(true);
+
+        //Teleport sfx
+        AudioManager.instance.PlaySFX(20, null);
     }
 
     public override void Update()

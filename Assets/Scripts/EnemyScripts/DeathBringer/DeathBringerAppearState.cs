@@ -12,6 +12,9 @@ public class DeathBringerAppearState : EnemyState
     {
         base.Enter();
         stateTimer = enemy.anim.GetCurrentAnimatorStateInfo(0).length;
+
+        //Teleport sfx
+        AudioManager.instance.PlaySFX(20, null);
     }
 
     public override void Update()

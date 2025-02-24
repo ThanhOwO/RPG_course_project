@@ -15,3 +15,6 @@ MonoBehaviour:
   speakerName: Tao
   paragraphs:
   - "Kill all m\u1ECDi An rape all m\u1ECDi An"
+  - This is a test dialogue. I just testing the sound of my voice. Please dont laugh,
+    it will make me feel more comfortable.
+  typingSFXIndex: 16

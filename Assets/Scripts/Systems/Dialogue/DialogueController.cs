@@ -17,9 +17,13 @@ public class DialogueController : MonoBehaviour
     private const string HTML_ALPHA = "<color=#00000000>";
     private Coroutine typeDialogueCorotine;
     public static bool isTalking;
+    private DialogueText currentDialogueText;
+    public float blipCooldown = 0.2f;
+    private float lastBlipTime;
 
     public void DisplayNextParagraph(DialogueText dialogueText)
     {
+        currentDialogueText = dialogueText;
         if(paragraphs.Count == 0)
         {
             if(!conversationEnded)
@@ -88,6 +92,12 @@ public class DialogueController : MonoBehaviour
             npcDialogueText.text = originalText;
             displayedText = npcDialogueText.text.Insert(alphaIndex, HTML_ALPHA);
             npcDialogueText.text = displayedText;
+
+            if (alphaIndex % 3 == 0 && Time.time - lastBlipTime > blipCooldown)
+            {
+                AudioManager.instance.PlayVoiceAudio(currentDialogueText.typingSFXIndex);
+                lastBlipTime = Time.time;
+            }
             
             yield return new WaitForSeconds(MAX_TYPE_TIME / typeSpeed);
         }

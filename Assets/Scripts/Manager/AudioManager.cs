@@ -77,6 +77,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlayVoiceAudio(int _sfxIndex)
+    {
+        if (!canPlaySFX) return;
+
+        if (_sfxIndex < 0 || _sfxIndex >= sfx.Length) return;
+
+        sfx[_sfxIndex].pitch = Random.Range(0.85f, 1.2f);
+        sfx[_sfxIndex].PlayOneShot(sfx[_sfxIndex].clip);
+    }
+
     public void StopSFX(int _index) => sfx[_index].Stop();
     
     private void AllowSFX() => canPlaySFX = true;

@@ -8,4 +8,5 @@ public class DialogueText : ScriptableObject
 
     [TextArea(5, 10)]
     public string[] paragraphs;
+    public int typingSFXIndex = -1;
 }

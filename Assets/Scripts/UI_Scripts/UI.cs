@@ -44,7 +44,13 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isInputBlocked || PlayerManager.instance.player.isCutScene) return;
+        if (endText.activeSelf && restartButton.activeSelf && Input.GetKeyDown(KeyCode.Space))
+        {
+            AudioManager.instance.PlayUISFX(1);
+            restartButton.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
+        }
+
+        if (isInputBlocked || PlayerManager.instance.player.isCutScene || PlayerManager.instance.player.isDead) return;
 
         if(Input.GetKeyDown(KeyCode.Tab))
             SwitchWithKeyTo(characterUI);
@@ -65,11 +71,6 @@ public class UI : MonoBehaviour
                 SwitchMenu(1);
         }
 
-        if (endText.activeSelf && restartButton.activeSelf && Input.GetKeyDown(KeyCode.Space))
-        {
-            AudioManager.instance.PlayUISFX(1);
-            restartButton.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
-        }
     }
 
     bool IsAnyUIOpen()

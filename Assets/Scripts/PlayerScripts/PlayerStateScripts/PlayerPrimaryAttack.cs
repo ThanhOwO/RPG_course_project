@@ -35,7 +35,7 @@ public class PlayerPrimaryAttack : PlayerState
         if(triggerCalled)
             stateMachine.ChangeState(player.idleState);
 
-        if(!player.IsGroundDetected())
+        if(!player.IsGroundDetected() && !player.IsOnOneWayPlatform())
             stateMachine.ChangeState(player.airState);
     }
     public override void Exit()

@@ -62,6 +62,7 @@ public class Player : Entity
     public float grabRange = 0.5f;
     public Vector2 offset2;
     public Vector2 offset1;
+    private bool ledgeCheckDisabled;
 
     [Header("One_way platform info")]
     public Transform oneWayCheck;
@@ -216,6 +217,8 @@ public class Player : Entity
 
     public bool IsLedgeDetected()
     {
+        if (ledgeCheckDisabled) return false;
+
         RaycastHit2D hit = Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDir, grabRange, whatIsLedge);
         bool isCollidingWithOneWayPlatformAbove = IsCollidingWithOneWayPlatformAbove();
         return hit.collider != null && !isCollidingWithOneWayPlatformAbove;
@@ -228,6 +231,13 @@ public class Player : Entity
             isGrabbingLedge = true;
             stateMachine.ChangeState(ledgeGrabState);
         }
+    }
+
+    private IEnumerator DisableLedgeCheckTemporarily()
+    {
+        ledgeCheckDisabled = true;
+        yield return new WaitForSeconds(0.2f);
+        ledgeCheckDisabled = false;
     }
 
     private void CheckForLadderClimb()

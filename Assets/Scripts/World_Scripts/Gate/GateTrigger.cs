@@ -74,8 +74,10 @@ public class GateTrigger : MonoBehaviour
         if (gate != null)
         {
             Rigidbody2D gateRb = gate.GetComponent<Rigidbody2D>();
+            Collider2D collider = GetComponent<Collider2D>();
             if (gateRb != null)
                 gateRb.bodyType = RigidbodyType2D.Kinematic;
+            collider.enabled = false;
             StartCoroutine(MoveGateUp());
         }
         SaveManager.instance.SetGateOpened(true);
@@ -107,7 +109,6 @@ public class GateTrigger : MonoBehaviour
             yield return null;
         }
         victoryCanvasGroup.alpha = 1;
-
         yield return new WaitForSeconds(3f);
         elapsedTime = 0f;
         while (elapsedTime < duration)
@@ -117,10 +118,6 @@ public class GateTrigger : MonoBehaviour
             yield return null;
         }
         victoryCanvasGroup.alpha = 0;
-        
-        //Disable gate trigger
-        yield return new WaitForSeconds(1f);
-        gameObject.SetActive(false);
     }
 
     private void OnDestroy()

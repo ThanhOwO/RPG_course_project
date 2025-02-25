@@ -8,12 +8,19 @@ public class UI_VolumeSlider : MonoBehaviour
     public string parameter;
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private float multiplier;
+
+    private void Start()
+    {
+        float savedVolume = PlayerPrefs.GetFloat(parameter, 1f);
+        slider.value = savedVolume;
+        SliderValue(savedVolume);
+    }
     
     public void SliderValue(float _value) => audioMixer.SetFloat(parameter, Mathf.Log10(_value) * multiplier);
 
-    public void LoadSlider(float _value)
+    public void SaveVolume()
     {
-        if(_value >= 0.001f)
-            slider.value = _value;
+        PlayerPrefs.SetFloat(parameter, slider.value);
+        PlayerPrefs.Save();
     }
 }

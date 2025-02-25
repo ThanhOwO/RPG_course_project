@@ -38,12 +38,20 @@ public class Teleport_UI : MonoBehaviour
     private void Navigate()
     {
         if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
             selectedIndex = (selectedIndex - 1 + savePointButtons.Count) % savePointButtons.Count;
+            AudioManager.instance.PlayUISFX(0);
+        }
         else if(Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        {
             selectedIndex = (selectedIndex + 1) % savePointButtons.Count;
+            AudioManager.instance.PlayUISFX(0);
+        }
         
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager.instance.PlayUISFX(1);
             savePointButtons[selectedIndex].onClick.Invoke();
             return;
         }
@@ -85,6 +93,7 @@ public class Teleport_UI : MonoBehaviour
     private void TeleportToSavePoint(Savepoint savePoint)
     {
         RoomManager.instance.MovePlayerToRoom(savePoint.parentRoom, savePoint.transform.position);
+        savePoint.SaveGame();
         savePointUI.CloseAll();
     }
 

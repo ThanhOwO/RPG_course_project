@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI : MonoBehaviour, ISaveManager
+public class UI : MonoBehaviour
 {
     [Header("End Screen")]
     [SerializeField] private UI_FadeScreen fadeScreen;
@@ -63,6 +63,12 @@ public class UI : MonoBehaviour, ISaveManager
                 SwitchMenu(-1);
             else if (Input.GetKeyDown(KeyCode.E))
                 SwitchMenu(1);
+        }
+
+        if (endText.activeSelf && restartButton.activeSelf && Input.GetKeyDown(KeyCode.Space))
+        {
+            AudioManager.instance.PlayUISFX(1);
+            restartButton.GetComponent<UnityEngine.UI.Button>().onClick.Invoke();
         }
     }
 
@@ -223,29 +229,30 @@ public class UI : MonoBehaviour, ISaveManager
         endText.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         restartButton.SetActive(true);
+        restartButton.GetComponent<UnityEngine.UI.Button>().Select();
     }
 
     public void RestartGameButton() => GameManager.instance.RestartScene();
 
-    public void LoadData(GameData _data)
-    {
-       foreach(KeyValuePair<string, float> pair in _data.volumeSettings)
-       {
-        foreach(UI_VolumeSlider item in volumeSettings)
-        {
-            if(item.parameter == pair.Key)
-                item.LoadSlider(pair.Value);
-        }
-       }
-    }
+    // public void LoadData(GameData _data)
+    // {
+    //    foreach(KeyValuePair<string, float> pair in _data.volumeSettings)
+    //    {
+    //     foreach(UI_VolumeSlider item in volumeSettings)
+    //     {
+    //         if(item.parameter == pair.Key)
+    //             item.LoadSlider(pair.Value);
+    //     }
+    //    }
+    // }
 
-    public void SaveData(ref GameData _data)
-    {
-        _data.volumeSettings.Clear();
+    // public void SaveData(ref GameData _data)
+    // {
+    //     _data.volumeSettings.Clear();
 
-        foreach (UI_VolumeSlider item in volumeSettings)
-        {
-            _data.volumeSettings.Add(item.parameter, item.slider.value);
-        }
-    }
+    //     foreach (UI_VolumeSlider item in volumeSettings)
+    //     {
+    //         _data.volumeSettings.Add(item.parameter, item.slider.value);
+    //     }
+    // }
 }

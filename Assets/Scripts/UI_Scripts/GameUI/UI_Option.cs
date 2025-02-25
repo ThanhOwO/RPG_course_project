@@ -1,32 +1,32 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_Option : MonoBehaviour
 {
-    [SerializeField] private string sceneName = "MainMenu";
-    [SerializeField] private Slider sfxSlider;
-    [SerializeField] private Slider musicSlider;
+    [SerializeField] private UI_VolumeSlider sfxSlider;
+    [SerializeField] private UI_VolumeSlider musicSlider;
+    [SerializeField] private Button saveButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private TextMeshProUGUI musicText;
     [SerializeField] private TextMeshProUGUI sfxText;
-    [SerializeField] UI_FadeScreen fadeScreen;
+    [SerializeField] private UI_ConfirmExit confirmExit;
     private Selectable[] menuElements;
     private int selectedIndex = 0;
+    [HideInInspector] public bool isConfirmOpen = false;
 
     private void Start()
     {
-        menuElements = new Selectable[] {sfxSlider, musicSlider, exitButton};
+        menuElements = new Selectable[] {sfxSlider.slider, musicSlider.slider, saveButton, exitButton};
         
         HighlightElement(selectedIndex);
     }
 
     private void Update()
     {
-        NavigateMenu();
+        if(!isConfirmOpen)
+            NavigateMenu();
     }
 
     private void NavigateMenu()
@@ -35,11 +35,13 @@ public class UI_Option : MonoBehaviour
         {
             selectedIndex = (selectedIndex - 1 + menuElements.Length) % menuElements.Length;
             HighlightElement(selectedIndex);
+            AudioManager.instance.PlayUISFX(0);
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             selectedIndex = (selectedIndex + 1) % menuElements.Length;
             HighlightElement(selectedIndex);
+            AudioManager.instance.PlayUISFX(0);
         }
 
         if (menuElements[selectedIndex] is Slider slider)
@@ -55,7 +57,10 @@ public class UI_Option : MonoBehaviour
         }
 
         if (menuElements[selectedIndex] is Button && Input.GetKeyDown(KeyCode.Space))
-            exitButton.onClick.Invoke();
+        {
+            AudioManager.instance.PlayUISFX(1);
+            menuElements[selectedIndex].GetComponent<Button>().onClick.Invoke();
+        }
     }
 
     private void HighlightElement(int index)
@@ -86,8 +91,8 @@ public class UI_Option : MonoBehaviour
 
     private void UpdateVolumeText()
     {
-        musicText.text = Mathf.RoundToInt(musicSlider.value * 10).ToString();
-        sfxText.text = Mathf.RoundToInt(sfxSlider.value * 10).ToString();
+        musicText.text = Mathf.RoundToInt(musicSlider.slider.value * 10).ToString();
+        sfxText.text = Mathf.RoundToInt(sfxSlider.slider.value * 10).ToString();
     }
 
     private void SetTextColor(Slider slider, Color color)
@@ -110,17 +115,16 @@ public class UI_Option : MonoBehaviour
         }
     }
 
-    public void ExitToMainMenu()
+    public void SaveSettings()
     {
-        StartCoroutine(LoadScreenWithFadeEffect(1.5f));
+        sfxSlider.SaveVolume();
+        musicSlider.SaveVolume();
     }
 
-    IEnumerator LoadScreenWithFadeEffect(float _delay)
+    public void OpenConfirmExit()
     {
-        Time.timeScale = 1;
-        fadeScreen.FadeOut();
-        yield return new WaitForSeconds(_delay);
-        SceneManager.LoadScene(sceneName);
+        confirmExit.gameObject.SetActive(true);
+        isConfirmOpen = true;
     }
     
 }

@@ -95,4 +95,11 @@ public class DeathBringerPhase2Spell : MonoBehaviour
     }
 
     public void GenerateImpulse() => impulseSource?.GenerateImpulse();
+
+    //spell sfx
+    private void MagicStartSFX() => AudioManager.instance.PlaySFXNoPitch(23, null);
+    private void MagicLoopSFX() => AudioManager.instance.PlaySFXNoPitch(25, null);
+    private void MagicEndSFX() => AudioManager.instance.PlaySFXNoPitch(26, null);
+
+
 }

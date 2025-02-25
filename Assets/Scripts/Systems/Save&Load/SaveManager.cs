@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
+using System.Collections;
 
 public class SaveManager : MonoBehaviour
 {
     private GameData gameData;
     [SerializeField] private string fileName;
     [SerializeField] private bool encryptData;
+    [SerializeField] private UI_SaveIcon saveIconUI;
     public static SaveManager instance;
     private List<ISaveManager> saveManagers;
     private FileDataHandler dataHandler;
@@ -67,10 +68,10 @@ public class SaveManager : MonoBehaviour
     public void SaveGame()
     {
         foreach (ISaveManager saveManager in saveManagers)
-        {
             saveManager.SaveData(ref gameData);
-        }
-        
+
+        StartCoroutine(ShowSaveIcon());
+
         // Save game data to file
         dataHandler.Save(gameData);
         Debug.Log("Saving game data...");
@@ -108,4 +109,10 @@ public class SaveManager : MonoBehaviour
         return gameData.isGateOpened;
     }
 
+    private IEnumerator ShowSaveIcon()
+    {
+        saveIconUI.gameObject.SetActive(true);
+        yield return new WaitForSeconds(4);
+        saveIconUI.gameObject.SetActive(false);
+    }
 }

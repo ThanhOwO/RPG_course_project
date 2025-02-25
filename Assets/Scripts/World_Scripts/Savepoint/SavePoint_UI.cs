@@ -74,6 +74,7 @@ public class SavePoint_UI : MonoBehaviour
 
         if (Time.time - lastInputTime > inputCooldown)
         {
+            AudioManager.instance.PlayUISFX(0);
             if (verticalInput > 0)
             {
                 selectedIndex = Mathf.Max(0, selectedIndex - 1);
@@ -90,6 +91,7 @@ public class SavePoint_UI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager.instance.PlayUISFX(1);
             buttons[selectedIndex].onClick.Invoke();
         }
     }

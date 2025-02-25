@@ -10,7 +10,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject continueButton;
     [SerializeField] UI_FadeScreen fadeScreen;
     [SerializeField] private Button[] buttons;
+    [SerializeField] private GameObject optionPanel;
     private int selectedIndex = 0;
+    [HideInInspector] public bool isOptionOpen = false;
 
     private void Start()
     {
@@ -28,10 +30,14 @@ public class MainMenu : MonoBehaviour
             selectedIndex = 0;
 
         HighlightButton(selectedIndex);
+        AudioManager.instance.PlayBGM(8);
     }
     private void Update()
     {
-        NavigateButtons();
+        if (!isOptionOpen)
+        {
+            NavigateButtons();
+        }
     }
 
     public void ContinueGame()
@@ -61,14 +67,21 @@ public class MainMenu : MonoBehaviour
     {
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        {
+            AudioManager.instance.PlayUISFX(0);
             selectedIndex = (selectedIndex - 1 + buttons.Length) % buttons.Length;
+        }
         else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+        {
+            AudioManager.instance.PlayUISFX(0);
             selectedIndex = (selectedIndex + 1) % buttons.Length;
+        }
         
         HighlightButton(selectedIndex);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            AudioManager.instance.PlayUISFX(1);
             buttons[selectedIndex].onClick.Invoke();
         }
     }
@@ -83,5 +96,11 @@ public class MainMenu : MonoBehaviour
                 buttonImg.color = (i == index) ? Color.green : Color.black;
             }
         }
+    }
+
+    public void OpenSettings()
+    {
+        optionPanel.SetActive(true);
+        isOptionOpen = true;
     }
 }

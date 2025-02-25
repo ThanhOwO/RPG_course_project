@@ -58,7 +58,7 @@ public class Savepoint : MonoBehaviour, IInteractable
         mapIcon.SetActive(true);
     }
 
-    private void SaveGame()
+    public void SaveGame()
     {
         Debug.Log("Game Saved at Savepoint: " + id);
         //play save point sound effect

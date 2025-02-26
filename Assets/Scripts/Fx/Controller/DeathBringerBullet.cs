@@ -37,8 +37,8 @@ public class DeathBringerBullet : MonoBehaviour
             other.GetComponent<Entity>().SetupKnockBackDir(transform);
             if(!myStats.isInvincible)
             {
-                myStats.DoDamge(other.GetComponent<CharacterStats>());
-                AudioManager.instance.PlaySFXNoPitch(22, null);
+                myStats.DoCustomDamage(other.GetComponent<CharacterStats>(), 35);
+                AudioManager.instance.PlaySFX(22, null);
                 other.GetComponent<Player>().Stagger();
             }
             impulseSource?.GenerateImpulse();

@@ -9,7 +9,6 @@ public class DeathBringerPhase2Spell : MonoBehaviour
     private CharacterStats myStats;
     private Animator animator;
     private CinemachineImpulseSource impulseSource;
-    private Coroutine shakeCoroutine;
 
     [Header("Duration info")] 
     [SerializeField] private float waitDuration = 2f;
@@ -67,7 +66,7 @@ public class DeathBringerPhase2Spell : MonoBehaviour
             other.GetComponent<Entity>().SetupKnockBackDir(transform);
             if(!myStats.isInvincible)
             {
-                myStats.DoDamge(other.GetComponent<CharacterStats>());
+                myStats.DoCustomDamage(other.GetComponent<CharacterStats>(), 70);
                 other.GetComponent<Player>().Stagger();
                 GenerateImpulse();
             }
@@ -81,7 +80,7 @@ public class DeathBringerPhase2Spell : MonoBehaviour
             other.GetComponent<Entity>().SetupKnockBackDir(transform);
             if(!myStats.isInvincible)
             {
-                myStats.DoDamge(other.GetComponent<CharacterStats>());
+                myStats.DoCustomDamage(other.GetComponent<CharacterStats>(), 70);
                 other.GetComponent<Player>().Stagger();
             }
         }

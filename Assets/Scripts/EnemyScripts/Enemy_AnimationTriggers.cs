@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy_AnimationTriggers : MonoBehaviour
@@ -19,13 +20,17 @@ public class Enemy_AnimationTriggers : MonoBehaviour
                 PlayerStats _target = hit.GetComponent<PlayerStats>();
                 if(!_target.isInvincible)
                 {
-                    enemy.stats.DoDamge(_target);
-                    hit.GetComponent<Player>().Stagger();
-
                     if (enemy.isBoss)
                     {
+                        enemy.enemyStats.DoCustomDamage(_target, 60);
+                        hit.GetComponent<Player>().Stagger();
                         enemy.GetComponent<Cinemachine.CinemachineImpulseSource>().GenerateImpulse();
                         HitStopFX.instance.StopTime(0.1f, 0.05f);
+                    }
+                    else
+                    {
+                        enemy.stats.DoDamge(_target);
+                        hit.GetComponent<Player>().Stagger();
                     }
                 }
             }

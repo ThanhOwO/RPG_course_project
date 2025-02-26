@@ -9,7 +9,9 @@ public class Enemy_DeathBringer : Enemy
     [SerializeField] private BossHealthBar_UI bossHealthBar;
     [HideInInspector] public bool skipAppearState = false;
     public event Action OnBossDeath;
-    private Cinemachine.CinemachineImpulseSource impulseSource;
+
+    [Header("Normal Attack Dmg buff")]
+    public int normalDmgBonus = 0;
 
     [Header("Teleport Details")]
     [SerializeField] private BoxCollider2D arena;
@@ -75,7 +77,6 @@ public class Enemy_DeathBringer : Enemy
     protected override void Start()
     {
         base.Start();
-        impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
 
         if(skipAppearState)
             stateMachine.Initialize(idleState);

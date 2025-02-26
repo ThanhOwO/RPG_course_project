@@ -531,5 +531,12 @@ public class CharacterStats : MonoBehaviour
 
     public void MakeInvincible(bool _invincible) => isInvincible = _invincible;
 
+    public void DoCustomDamage(CharacterStats _targetStats, int customDamage)
+    {
+        if (_targetStats.isInvincible)
+            return;
 
+        int finalDamage = CheckTargetArmor(_targetStats, customDamage);
+        _targetStats.TakeDamage(finalDamage);
+    }
 }

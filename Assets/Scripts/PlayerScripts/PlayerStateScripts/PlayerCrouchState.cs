@@ -5,9 +5,9 @@ public class PlayerCrouchState : PlayerState
 {
     private CapsuleCollider2D playerCollider;
     private Vector2 defaultColliderSize;
-    private Vector2 crouchColliderSize = new Vector2(0.6595802f, 1.256813f); // Change this value to fit the player collider size
+    private Vector2 crouchColliderSize = new Vector2(0.6595802f, 1.293784f); // Change this value to fit the player collider size
     private Vector2 defaultColliderOffset;
-    private Vector2 crouchColliderOffset = new Vector2(0.008089066f, -0.6442817f); // Change this value to fit the player collider offset
+    private Vector2 crouchColliderOffset = new Vector2(0.008089066f, -0.6627671f); // Change this value to fit the player collider offset
     private Collider2D platformCollider;
 
     public PlayerCrouchState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)

@@ -4,7 +4,7 @@ public class PlayerPrimaryAttack : PlayerState
 {
     private int comboCounter;
     private float lastTimeAttacked;
-    private float comboWindow = 2;
+    private float comboWindow = 0.5f;
 
     public PlayerPrimaryAttack(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -42,7 +42,7 @@ public class PlayerPrimaryAttack : PlayerState
     {
         base.Exit();
 
-        player.StartCoroutine("BusyFor", .15f);
+        //player.StartCoroutine("BusyFor", .15f);
 
         comboCounter++;
         lastTimeAttacked = Time.time;

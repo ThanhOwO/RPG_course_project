@@ -8,7 +8,7 @@ public class Player : Entity
     public GameObject sword { get; private set;}
     public PlayerStats playerStats { get; private set;}
     public PlayerFX fx { get; private set;}
-    private CapsuleCollider2D playerCollider;
+    public PlayerLedgeGrab ledgeGrab;
     [HideInInspector] public bool isCutScene = false;
 
     #region States
@@ -120,7 +120,6 @@ public class Player : Entity
         playerStats = GetComponent<PlayerStats>();
         stateMachine.Initialize(idleState);
         fx = GetComponent<PlayerFX>();
-        playerCollider = GetComponent<CapsuleCollider2D>();
         
         defaultMoveSpeed = moveSpeed;
         defaultWallJumpForce = wallJumpForce;
@@ -197,10 +196,10 @@ public class Player : Entity
     #region Ledge, one way platform & ladder grab regions
     private bool IsCollidingWithOneWayPlatformAbove()
     {
-        if (playerCollider == null)
+        if (cd == null)
             return false;
         // Calculate the center and size of the overlap area
-        Vector2 overlapCenter = (Vector2)playerCollider.bounds.center + overlapOffset;
+        Vector2 overlapCenter = (Vector2)cd.bounds.center + overlapOffset;
         // Check for overlapping colliders within the extended area
         Collider2D[] overlappingColliders = Physics2D.OverlapBoxAll(overlapCenter, overlapSize, 0, whatIsOneWayPlatform);
         // If any overlapping colliders are found, return true
@@ -219,9 +218,9 @@ public class Player : Entity
     {
         if (ledgeCheckDisabled) return false;
 
-        RaycastHit2D hit = Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDir, grabRange, whatIsLedge);
+        //RaycastHit2D hit = Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDir, grabRange, whatIsLedge);
         bool isCollidingWithOneWayPlatformAbove = IsCollidingWithOneWayPlatformAbove();
-        return hit.collider != null && !isCollidingWithOneWayPlatformAbove;
+        return ledgeGrab.isLedgeDetected && !isCollidingWithOneWayPlatformAbove;
     }
 
     private void CheckForLedge()
@@ -322,11 +321,11 @@ public class Player : Entity
         Gizmos.color = Color.green;
         Gizmos.DrawLine(oneWayCheck.position, new Vector3(oneWayCheck.position.x, oneWayCheck.position.y - oneWayCheckDistance));
 
-        if (ledgeCheck != null)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + Vector3.right * FacingDir * grabRange);
-        }
+        // if (ledgeCheck != null)
+        // {
+        //     Gizmos.color = Color.blue;
+        //     Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + Vector3.right * FacingDir * grabRange);
+        // }
 
         //Visualize the overlap of player with one way platform
         // if (playerCollider != null)

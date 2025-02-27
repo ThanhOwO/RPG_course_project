@@ -39,6 +39,8 @@ public class Player : Entity
     [Header("Attack movement")]
     public Vector2[] atkMovement;
     public float parryDuration;
+    [HideInInspector] public bool isAttackBuffered;
+    [HideInInspector] public bool isAttacking;
 
     [Header("Move info")]
     public float moveSpeed = 7.0f;

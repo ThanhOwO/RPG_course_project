@@ -4,7 +4,7 @@ public class PlayerPrimaryAttack : PlayerState
 {
     private int comboCounter;
     private float lastTimeAttacked;
-    private float comboWindow = 0.5f;
+    private float comboWindow = 0.3f;
 
     public PlayerPrimaryAttack(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
@@ -13,6 +13,7 @@ public class PlayerPrimaryAttack : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.isAttacking = true;
         xInput = 0;
 
         if(comboCounter > 2 || Time.time >= lastTimeAttacked + comboWindow)
@@ -46,6 +47,7 @@ public class PlayerPrimaryAttack : PlayerState
 
         comboCounter++;
         lastTimeAttacked = Time.time;
+        player.isAttacking = false;
     }
 
     private float GetAttackDirection()

@@ -15,7 +15,7 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Update();
 
-        if (xInput == 0)
+        if (xInput == 0 && !player.isAttacking)
             player.zeroVelocity();
 
         if(xInput == player.FacingDir && player.IsWallDetected())

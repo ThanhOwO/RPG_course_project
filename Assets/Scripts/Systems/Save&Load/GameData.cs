@@ -24,9 +24,12 @@ public class GameData
     public List<Vector3Int> clearedFogTiles;
     //Boss room 4 gate
     public bool isGateOpened;
+    //Healing potion storage
+    public int flaskStorage;
 
     public GameData()
     {
+        this.flaskStorage = 0;
         this.lastDeathAmount = 0;
         this.lastDeathX = 0;
         this.lastDeathY = 0;

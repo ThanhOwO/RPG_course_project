@@ -1,3 +1,5 @@
+using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class UI_EquipmentSlot : UI_ItemSlot
@@ -11,12 +13,26 @@ public class UI_EquipmentSlot : UI_ItemSlot
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        if(item == null || item.data == null)
+        if (item == null || item.data == null)
             return;
-        
-        //Unequip the item
+
+        // Unequip item
         Inventory.instance.UnequipItem(item.data as ItemData_Equipment);
-        Inventory.instance.AddItem(item.data as ItemData_Equipment);
         ClearSlot();
     }
+
+    public override void UpdateSlot(InventoryItem _newItem)
+    {
+        base.UpdateSlot(_newItem);
+
+        if (item != null && item.data is ItemData_Equipment equipmentItem && equipmentItem.equipmentType == EquipmentType.Flask)
+        {
+            // Get the actual number of Flasks from Inventory
+            if (Inventory.instance != null && Inventory.instance.inventoryDictionary.TryGetValue(item.data, out InventoryItem inventoryFlask))
+            {
+                itemText.text = inventoryFlask.stackSize.ToString();
+            }
+        }
+    }
+
 }

@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 821f231f615673a4da99649e1d3952ec, type: 3}
   m_Name: Npc1
   m_EditorClassIdentifier: 
-  speakerName: Tao
+  speakerName: Npc1
   paragraphs:
-  - "Kill all m\u1ECDi An rape all m\u1ECDi An"
+  - Ahh... A new warrior. In front of you is the place where the enemy has taken
+    over.
+  - Try to destroy them to retake the castle.
   - This is a test dialogue. I just testing the sound of my voice. Please dont laugh,
-    it will make me feel more comfortable.
+    it will make me feel uncomfortable.
   typingSFXIndex: 16

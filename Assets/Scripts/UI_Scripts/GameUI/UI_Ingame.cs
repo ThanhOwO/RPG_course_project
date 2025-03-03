@@ -28,21 +28,21 @@ public class UI_Ingame : MonoBehaviour
     {
         UpdateSoulsUI();
 
-        if(Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
-            SetCooldown(dashImage);
-        if(Input.GetKeyDown(KeyCode.Q) && skills.parry.parryUnlocked)
-            SetCooldown(parryImage);
-        if(Input.GetKeyDown(KeyCode.F) && skills.crystal.crystalUnlocked)
-            SetCooldown(crystalImage);
-        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
-            SetCooldown(blackholeImage);
+        // if(Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
+        //     SetCooldown(dashImage);
+        // if(Input.GetKeyDown(KeyCode.Q) && skills.parry.parryUnlocked)
+        //     SetCooldown(parryImage);
+        // if(Input.GetKeyDown(KeyCode.F) && skills.crystal.crystalUnlocked)
+        //     SetCooldown(crystalImage);
+        // if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
+        //     SetCooldown(blackholeImage);
         if(Input.GetKeyDown(KeyCode.R) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
             SetCooldown(flaskImage);
         
-        CheckCooldown(dashImage, skills.dash.cooldown);
-        CheckCooldown(parryImage, skills.parry.cooldown);
-        CheckCooldown(crystalImage, skills.crystal.cooldown);
-        CheckCooldown(blackholeImage, skills.blackhole.cooldown);
+        // CheckCooldown(dashImage, skills.dash.cooldown);
+        // CheckCooldown(parryImage, skills.parry.cooldown);
+        // CheckCooldown(crystalImage, skills.crystal.cooldown);
+        // CheckCooldown(blackholeImage, skills.blackhole.cooldown);
         CheckCooldown(flaskImage, Inventory.instance.flaskCooldown);
     }
 

@@ -146,6 +146,12 @@ public class ItemData_Equipment : ItemData
             sb.AppendLine(itemEffectDescription);
         }
 
+        if (equipmentType == EquipmentType.Flask)
+        {
+            int flaskStorageAmount = Inventory.instance != null ? Inventory.instance.flaskStorage : 0;
+            sb.AppendLine($"\nFlask Storage: {flaskStorageAmount}");
+        }
+
         return sb.ToString();
     }
 

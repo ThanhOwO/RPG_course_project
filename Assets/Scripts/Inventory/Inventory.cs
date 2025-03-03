@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor;
 using UnityEngine;
@@ -35,6 +36,9 @@ public class Inventory : MonoBehaviour, ISaveManager
     public List<InventoryItem> loadedItems;
     public List<ItemData_Equipment> loadedEquipment;
 
+    [HideInInspector] public int maxFlaskInInventory = 6;
+    [HideInInspector] public int flaskStorage = 0;
+
     private void Awake() 
     {
         if(instance == null)
@@ -60,44 +64,84 @@ public class Inventory : MonoBehaviour, ISaveManager
         AddStartingItem();
     }
 
+    #region Item Management
     public void EquipItem(ItemData _item)
     {
-        ItemData_Equipment newEquipment = _item as ItemData_Equipment;
+        if (!(_item is ItemData_Equipment newEquipment)) return;
+
+        // Nếu đã có item trong slot, chỉ cần thay thế
+        if (equipmentDictionary.TryGetValue(newEquipment, out InventoryItem oldEquipment))
+        {
+            UnequipItem(oldEquipment.data as ItemData_Equipment);
+        }
+
+        // Thêm item vào equipment slot nhưng không xóa khỏi inventory
         InventoryItem newItem = new InventoryItem(newEquipment);
-
-        ItemData_Equipment oldEquipment = null;
-
-        //Check each items in equipment dictionary
-        foreach(KeyValuePair<ItemData_Equipment, InventoryItem> item in equipmentDictionary)
-        {
-            if(item.Key.equipmentType == newEquipment.equipmentType)
-                oldEquipment = item.Key;
-        }
-
-        if(oldEquipment != null)
-        {
-            UnequipItem(oldEquipment);
-            AddItem(oldEquipment);
-        }
-        
         equipment.Add(newItem);
-        equipmentDictionary.Add(newEquipment, newItem);
+        equipmentDictionary[newEquipment] = newItem;
         newEquipment.AddModifiers();
 
-        RemoveItem(_item);
         UpdateSlotUI();
     }
-
     public void UnequipItem(ItemData_Equipment _oldEquipment)
     {
-        if(equipmentDictionary.TryGetValue(_oldEquipment, out InventoryItem value))
+        if (equipmentDictionary.TryGetValue(_oldEquipment, out InventoryItem value))
         {
             equipment.Remove(value);
             equipmentDictionary.Remove(_oldEquipment);
             _oldEquipment.RemoveModifiers();
         }
-    }
 
+        UpdateSlotUI();
+    }
+    public void AddItem(ItemData _item)
+    {
+        if (_item.itemType == ItemType.Equipment)
+        {
+            if (_item is ItemData_Equipment equipmentItem && equipmentItem.equipmentType == EquipmentType.Flask)
+            {
+                AddFlaskToInventory(equipmentItem);
+            }
+            else if (CanAddItem())
+            {
+                AddToInventory(_item);
+            }
+        }
+        else if (_item.itemType == ItemType.Material)
+        {
+            AddToStash(_item);
+        }
+
+        UpdateSlotUI();
+    }
+    public void RemoveItem(ItemData _item)
+    {
+        if(inventoryDictionary.TryGetValue(_item, out InventoryItem value))
+        {
+            if(value.stackSize <= 1)
+            {
+                inventory.Remove(value);
+                inventoryDictionary.Remove(_item);
+            }
+            else
+            {
+                value.RemoveStack();
+            }
+        }
+
+        if(stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
+        {
+            if(stashValue.stackSize <= 1)
+            {
+                stash.Remove(stashValue);
+                stashDictionary.Remove(_item);
+            }
+            else
+                stashValue.RemoveStack();
+        }
+
+        UpdateSlotUI();
+    }
     public void UpdateSlotUI()
     {
         for(int i = 0; i < inventoryItemSlot.Length; i++)
@@ -129,7 +173,6 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         UpdateStatUI();
     }
-
     public void UpdateStatUI()
     {
         for(int i = 0; i < statSlot.Length; i++) //Update info of stats in char UI
@@ -137,46 +180,6 @@ public class Inventory : MonoBehaviour, ISaveManager
             statSlot[i].UpdateStatValueUI();
         }
     } 
-
-    public void AddItem(ItemData _item)
-    {
-        if(_item.itemType == ItemType.Equipment && CanAddItem())
-            AddToInventory(_item);
-        else if(_item.itemType == ItemType.Material)
-            AddToStash(_item);
-        
-        UpdateSlotUI();
-    }
-
-    public void RemoveItem(ItemData _item)
-    {
-        if(inventoryDictionary.TryGetValue(_item, out InventoryItem value))
-        {
-            if(value.stackSize <= 1)
-            {
-                inventory.Remove(value);
-                inventoryDictionary.Remove(_item);
-            }
-            else
-            {
-                value.RemoveStack();
-            }
-        }
-
-        if(stashDictionary.TryGetValue(_item, out InventoryItem stashValue))
-        {
-            if(stashValue.stackSize <= 1)
-            {
-                stash.Remove(stashValue);
-                stashDictionary.Remove(_item);
-            }
-            else
-                stashValue.RemoveStack();
-        }
-
-        UpdateSlotUI();
-    }
-
     public void AddToInventory(ItemData _item)
     {
         if(inventoryDictionary.TryGetValue(_item, out InventoryItem value))
@@ -190,7 +193,6 @@ public class Inventory : MonoBehaviour, ISaveManager
             inventoryDictionary.Add(_item, newItem);
         }
     }
-
     public void AddToStash(ItemData _item)
     {
         if(stashDictionary.TryGetValue(_item, out InventoryItem value))
@@ -204,7 +206,9 @@ public class Inventory : MonoBehaviour, ISaveManager
             stashDictionary.Add(_item, newItem);
         }
     }
-
+    
+    #endregion
+    
     public bool CanCraft(ItemData_Equipment _itemToCraft, List<InventoryItem> _requiredMaterials)
     {
         //Check if all required materials are available with the required quantity
@@ -293,62 +297,86 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         return equipmentItem;
     }
-
+    
+    #region  Flask management
     public void UseFlask()
     {
         ItemData_Equipment currentFlask = GetEquipment(EquipmentType.Flask);
-        
-        if(currentFlask != null)
+
+        if (currentFlask != null && inventoryDictionary.TryGetValue(currentFlask, out InventoryItem flaskItem))
         {
             bool canUseFlask = Time.time > lastTimeUsedFlask + flaskCooldown;
-
-            if(canUseFlask)
+            if (canUseFlask && flaskItem.stackSize > 0)
             {
-                InventoryItem tempItem = null;
-                InventoryItem equipItem = equipmentSlot[3].item;
-
-                //Function that calculates the consumed flask
-                if(inventoryDictionary.TryGetValue(currentFlask, out InventoryItem value))
-                {
-                    List<InventoryItem> itemToCheck = GetInventoryList();
-                    for( int i = 0; i < itemToCheck.Count ; i++)
-                    {
-                        if(itemToCheck[i] == value)
-                        {
-                            tempItem = itemToCheck[i];
-                        }
-                    }
-
-                    if(tempItem != null)
-                    {
-                        if(tempItem.stackSize > 1)
-                        {
-                            tempItem.stackSize--;
-                            UpdateSlotUI();
-                        }
-                        else
-                        {
-                            inventoryDictionary.Remove(currentFlask);
-                            inventory.Remove(tempItem);
-                            UpdateSlotUI();
-                        }
-                    }
-                }
-                else
-                {
-                    equipment.Remove(equipItem);
-                    equipmentDictionary.Remove(currentFlask);
-                    equipmentSlot[3].ClearSlot();
-                    inventoryDictionary.Remove(currentFlask);
-                }
-                
+                flaskItem.stackSize--;
                 flaskCooldown = currentFlask.itemCooldown;
                 currentFlask.Effect(null);
                 lastTimeUsedFlask = Time.time;
+
+                UpdateSlotUI();
             }
         }
     }
+    private void AddFlaskToInventory(ItemData_Equipment flaskItem)
+    {
+        int currentFlaskCount = inventoryDictionary.ContainsKey(flaskItem) ? inventoryDictionary[flaskItem].stackSize : 0;
+        int totalFlask = currentFlaskCount + 1;
 
+        if (totalFlask > maxFlaskInInventory)
+        {
+            flaskStorage += (totalFlask - maxFlaskInInventory);
+            totalFlask = maxFlaskInInventory;
+        }
+
+        if (inventoryDictionary.ContainsKey(flaskItem))
+        {
+            inventoryDictionary[flaskItem].stackSize = totalFlask;
+        }
+        else
+        {
+            InventoryItem newItem = new InventoryItem(flaskItem);
+            newItem.stackSize = totalFlask;
+            inventory.Add(newItem);
+            inventoryDictionary.Add(flaskItem, newItem);
+        }
+    }
+    public void RefillFlask()
+    {
+        ItemData_Equipment flaskItem = null;
+
+        // Find flask in Database
+        foreach (var item in itemDataBase)
+        {
+            if (item is ItemData_Equipment equipmentItem && equipmentItem.equipmentType == EquipmentType.Flask)
+            {
+                flaskItem = equipmentItem;
+                break;
+            }
+        }
+
+        if (flaskItem == null || flaskStorage <= 0)
+            return; // No Flask or Storage empty, no refill required
+
+        // If Flask is not in inventory, add it again with stackSize = 0
+        if (!inventoryDictionary.ContainsKey(flaskItem))
+        {
+            InventoryItem newFlask = new InventoryItem(flaskItem);
+            newFlask.stackSize = 0;
+            inventory.Add(newFlask);
+            inventoryDictionary.Add(flaskItem, newFlask);
+        }
+
+        //Refill flask
+        int currentFlask = inventoryDictionary[flaskItem].stackSize;
+        int refillAmount = Mathf.Min(flaskStorage, maxFlaskInInventory - currentFlask);
+
+        inventoryDictionary[flaskItem].stackSize += refillAmount;
+        flaskStorage -= refillAmount;
+
+        UpdateSlotUI();
+    }
+
+    #endregion
     public bool CanUseArmor()
     {
         ItemData_Equipment currentArmor = GetEquipment(EquipmentType.Armor);
@@ -362,9 +390,12 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         return false;
     }
+    
+    #region Save and Load
 
     public void LoadData(GameData _data)
     {
+        flaskStorage = _data.flaskStorage;
         foreach (KeyValuePair<string, int> pair in _data.inventory)
         {
             foreach(var item in itemDataBase)
@@ -395,6 +426,7 @@ public class Inventory : MonoBehaviour, ISaveManager
     {
         _data.inventory.Clear();
         _data.equipmentID.Clear();
+        _data.flaskStorage = flaskStorage;
 
         foreach(KeyValuePair<ItemData, InventoryItem> pair in inventoryDictionary)
         {
@@ -411,6 +443,8 @@ public class Inventory : MonoBehaviour, ISaveManager
             _data.equipmentID.Add(pair.Key.itemID);
         }
     }
+
+    #endregion
 
 #if UNITY_EDITOR
     [ContextMenu("Fill up item database")]
@@ -431,6 +465,5 @@ public class Inventory : MonoBehaviour, ISaveManager
         return itemDatabase;
     }
 #endif
-
 
 }

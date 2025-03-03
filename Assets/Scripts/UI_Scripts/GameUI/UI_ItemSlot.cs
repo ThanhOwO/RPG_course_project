@@ -16,7 +16,7 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         ui = GetComponentInParent<UI>();
     }
 
-    public void UpdateSlot(InventoryItem _newItem)
+    public virtual void UpdateSlot(InventoryItem _newItem)
     {
         item = _newItem;
 
@@ -25,14 +25,14 @@ public class UI_ItemSlot : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         if(item != null)
         {
             itemImage.sprite = item.data.icon;
-
-            if(item.stackSize > 1)
+            if (item.data is ItemData_Equipment equipmentItem && equipmentItem.equipmentType == EquipmentType.Flask)
             {
                 itemText.text = item.stackSize.ToString();
             }
             else
             {
-                itemText.text = "";
+                // For other items, only show if stackSize > 1
+                itemText.text = item.stackSize > 1 ? item.stackSize.ToString() : "";
             }
         }
     }

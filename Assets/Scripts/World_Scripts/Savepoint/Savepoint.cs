@@ -65,6 +65,7 @@ public class Savepoint : MonoBehaviour, IInteractable
         AudioManager.instance.PlaySFX(1, transform);
         GameManager.instance.SetLastActivatedSavepoint(this);
         GameManager.instance.RespawnEnemies();
+        Inventory.instance.RefillFlask();
         SaveManager.instance.SaveGame();
     }
 

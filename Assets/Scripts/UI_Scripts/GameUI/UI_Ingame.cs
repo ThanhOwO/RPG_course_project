@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,21 @@ public class UI_Ingame : MonoBehaviour
     [SerializeField] private float soulsAmount;
     [SerializeField] private float increaseRate = 100;
 
+    [Header("Flask Info")]
+    [SerializeField] private TextMeshProUGUI flaskCountText;
+
+    [Header("Equipment Slots")]
+    [SerializeField] private Image weaponSlot;
+    [SerializeField] private Image armorSlot;
+    [SerializeField] private Image accessorySlot;
+    [SerializeField] private Image flaskSlot;
+
+    [Header("Default Equipment Sprites")]
+    [SerializeField] private Sprite defaultWeaponSprite;
+    [SerializeField] private Sprite defaultArmorSprite;
+    [SerializeField] private Sprite defaultAccessorySprite;
+    [SerializeField] private Sprite defaultFlaskSprite;
+
     private SkillManager skills;
     
     void Start()
@@ -27,6 +43,8 @@ public class UI_Ingame : MonoBehaviour
     void Update()
     {
         UpdateSoulsUI();
+        UpdateFlaskUI();
+        UpdateEquipmentUI();
 
         // if(Input.GetKeyDown(KeyCode.LeftShift) && skills.dash.dashUnlocked)
         //     SetCooldown(dashImage);
@@ -67,4 +85,44 @@ public class UI_Ingame : MonoBehaviour
 
         currentSouls.text = ((int)soulsAmount).ToString("N0");
     }
+
+    private void UpdateFlaskUI()
+    {
+        ItemData_Equipment flask = Inventory.instance.GetEquipment(EquipmentType.Flask);
+        if (flask != null && Inventory.instance.inventoryDictionary.TryGetValue(flask, out InventoryItem flaskItem))
+        {
+            flaskCountText.text = flaskItem.stackSize.ToString();
+        }
+        else
+        {
+            flaskCountText.text = "";
+        }
+    }
+
+    public void UpdateEquipmentUI()
+    {
+        weaponSlot.sprite = GetEquipmentSprite(EquipmentType.Weapon);
+        armorSlot.sprite = GetEquipmentSprite(EquipmentType.Armor);
+        accessorySlot.sprite = GetEquipmentSprite(EquipmentType.Accessory);
+        flaskSlot.sprite = GetEquipmentSprite(EquipmentType.Flask);
+    }
+
+    private Sprite GetEquipmentSprite(EquipmentType type)
+    {
+        ItemData_Equipment equippedItem = Inventory.instance.GetEquipment(type);
+        
+        if (equippedItem != null)
+            return equippedItem.icon;
+
+        // Nếu không có item equip, trả về sprite mặc định
+        return type switch
+        {
+            EquipmentType.Weapon => defaultWeaponSprite,
+            EquipmentType.Armor => defaultArmorSprite,
+            EquipmentType.Accessory => defaultAccessorySprite,
+            EquipmentType.Flask => defaultFlaskSprite,
+            _ => null
+        };
+    }
+
 }

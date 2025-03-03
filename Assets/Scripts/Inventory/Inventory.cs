@@ -36,8 +36,11 @@ public class Inventory : MonoBehaviour, ISaveManager
     public List<InventoryItem> loadedItems;
     public List<ItemData_Equipment> loadedEquipment;
 
-    [HideInInspector] public int maxFlaskInInventory = 6;
+    [Header("Flask Management")]
+    [SerializeField] private UI_Ingame uiIngame;
+    public int maxFlaskInInventory = 6;
     [HideInInspector] public int flaskStorage = 0;
+    
 
     private void Awake() 
     {
@@ -93,6 +96,11 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
 
         UpdateSlotUI();
+
+        if (uiIngame != null)
+        {
+            uiIngame.UpdateEquipmentUI();
+        }
     }
     public void AddItem(ItemData _item)
     {

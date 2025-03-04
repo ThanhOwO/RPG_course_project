@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Potion Heal
   m_EditorClassIdentifier: 
   healPercent: 0.3
+  healEffectPrefab: {fileID: 5230967987611880369, guid: 21329e50f9945ae4a94db22b4d7d9eeb, type: 3}

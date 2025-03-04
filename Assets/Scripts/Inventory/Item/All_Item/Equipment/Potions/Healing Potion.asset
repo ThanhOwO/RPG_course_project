@@ -18,7 +18,7 @@ MonoBehaviour:
   itemID: 3039b6e24a99e2641bfc2cfe4a608d9d
   dropChance: 80
   equipmentType: 3
-  itemCooldown: 2
+  itemCooldown: 1.2
   itemEffect:
   - {fileID: 11400000, guid: c4b098001fa69114492e2672d5ad185d, type: 2}
   itemEffectDescription: 'Unique: Health the player'

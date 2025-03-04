@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,14 +53,11 @@ public class UI_Ingame : MonoBehaviour
         //     SetCooldown(crystalImage);
         // if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R) && skills.blackhole.blackholeUnlocked)
         //     SetCooldown(blackholeImage);
-        if(Input.GetKeyDown(KeyCode.R) && Inventory.instance.GetEquipment(EquipmentType.Flask) != null)
-            SetCooldown(flaskImage);
         
         // CheckCooldown(dashImage, skills.dash.cooldown);
         // CheckCooldown(parryImage, skills.parry.cooldown);
         // CheckCooldown(crystalImage, skills.crystal.cooldown);
         // CheckCooldown(blackholeImage, skills.blackhole.cooldown);
-        CheckCooldown(flaskImage, Inventory.instance.flaskCooldown);
     }
 
     private void SetCooldown(Image _image)
@@ -95,7 +91,7 @@ public class UI_Ingame : MonoBehaviour
         }
         else
         {
-            flaskCountText.text = "";
+            flaskCountText.text = "0";
         }
     }
 
@@ -114,7 +110,6 @@ public class UI_Ingame : MonoBehaviour
         if (equippedItem != null)
             return equippedItem.icon;
 
-        // Nếu không có item equip, trả về sprite mặc định
         return type switch
         {
             EquipmentType.Weapon => defaultWeaponSprite,

@@ -32,6 +32,7 @@ public class Player : Entity
     public PlayerLedgeGrabState ledgeGrabState {get; private set;}
     public PlayerLadderClimbState ladderClimbState {get; private set;}
     public PlayerRestState restState {get; private set;}
+    public PlayerHealingState healingState {get; private set;}
     #endregion
 
     public bool isBusy {get; private set;}
@@ -57,6 +58,12 @@ public class Player : Entity
     [HideInInspector] public bool isCrouchBuffered; // save buffer crouch state
     [SerializeField] protected LayerMask whatIsWallSlide;
 
+    [Header("Healing info")]
+    public GameObject flaskSpritePrefab;
+    public GameObject emptyPotionPrefab;
+    public Transform flaskSpawnPoint;
+    [HideInInspector] public bool isHealing;
+
     [Header("Ledge info")]
     public bool isGrabbingLedge = false;
     [SerializeField] protected Transform ledgeCheck;
@@ -73,7 +80,6 @@ public class Player : Entity
     [SerializeField] private Vector2 overlapSize = new Vector2(0.3f, 1f);
     [SerializeField] private Vector2 overlapOffset = Vector2.zero;
     [HideInInspector] public bool disableOneWayCheck = false;
-
 
     [Header("Dash info")]
     public float dashSpeed;
@@ -113,6 +119,7 @@ public class Player : Entity
         ledgeGrabState = new PlayerLedgeGrabState(this, stateMachine, "Grab");
         ladderClimbState = new PlayerLadderClimbState(this, stateMachine, "LadderClimb");
         restState = new PlayerRestState(this, stateMachine, "Rest");
+        healingState = new PlayerHealingState(this, stateMachine, "Healing");
     }
 
     protected override void Start() 
@@ -139,12 +146,11 @@ public class Player : Entity
         CheckForDashInput();
         CheckForLedge();
         CheckForLadderClimb();
+        CheckForHealingInput();
 
         if(Input.GetKeyDown(KeyCode.F) && skill.crystal.crystalUnlocked)
             skill.crystal.CanUseSkill();
         
-        if(Input.GetKeyDown(KeyCode.R))
-            Inventory.instance.UseFlask();
     }
 
     public void AssignNewSword(GameObject _newSword)
@@ -178,7 +184,7 @@ public class Player : Entity
         if(skill.dash.dashUnlocked == false)
             return;
 
-        if(IsWallDetected() || playerIsInBlackHole || canBeStunned)
+        if(IsWallDetected() || playerIsInBlackHole || canBeStunned || isHealing)
             return;
         
         if(Input.GetKeyDown(KeyCode.LeftShift) && SkillManager.instance.dash.CanUseSkill())
@@ -189,7 +195,19 @@ public class Player : Entity
             stateMachine.ChangeState(dashState);
         }
     }
+    private void CheckForHealingInput()
+    {
+        if(!IsGroundDetected() && !IsOnOneWayPlatform()) return;
 
+        if (stateMachine.currentState == healingState) return;
+
+        ItemData_Equipment flask = Inventory.instance.GetEquipment(EquipmentType.Flask);
+        if (flask == null || !Inventory.instance.inventoryDictionary.TryGetValue(flask, out InventoryItem flaskItem) || flaskItem.stackSize <= 0)
+            return; 
+
+        if(Input.GetKeyDown(KeyCode.R))
+            stateMachine.ChangeState(healingState);
+    }
     protected override void SetupZeroKnockbackPower()
     {
         knockbackPower = new Vector2(0, 0);

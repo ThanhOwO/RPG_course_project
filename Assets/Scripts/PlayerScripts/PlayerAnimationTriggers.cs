@@ -44,6 +44,35 @@ public class PlayerAnimationTriggers : MonoBehaviour
         }
     }
 
+    #region healing regions
+    private void Healing()
+    {
+        if (player.flaskSpritePrefab != null)
+        {
+            GameObject flask = Instantiate(player.flaskSpritePrefab, player.flaskSpawnPoint.position, Quaternion.identity);
+            Destroy(flask, 0.7f);
+        }
+        Inventory.instance.UseFlask();
+    }
+
+    private void EmptyFlask()
+    {
+        if (player.emptyPotionPrefab != null)
+        {
+            GameObject emptyPotion = Instantiate(player.emptyPotionPrefab, player.transform.position, Quaternion.identity);
+
+            Rigidbody2D rb = emptyPotion.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                float forceX = Random.Range(-1f, 1f);
+                float forceY = Random.Range(0f, -1f);
+                rb.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
+            }
+            Destroy(emptyPotion, 3f);
+        }
+    }
+    #endregion
+
     #region SFX regions
     private void PlayFootstep()
     {
@@ -54,4 +83,5 @@ public class PlayerAnimationTriggers : MonoBehaviour
         AudioManager.instance.PlaySFX(17, null);
     }
     #endregion
+
 }
